@@ -1,0 +1,6 @@
+@LoudApi_HostAddress = http://localhost:5152
+
+GET {{LoudApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
