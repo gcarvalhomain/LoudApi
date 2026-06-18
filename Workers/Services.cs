@@ -5,7 +5,7 @@ namespace LoudApi.Workers;
 
 public static class Services
 {
-    public static IServiceCollection AddLoudWorkers(this IServiceCollection services)
+    public static IServiceCol lection AddLoudWorkers(this IServiceCollection services)
     {
         services.AddSingleton<ILoudPresentationService, LoudPresentationService>();
         return services;
