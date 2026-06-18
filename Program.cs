@@ -3,8 +3,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using LoudApi.Models;
-using Microsoft.AspNetCore.Http;
+using LoudApi.Presentation;
+using LoudApi.Workers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +24,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapPresentationGateway();
 
 var priorities = new List<Priorities>();
 var nextPriorityId = 1;
