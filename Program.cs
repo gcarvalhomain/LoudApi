@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
+builder.Services.AddLoudPresentationServices();
 
 var app = builder.Build();
 
@@ -24,18 +25,20 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.MapPresentationGateway();
 
 var priorities = new List<Priorities>();
 var nextPriorityId = 1;
 
-app.MapGet("/Solicitation", () =>
+app.MapGet("/priorities", () =>
 {
     return Results.Ok(priorities);
 });
 
-app.MapGet("/Solicitation/{id:int}", (int id) =>
+app.MapGet("/priorities/{id:int}", (int id) =>
 {
     var priority = priorities.FirstOrDefault(priority => priority.Id == id);
 
@@ -44,7 +47,7 @@ app.MapGet("/Solicitation/{id:int}", (int id) =>
         : Results.Ok(priority);
 });
 
-app.MapPost("/Response", (CreatePriorityRequest request) =>
+app.MapPost("/priorities", (CreatePriorityRequest request) =>
 {
     if (string.IsNullOrWhiteSpace(request.Title))
     {
@@ -60,10 +63,10 @@ app.MapPost("/Response", (CreatePriorityRequest request) =>
 
     priorities.Add(priority);
 
-    return Results.Created($"/Response/{priority.Id}", priority);
+    return Results.Created($"/priorities/{priority.Id}", priority);
 });
 
-app.MapPut("/update/{id:int}", (int id, UpdatePriorityRequest request) =>
+app.MapPut("/priorities/{id:int}", (int id, UpdatePriorityRequest request) =>
 {
     var priority = priorities.FirstOrDefault(priority => priority.Id == id);
 
@@ -84,7 +87,7 @@ app.MapPut("/update/{id:int}", (int id, UpdatePriorityRequest request) =>
     return Results.Ok(priority);
 });
 
-app.MapDelete("/delete/{id:int}", (int id) =>
+app.MapDelete("/priorities/{id:int}", (int id) =>
 {
     var priority = priorities.FirstOrDefault(priority => priority.Id == id);
 

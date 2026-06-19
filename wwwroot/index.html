@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loud API</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0f17;
+      --panel: #151b26;
+      --panel-soft: #1d2533;
+      --text: #f5f7fb;
+      --muted: #98a2b3;
+      --line: #283244;
+      --accent: #36e0a1;
+      --accent-2: #69a7ff;
+      --danger: #ff5d7a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 75% 12%, rgba(105, 167, 255, 0.22), transparent 30%),
+        radial-gradient(circle at 14% 82%, rgba(54, 224, 161, 0.16), transparent 28%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatSoft {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%,
+      100% {
+        box-shadow: 0 0 12px var(--accent);
+      }
+
+      50% {
+        box-shadow: 0 0 26px var(--accent);
+      }
+    }
+
+    @keyframes scanLine {
+      from {
+        transform: translateX(-120%);
+      }
+
+      to {
+        transform: translateX(120%);
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 42px;
+      padding: 28px 0;
+    }
+
+    .nav,
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      border-radius: 8px;
+      background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 24%, transparent), rgba(105, 167, 255, 0.16));
+      color: var(--accent);
+      font-size: 18px;
+      animation: fadeUp 480ms ease both;
+    }
+
+    .nav-links,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button,
+    .nav-links a,
+    .icon-button {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px 15px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      font-weight: 700;
+      font-size: 14px;
+      transition: 160ms ease;
+      cursor: pointer;
+    }
+
+    .button:hover,
+    .nav-links a:hover,
+    .icon-button:hover {
+      color: var(--text);
+      border-color: color-mix(in srgb, var(--accent-2) 55%, transparent);
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      border-color: transparent;
+      color: #06120e;
+      background: var(--accent);
+      box-shadow: 0 16px 36px color-mix(in srgb, var(--accent) 20%, transparent);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(330px, 0.92fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .hero > div {
+      animation: fadeUp 540ms ease both;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      margin: 0 0 18px;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 630px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .actions {
+      margin-top: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .card,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(29, 37, 51, 0.94), rgba(13, 18, 28, 0.96));
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    .card {
+      padding: 18px;
+      animation: fadeUp 520ms ease both;
+      transition: border-color 160ms ease, transform 160ms ease;
+    }
+
+    .card:hover {
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+      transform: translateY(-3px);
+    }
+
+    .card span {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .card p,
+    .hint,
+    .empty {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .panel {
+      overflow: hidden;
+      position: relative;
+      animation: fadeUp 620ms ease both;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 45%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.65;
+      animation: scanLine 4.4s linear infinite;
+      pointer-events: none;
+    }
+
+    .hero .panel {
+      animation: fadeUp 620ms ease both, floatSoft 6s ease-in-out 900ms infinite;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      padding: 16px;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      animation: pulseGlow 1.8s ease-in-out infinite;
+    }
+
+    .panel-body {
+      display: grid;
+      gap: 18px;
+      padding: 18px;
+    }
+
+    .palette {
+      display: grid;
+      gap: 10px;
+    }
+
+    .swatch {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .swatch-color {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+    }
+
+    form {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px 12px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+      outline: none;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .priority-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .priority {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: start;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.035);
+      animation: fadeUp 220ms ease both;
+    }
+
+    .priority input {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      accent-color: var(--accent);
+    }
+
+    .priority h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+    }
+
+    .priority.done h3,
+    .priority.done p {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .icon-button {
+      padding: 8px 10px;
+      color: var(--danger);
+    }
+
+    .error {
+      display: none;
+      border: 1px solid color-mix(in srgb, var(--danger) 55%, transparent);
+      border-radius: 8px;
+      padding: 11px 12px;
+      color: #ffd8df;
+      background: color-mix(in srgb, var(--danger) 12%, transparent);
+      font-size: 13px;
+    }
+
+    .error.visible {
+      display: block;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      animation: fadeUp 700ms ease both;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 1ms !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        width: min(100% - 28px, 720px);
+      }
+
+      .nav,
+      footer,
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .nav,
+      footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links,
+      .actions,
+      .grid {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+
+      .grid,
+      .priority {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links,
+      .actions,
+      .button,
+      .nav-links a {
+        width: 100%;
+      }
+
+      .button,
+      .nav-links a {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav" aria-label="Navegacao principal">
+      <a class="brand" href="/">
+        <span class="mark" id="brandMark">L</span>
+        <span id="brandName">Loud API</span>
+      </a>
+      <div class="nav-links">
+        <a href="/presentation">Presentation JSON</a>
+        <a href="/swagger">Swagger</a>
+      </div>
+    </nav>
+
+    <section class="hero" aria-labelledby="heroTitle">
+      <div>
+        <p class="eyebrow" id="heroSubtitle">Carregando API...</p>
+        <h1 id="heroTitle">Loud API</h1>
+        <p class="lead" id="heroDescription">
+          Esta pagina usa os endpoints do proprio projeto para montar o conteudo.
+        </p>
+
+        <div class="actions" id="actions"></div>
+
+        <div class="grid" id="sections" aria-label="Secoes vindas da API"></div>
+      </div>
+
+      <aside class="panel" aria-label="Painel funcional da API">
+        <div class="panel-header">
+          <h2>Prioridades</h2>
+          <span class="status"><span class="dot"></span><span id="apiStatus">conectando</span></span>
+        </div>
+        <div class="panel-body">
+          <p class="hint">
+            Este painel usa os endpoints reais de <strong>/priorities</strong>. Os dados ficam em memoria enquanto a API estiver rodando.
+          </p>
+
+          <form id="priorityForm">
+            <label>
+              Titulo
+              <input id="priorityTitle" name="title" required maxlength="80" placeholder="Ex: Criar pagina da Loud">
+            </label>
+            <label>
+              Descricao
+              <textarea id="priorityDescription" name="description" rows="3" maxlength="180" placeholder="Opcional"></textarea>
+            </label>
+            <button class="button primary" type="submit">Adicionar prioridade</button>
+          </form>
+
+          <div class="error" id="errorBox"></div>
+          <ul class="priority-list" id="priorityList"></ul>
+          <p class="empty" id="emptyState">Nenhuma prioridade criada ainda.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel" aria-label="Paleta vinda da API">
+      <div class="panel-header">
+        <h2>Dados de apresentacao</h2>
+        <span class="hint">Conteudo carregado de /presentation</span>
+      </div>
+      <div class="panel-body">
+        <div class="palette" id="palette"></div>
+      </div>
+    </section>
+
+    <footer>
+      <span>API + uma pagina estatica funcional</span>
+      <span>Sem React, sem build frontend</span>
+    </footer>
+  </main>
+
+  <script>
+    const state = {
+      priorities: []
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    function read(source, camelName, pascalName, fallback) {
+      if (!source) {
+        return fallback;
+      }
+
+      return source[camelName] ?? source[pascalName] ?? fallback;
+    }
+
+    function setError(message) {
+      const box = $("errorBox");
+      box.textContent = message || "";
+      box.classList.toggle("visible", Boolean(message));
+    }
+
+    async function requestJson(url, options) {
+      const response = await fetch(url, options);
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(text || `Request failed: ${response.status}`);
+      }
+
+      if (response.status === 204) {
+        return null;
+      }
+
+      return response.json();
+    }
+
+    function renderActions(actions) {
+      const container = $("actions");
+      container.textContent = "";
+
+      const safeActions = Array.isArray(actions) && actions.length > 0
+        ? actions
+        : [
+            { type: "primary", label: "Ver dados da pagina", href: "/presentation" },
+            { type: "secondary", label: "Abrir Swagger", href: "/swagger" }
+          ];
+
+      for (const action of safeActions) {
+        const link = document.createElement("a");
+        const type = read(action, "type", "Type", "secondary");
+        link.className = `button ${type === "primary" ? "primary" : ""}`;
+        link.href = read(action, "href", "Href", "/presentation");
+        link.textContent = read(action, "label", "Label", "Abrir");
+        container.appendChild(link);
+      }
+
+      const swagger = document.createElement("a");
+      swagger.className = "button";
+      swagger.href = "/swagger";
+      swagger.textContent = "Swagger";
+      container.appendChild(swagger);
+    }
+
+    function renderSections(sections) {
+      const container = $("sections");
+      container.textContent = "";
+
+      for (const section of sections) {
+        const article = document.createElement("article");
+        article.className = "card";
+
+        const eyebrow = document.createElement("span");
+        eyebrow.textContent = read(section, "eyebrow", "Eyebrow", "Secao");
+
+        const heading = document.createElement("h2");
+        heading.textContent = read(section, "heading", "Heading", "Conteudo");
+
+        const body = document.createElement("p");
+        body.textContent = read(section, "body", "Body", "");
+
+        article.append(eyebrow, heading, body);
+        container.appendChild(article);
+      }
+    }
+
+    function renderPalette(palette) {
+      const container = $("palette");
+      container.textContent = "";
+
+      for (const item of palette) {
+        const name = read(item, "name", "Name", "Color");
+        const hex = read(item, "hex", "Hex", "#36e0a1");
+        const row = document.createElement("div");
+        row.className = "swatch";
+
+        const color = document.createElement("span");
+        color.className = "swatch-color";
+        color.style.background = hex;
+
+        const label = document.createElement("strong");
+        label.textContent = name;
+
+        const code = document.createElement("span");
+        code.textContent = hex;
+
+        row.append(color, label, code);
+        container.appendChild(row);
+      }
+
+      const firstColor = palette[0] && read(palette[0], "hex", "Hex", null);
+      if (/^#[0-9a-f]{6}$/i.test(firstColor || "")) {
+        document.documentElement.style.setProperty("--accent", firstColor);
+      }
+    }
+
+    async function loadPresentation() {
+      try {
+        const data = await requestJson("/presentation");
+        const brand = read(data, "brand", "Brand", "Loud API");
+        const title = read(data, "title", "Title", "Loud API");
+        const subtitle = read(data, "subtitle", "Subtitle", "API conectada");
+        const description = read(data, "description", "Description", "");
+        const sections = read(data, "sections", "Sections", []);
+        const palette = read(data, "palette", "Palette", []);
+        const actions = read(data, "actions", "Actions", []);
+
+        $("brandName").textContent = brand;
+        $("brandMark").textContent = brand.slice(0, 1).toUpperCase();
+        $("heroTitle").textContent = title;
+        $("heroSubtitle").textContent = subtitle;
+        $("heroDescription").textContent = description;
+
+        renderActions(actions);
+        renderSections(Array.isArray(sections) ? sections : []);
+        renderPalette(Array.isArray(palette) ? palette : []);
+      } catch (error) {
+        $("apiStatus").textContent = "erro";
+        setError(`Nao foi possivel carregar /presentation: ${error.message}`);
+      }
+    }
+
+    function getPriorityValue(priority, name, fallback) {
+      const pascal = name.charAt(0).toUpperCase() + name.slice(1);
+      return read(priority, name, pascal, fallback);
+    }
+
+    function renderPriorities() {
+      const list = $("priorityList");
+      const empty = $("emptyState");
+      list.textContent = "";
+      empty.style.display = state.priorities.length === 0 ? "block" : "none";
+
+      for (const priority of state.priorities) {
+        const id = getPriorityValue(priority, "id", 0);
+        const title = getPriorityValue(priority, "title", "");
+        const description = getPriorityValue(priority, "description", "");
+        const isDone = Boolean(getPriorityValue(priority, "isDone", false));
+
+        const item = document.createElement("li");
+        item.className = `priority ${isDone ? "done" : ""}`;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = isDone;
+        checkbox.dataset.action = "toggle";
+        checkbox.dataset.id = id;
+        checkbox.setAttribute("aria-label", `Marcar ${title}`);
+
+        const content = document.createElement("div");
+        const heading = document.createElement("h3");
+        heading.textContent = title;
+        const body = document.createElement("p");
+        body.textContent = description || "Sem descricao";
+        content.append(heading, body);
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "icon-button";
+        remove.dataset.action = "delete";
+        remove.dataset.id = id;
+        remove.setAttribute("aria-label", `Apagar ${title}`);
+        remove.textContent = "Del";
+
+        item.append(checkbox, content, remove);
+        list.appendChild(item);
+      }
+    }
+
+    async function loadPriorities() {
+      try {
+        state.priorities = await requestJson("/priorities");
+        $("apiStatus").textContent = "online";
+        renderPriorities();
+      } catch (error) {
+        $("apiStatus").textContent = "erro";
+        setError(`Nao foi possivel carregar /priorities: ${error.message}`);
+      }
+    }
+
+    async function createPriority(event) {
+      event.preventDefault();
+      setError("");
+
+      const title = $("priorityTitle").value.trim();
+      const description = $("priorityDescription").value.trim();
+
+      if (!title) {
+        setError("Preenche o titulo antes de adicionar.");
+        return;
+      }
+
+      try {
+        await requestJson("/priorities", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title, description: description || null })
+        });
+
+        event.currentTarget.reset();
+        await loadPriorities();
+      } catch (error) {
+        setError(`Nao foi possivel criar a prioridade: ${error.message}`);
+      }
+    }
+
+    async function togglePriority(id) {
+      const priority = state.priorities.find((item) => String(getPriorityValue(item, "id", "")) === String(id));
+
+      if (!priority) {
+        return;
+      }
+
+      const title = getPriorityValue(priority, "title", "");
+      const description = getPriorityValue(priority, "description", null);
+      const isDone = Boolean(getPriorityValue(priority, "isDone", false));
+
+      try {
+        await requestJson(`/priorities/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title, description, isDone: !isDone })
+        });
+
+        await loadPriorities();
+      } catch (error) {
+        setError(`Nao foi possivel atualizar a prioridade: ${error.message}`);
+      }
+    }
+
+    async function deletePriority(id) {
+      try {
+        await requestJson(`/priorities/${id}`, { method: "DELETE" });
+        await loadPriorities();
+      } catch (error) {
+        setError(`Nao foi possivel apagar a prioridade: ${error.message}`);
+      }
+    }
+
+    $("priorityForm").addEventListener("submit", createPriority);
+    $("priorityList").addEventListener("click", (event) => {
+      const action = event.target.dataset.action;
+      const id = event.target.dataset.id;
+
+      if (action === "toggle") {
+        togglePriority(id);
+      }
+
+      if (action === "delete") {
+        deletePriority(id);
+      }
+    });
+
+    loadPresentation();
+    loadPriorities();
+  </script>
+</body>
+</html>
