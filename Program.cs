@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using LoudApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
