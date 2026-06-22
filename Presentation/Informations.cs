@@ -10,37 +10,42 @@ public sealed record Informations(
     IReadOnlyList<PresentationAction> Actions)
 {
     public static Informations LoudHome => new(
-        Brand: "Loud",
-        Title: "Loud visual experience",
-        Subtitle: "Uma pagina unica, forte e focada em impacto visual.",
-        Description: "Base de conteudo para uma landing page real da Loud, pronta para alimentar o front-end.",
+        Brand: "NOVA EVENTS",
+        Title: " The GRANDSLAM OF EVENTS",
+        Subtitle: "Counter-Strike 2 event circuit",
+        Description: "NOVA EVENTS tracks the most important Counter-Strike stages of 2026 with a clean arena-style experience built around crowds, tickets, news and player movement.",
         Sections:
         [
             new(
                 Slug: "hero",
-                Eyebrow: "Main stage",
-                Heading: "A energia da Loud em uma tela.",
-                Body: "Um primeiro viewport com presenca de marca, contraste alto e foco em imagem, video ou cena interativa."),
+                Eyebrow: "Events",
+                Heading: "LANXESS Arena",
+                Body: "IEM Cologne Major playoffs and the strongest crowd identity of the season."),
             new(
                 Slug: "identity",
-                Eyebrow: "Identidade",
-                Heading: "Som, movimento e comunidade.",
-                Body: "A pagina deve comunicar cultura digital, performance e uma experiencia visual direta."),
+                Eyebrow: "Tickets",
+                Heading: "Weekend pass",
+                Body: "Ticket alerts, arena seating, premium passes and final-weekend reminders."),
             new(
                 Slug: "showcase",
-                Eyebrow: "Visual",
-                Heading: "Um unico trabalho, bem apresentado.",
-                Body: "A API entrega blocos claros para o front-end montar uma composicao enxuta e profissional.")
+                Eyebrow: "News",
+                Heading: "Major watch",
+                Body: "Headlines, roster updates and fan guides that make the event feel alive."),
+            new(
+                Slug: "community",
+                Eyebrow: "Sales and buys players",
+                Heading: "Player market",
+                Body: "Roster movement, buy targets, sale watch and academy call-ups between match days.")
         ],
         Palette:
         [
-            new("Electric green", "#00ff66"),
-            new("Ink black", "#050505"),
-            new("Signal white", "#f7f7f2")
+            new("Arena brown", "#8b5e34"),
+            new("Warm white", "#fffaf2"),
+            new("Black stage", "#090806")
         ],
         Actions:
         [
-            new("primary", "Ver experiencia", "/presentation"),
-            new("secondary", "Ler secoes", "/presentation/hero")
+            new("primary", "Get ticket alerts", "/#tickets"),
+            new("secondary", "Track player market", "/#players")
         ]);
 }
