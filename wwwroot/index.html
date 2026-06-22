@@ -1,962 +1,230 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Loud API</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0b0f17;
-      --panel: #151b26;
-      --panel-soft: #1d2533;
-      --text: #f5f7fb;
-      --muted: #98a2b3;
-      --line: #283244;
-      --accent: #36e0a1;
-      --accent-2: #69a7ff;
-      --button-bg: #fff1f7;
-      --button-bg-2: #ffc7dd;
-      --button-text: #1b0710;
-      --button-glow: rgba(255, 118, 171, 0.42);
-      --danger: #ff5d7a;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 75% 12%, rgba(255, 118, 171, 0.22), transparent 30%),
-        radial-gradient(circle at 14% 82%, rgba(54, 224, 161, 0.14), transparent 28%),
-        var(--bg);
-      background-size: 140% 140%;
-      animation: backgroundShift 12s ease-in-out infinite alternate;
-      color: var(--text);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.12;
-      background-image:
-        linear-gradient(rgba(255, 241, 247, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 241, 247, 0.08) 1px, transparent 1px);
-      background-size: 58px 58px;
-      mask-image: linear-gradient(to bottom, black, transparent 82%);
-      pointer-events: none;
-    }
-
-    @keyframes backgroundShift {
-      from {
-        background-position: 0% 0%;
-      }
-
-      to {
-        background-position: 100% 100%;
-      }
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes floatSoft {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
-    @keyframes pulseGlow {
-      0%,
-      100% {
-        box-shadow: 0 0 12px var(--accent);
-      }
-
-      50% {
-        box-shadow: 0 0 26px var(--accent);
-      }
-    }
-
-    @keyframes scanLine {
-      from {
-        transform: translateX(-120%);
-      }
-
-      to {
-        transform: translateX(120%);
-      }
-    }
-
-    @keyframes buttonShine {
-      from {
-        transform: translateX(-135%) skewX(-18deg);
-      }
-
-      to {
-        transform: translateX(135%) skewX(-18deg);
-      }
-    }
-
-    @keyframes buttonPop {
-      0% {
-        transform: translateY(-2px) scale(1);
-      }
-
-      55% {
-        transform: translateY(0) scale(0.96);
-      }
-
-      100% {
-        transform: translateY(-2px) scale(1);
-      }
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    .page {
-      width: min(1120px, calc(100% - 40px));
-      min-height: 100vh;
-      margin: 0 auto;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 42px;
-      padding: 28px 0;
-    }
-
-    .nav,
-    footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0;
-    }
-
-    .mark {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-      border-radius: 8px;
-      background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 24%, transparent), rgba(105, 167, 255, 0.16));
-      color: var(--accent);
-      font-size: 18px;
-      animation: fadeUp 480ms ease both;
-    }
-
-    .nav-links,
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .button,
-    .nav-links a,
-    .icon-button {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255, 241, 247, 0.76);
-      border-radius: 8px;
-      padding: 11px 15px;
-      color: var(--button-text);
-      background: linear-gradient(135deg, var(--button-bg), var(--button-bg-2));
-      font-weight: 700;
-      font-size: 14px;
-      box-shadow: 0 12px 28px rgba(255, 118, 171, 0.12);
-      transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, filter 180ms ease;
-      cursor: pointer;
-    }
-
-    .button::before,
-    .nav-links a::before,
-    .icon-button::before {
-      content: "";
-      position: absolute;
-      top: -30%;
-      left: 0;
-      width: 42%;
-      height: 160%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.74), transparent);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .button:hover,
-    .nav-links a:hover,
-    .icon-button:hover {
-      color: var(--button-text);
-      border-color: #ffffff;
-      box-shadow: 0 18px 42px var(--button-glow);
-      filter: saturate(1.08);
-      transform: translateY(-2px);
-    }
-
-    .button:hover::before,
-    .nav-links a:hover::before,
-    .icon-button:hover::before {
-      opacity: 1;
-      animation: buttonShine 760ms ease;
-    }
-
-    .button:active,
-    .nav-links a:active,
-    .icon-button:active,
-    .button.clicked,
-    .nav-links a.clicked,
-    .icon-button.clicked {
-      animation: buttonPop 260ms ease;
-    }
-
-    .button:focus-visible,
-    .nav-links a:focus-visible,
-    .icon-button:focus-visible,
-    input:focus-visible,
-    textarea:focus-visible {
-      outline: 3px solid rgba(255, 199, 221, 0.55);
-      outline-offset: 3px;
-    }
-
-    .button.primary {
-      border-color: transparent;
-      color: var(--button-text);
-      background: linear-gradient(135deg, #ffffff, #fff1f7 38%, #ff9fc6);
-      box-shadow: 0 18px 46px var(--button-glow);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(330px, 0.92fr);
-      gap: 34px;
-      align-items: start;
-    }
-
-    .hero > div {
-      animation: fadeUp 540ms ease both;
-    }
-
-    .eyebrow {
-      width: fit-content;
-      margin: 0 0 18px;
-      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-      border-radius: 999px;
-      padding: 7px 12px;
-      color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 8%, transparent);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    h1 {
-      max-width: 760px;
-      margin: 0;
-      font-size: clamp(42px, 7vw, 78px);
-      line-height: 0.98;
-      letter-spacing: 0;
-    }
-
-    .lead {
-      max-width: 630px;
-      margin: 22px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.65;
-    }
-
-    .actions {
-      margin-top: 30px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 34px;
-    }
-
-    .card,
-    .panel {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: linear-gradient(180deg, rgba(29, 37, 51, 0.94), rgba(13, 18, 28, 0.96));
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
-    }
-
-    .card {
-      padding: 18px;
-      animation: fadeUp 520ms ease both;
-      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-    }
-
-    .card:hover {
-      border-color: rgba(255, 199, 221, 0.62);
-      box-shadow: 0 24px 70px rgba(255, 118, 171, 0.12);
-      transform: translateY(-5px);
-    }
-
-    .card span {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    .card h2 {
-      margin: 0 0 8px;
-      font-size: 17px;
-    }
-
-    .card p,
-    .hint,
-    .empty {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .panel {
-      overflow: hidden;
-      position: relative;
-      animation: fadeUp 620ms ease both;
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 45%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0.65;
-      animation: scanLine 4.4s linear infinite;
-      pointer-events: none;
-    }
-
-    .hero .panel {
-      animation: fadeUp 620ms ease both, floatSoft 6s ease-in-out 900ms infinite;
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid var(--line);
-      padding: 16px;
-    }
-
-    .panel-header h2 {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      animation: pulseGlow 1.8s ease-in-out infinite;
-    }
-
-    .panel-body {
-      display: grid;
-      gap: 18px;
-      padding: 18px;
-    }
-
-    .palette {
-      display: grid;
-      gap: 10px;
-    }
-
-    .swatch {
-      display: grid;
-      grid-template-columns: 28px 1fr auto;
-      align-items: center;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .swatch-color {
-      width: 28px;
-      height: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-    }
-
-    form {
-      display: grid;
-      gap: 12px;
-    }
-
-    label {
-      display: grid;
-      gap: 6px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 11px 12px;
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.05);
-      outline: none;
-      resize: vertical;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: var(--accent);
-    }
-
-    .priority-list {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .priority {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: start;
-      gap: 12px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.035);
-      animation: fadeUp 320ms ease both;
-      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
-    }
-
-    .priority:hover {
-      border-color: rgba(255, 199, 221, 0.48);
-      background: rgba(255, 241, 247, 0.055);
-      transform: translateX(3px);
-    }
-
-    .priority input {
-      width: 18px;
-      height: 18px;
-      margin-top: 4px;
-      accent-color: var(--accent);
-    }
-
-    .priority h3 {
-      margin: 0 0 4px;
-      font-size: 15px;
-    }
-
-    .priority.done h3,
-    .priority.done p {
-      color: var(--muted);
-      text-decoration: line-through;
-    }
-
-    .icon-button {
-      padding: 8px 10px;
-      color: #4a0718;
-      background: linear-gradient(135deg, #fff1f7, #ffb6d1);
-    }
-
-    .error {
-      display: none;
-      border: 1px solid color-mix(in srgb, var(--danger) 55%, transparent);
-      border-radius: 8px;
-      padding: 11px 12px;
-      color: #ffd8df;
-      background: color-mix(in srgb, var(--danger) 12%, transparent);
-      font-size: 13px;
-    }
-
-    .error.visible {
-      display: block;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding-top: 22px;
-      color: var(--muted);
-      font-size: 13px;
-      animation: fadeUp 700ms ease both;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 1ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 1ms !important;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .page {
-        width: min(100% - 28px, 720px);
-      }
-
-      .nav,
-      footer,
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .nav,
-      footer {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .hero {
-        display: grid;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .nav-links,
-      .actions,
-      .grid {
-        grid-template-columns: 1fr;
-        flex-direction: column;
-      }
-
-      .grid,
-      .priority {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links,
-      .actions,
-      .button,
-      .nav-links a {
-        width: 100%;
-      }
-
-      .button,
-      .nav-links a {
-        text-align: center;
-      }
-    }
-  </style>
+  <title>NOVA EVENTS</title>
+  <link rel="stylesheet" href="/visual/styles/nova-events.css">
 </head>
 <body>
   <main class="page">
-    <nav class="nav" aria-label="Navegacao principal">
-      <a class="brand" href="/">
-        <span class="mark" id="brandMark">L</span>
-        <span id="brandName">Loud API</span>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#">
+        <span class="mark">N</span>
+        <span>NOVA</span>
       </a>
-      <div class="nav-links">
-        <a href="/presentation">Presentation JSON</a>
-        <a href="/swagger">Swagger</a>
+      <div class="menu">
+        <a href="#events">Events</a>
+        <a href="#tickets">Tickets</a>
+        <a href="#about">About NOVA events</a>
+        <a href="#news">News</a>
+        <a href="#players">Sales and buys players</a>
       </div>
     </nav>
 
-    <section class="hero" aria-labelledby="heroTitle">
-      <div>
-        <p class="eyebrow" id="heroSubtitle">Carregando API...</p>
-        <h1 id="heroTitle">Loud API</h1>
-        <p class="lead" id="heroDescription">
-          Esta pagina usa os endpoints do proprio projeto para montar o conteudo.
-        </p>
-
-        <div class="actions" id="actions"></div>
-
-        <div class="grid" id="sections" aria-label="Secoes vindas da API"></div>
+    <section class="hero" id="events" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <p class="eyebrow">Community counter Strike events</p>
+        <h1 id="heroTitle">CS2 arenas, trophies everything one place</h1>
+        <p class="lead">NOVA EVENTS tracks the most important Counter-Strike stages of 2026 with a clean arena-style experience built around crowds, tickets, news and player movement.</p>
+        <div class="actions">
+          <a class="button primary" href="#tickets">Get ticket alerts</a>
+          <a class="button" href="#players">Track player market</a>
+        </div>
       </div>
 
-      <aside class="panel" aria-label="Painel funcional da API">
-        <div class="panel-header">
-          <h2>Prioridades</h2>
-          <span class="status"><span class="dot"></span><span id="apiStatus">conectando</span></span>
+      <aside class="hero-panel" aria-label="Main event highlights">
+        <div class="number">32</div>
+        <div>
+          <span class="meta">IEM Cologne Major 2026</span>
+          <h2>The Cathedral becomes the center of CS2.</h2>
+          <p class="lead">Three Swiss stages lead into the LANXESS Arena playoff weekend, where the crowd, trophy and team stories carry the page.</p>
         </div>
-        <div class="panel-body">
-          <p class="hint">
-            Este painel usa os endpoints reais de <strong>/priorities</strong>. Os dados ficam em memoria enquanto a API estiver rodando.
-          </p>
-
-          <form id="priorityForm">
-            <label>
-              Titulo
-              <input id="priorityTitle" name="title" required maxlength="80" placeholder="Ex: Criar pagina da Loud">
-            </label>
-            <label>
-              Descricao
-              <textarea id="priorityDescription" name="description" rows="3" maxlength="180" placeholder="Opcional"></textarea>
-            </label>
-            <button class="button primary" type="submit">Adicionar prioridade</button>
-          </form>
-
-          <div class="error" id="errorBox"></div>
-          <ul class="priority-list" id="priorityList"></ul>
-          <p class="empty" id="emptyState">Nenhuma prioridade criada ainda.</p>
+        <div class="grid-2">
+          <article class="card">
+            <span class="meta">Prize pool</span>
+            <h3>$1.25M</h3>
+            <p>Major-level pressure across the full Cologne run.</p>
+          </article>
+          <article class="card">
+            <span class="meta">Arena weekend</span>
+            <h3>June 18-21</h3>
+            <p>Playoffs, walk-ins, crowd shots and the grand final.</p>
+          </article>
+          <article class="card">
+            <span class="meta">Format</span>
+            <h3>Swiss to bracket</h3>
+            <p>Clear stages for fans who want to follow every step.</p>
+          </article>
+          <article class="card">
+            <span class="meta">Final</span>
+            <h3>Best of five</h3>
+            <p>The championship match gets the full arena treatment.</p>
+          </article>
         </div>
       </aside>
     </section>
 
-    <section class="panel" aria-label="Paleta vinda da API">
-      <div class="panel-header">
-        <h2>Dados de apresentacao</h2>
-        <span class="hint">Conteudo carregado de /presentation</span>
+    <section class="surface">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Events</p>
+          <h2>Chose your next stop</h2>
+        </div>
       </div>
-      <div class="panel-body">
-        <div class="palette" id="palette"></div>
+      <div class="grid-4">
+        <article class="card">
+          <span class="meta">Cologne, Germany</span>
+          <h3>LANXESS Arena</h3>
+          <p>IEM Cologne Major playoffs and the strongest crowd identity of the season.</p>
+        </article>
+        <article class="card">
+          <span class="meta">Malta</span>
+          <h3>BLAST Studios</h3>
+          <p>Compact studio pressure, fast brackets and early post-Major storylines.</p>
+        </article>
+        <article class="card">
+          <span class="meta">Hong Kong</span>
+          <h3>AsiaWorld-Arena</h3>
+          <p>Large arena energy for the late-year BLAST Rivals stop.</p>
+        </article>
+        <article class="card">
+          <span class="meta">Singapore</span>
+          <h3>Indoor Stadium</h3>
+          <p>A Major destination for the end of the 2026 Counter-Strike year.</p>
+        </article>
       </div>
     </section>
 
+    <section class="tickets-panel" id="tickets">
+      <article class="story">
+        <p class="eyebrow">Tickets</p>
+        <h2>Build the page around the fan journey.</h2>
+        <p>Tickets should feel like part of the event experience: early access, arena seating, premium passes, watch-party alerts and final-weekend reminders.</p>
+      </article>
+      <div class="surface">
+        <div class="grid-2">
+          <article class="card">
+            <span class="meta">Arena access</span>
+            <h3>Weekend pass</h3>
+            <p>Best for fans who want playoffs, semifinal day and the grand final.</p>
+          </article>
+          <article class="card">
+            <span class="meta">Premium</span>
+            <h3>Stage-side upgrade</h3>
+            <p>Highlight package for close seating, premium entry and merch bundles.</p>
+          </article>
+          <article class="card">
+            <span class="meta">Community</span>
+            <h3>Watch-party alerts</h3>
+            <p>For cities without arena access but with local fan events.</p>
+          </article>
+          <article class="card">
+            <span class="meta">Reminder</span>
+            <h3>Drop notifications</h3>
+            <p>Ticket drops, sellouts and final batch reminders in one place.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="tickets-panel" id="about">
+      <article class="photo-panel">
+        <img src="https://arena.rtp.pt/wp-content/uploads/2024/08/lanxess_arena_iem_cologne-24-860x507-1.jpg" alt="CS2 arena crowd during an esports event">
+        <div class="photo-copy">
+          <p class="eyebrow">About NOVA EVENTS</p>
+          <h2>Latest news of CS2</h2>
+          <p>NOVA EVENTS exists as a polished esports hub: fewer technical labels, stronger images, and clearer information for fans.</p>
+        </div>
+      </article>
+      <article class="story">
+        <p class="eyebrow">Identity</p>
+        <h2>Brown, white and black create a premium arena mood.</h2>
+        <p>The design uses warm shadows, white typography and brown panels to make the page feel closer to a sports event brand than a developer demo.</p>
+      </article>
+    </section>
+
+    <section class="surface" id="news">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">News</p>
+          <h2>Stories that make the event feel alive.</h2>
+        </div>
+        <p>News blocks can later become real posts, but the layout is already ready for headlines, updates and editorial cards.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <span class="meta">Major watch</span>
+          <h3>Cologne playoff race begins</h3>
+          <p>Track which teams are building momentum before the LANXESS Arena weekend.</p>
+        </article>
+        <article class="card">
+          <span class="meta">Roster report</span>
+          <h3>Transfer rumors shape the bracket</h3>
+          <p>Player movement changes expectations before the next arena stop.</p>
+        </article>
+        <article class="card">
+          <span class="meta">Fan guide</span>
+          <h3>What to watch on final day</h3>
+          <p>Storylines, map pools and player matchups for the biggest match.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="tickets-panel" id="players">
+      <article class="story player-market">
+        <p class="eyebrow">Sales and buys players</p>
+        <h2>The player market belongs on the event page.</h2>
+        <p>Roster movement affects ticket demand, team hype and event storylines. This section gives the page a reason to be checked between match days.</p>
+      </article>
+      <div class="surface">
+        <div class="market-row">
+          <div>
+            <span class="meta">Buy target</span>
+            <h3>Rifler with high opening impact</h3>
+            <p>Teams hunting arena consistency need aggressive first-contact players.</p>
+          </div>
+          <span class="badge">Scout</span>
+        </div>
+        <div class="market-row">
+          <div>
+            <span class="meta">Sale watch</span>
+            <h3>Veteran support after Major cycle</h3>
+            <p>Experienced players often move after a Major when teams reset goals.</p>
+          </div>
+          <span class="badge">Rumor</span>
+        </div>
+        <div class="market-row">
+          <div>
+            <span class="meta">Academy call-up</span>
+            <h3>Young AWP talent for studio events</h3>
+            <p>Smaller events are the best place to test new roles before arena pressure.</p>
+          </div>
+          <span class="badge">Watchlist</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="tickets-panel">
+      <article class="story">
+        <p class="eyebrow">Trophy moment</p>
+        <h2>Close the page with celebration.</h2>
+        <p>The lower part of the page needs an emotional image: trophy, confetti, players and the feeling that the event mattered.</p>
+      </article>
+      <article class="photo-panel">
+        <img src="https://img-cdn.hltv.org/gallerypicture/MROEmoGam231pzqNmdFPEf.jpg?ixlib=java-2.1.0&w=1200&s=39d9344aa85b9be675d668eb74d089b8" alt="Counter-Strike players lifting a trophy under confetti">
+        <div class="photo-copy">
+          <p class="eyebrow">IEM Colegne Major trophy</p>
+          <h2>Falcons Champions at the Cathedral of CS</h2>
+          <p>With a spectacular campaign, Falcons win the prestigious IEM Cologne 2026.</p>
+        </div>
+      </article>
+    </section>
+
     <footer>
-      <span>API + uma pagina estatica funcional</span>
-      <span>Sem React, sem build frontend</span>
+      <span>NOVA EVENTS - CS2 event concept</span>
+      <span>Events, tickets, news and player market</span>
     </footer>
   </main>
-
-  <script>
-    const state = {
-      priorities: []
-    };
-
-    const $ = (id) => document.getElementById(id);
-
-    function read(source, camelName, pascalName, fallback) {
-      if (!source) {
-        return fallback;
-      }
-
-      return source[camelName] ?? source[pascalName] ?? fallback;
-    }
-
-    function setError(message) {
-      const box = $("errorBox");
-      box.textContent = message || "";
-      box.classList.toggle("visible", Boolean(message));
-    }
-
-    async function requestJson(url, options) {
-      const response = await fetch(url, options);
-
-      if (!response.ok) {
-        const text = await response.text();
-        throw new Error(text || `Request failed: ${response.status}`);
-      }
-
-      if (response.status === 204) {
-        return null;
-      }
-
-      return response.json();
-    }
-
-    function renderActions(actions) {
-      const container = $("actions");
-      container.textContent = "";
-
-      const safeActions = Array.isArray(actions) && actions.length > 0
-        ? actions
-        : [
-            { type: "primary", label: "Ver dados da pagina", href: "/presentation" },
-            { type: "secondary", label: "Abrir Swagger", href: "/swagger" }
-          ];
-
-      for (const action of safeActions) {
-        const link = document.createElement("a");
-        const type = read(action, "type", "Type", "secondary");
-        link.className = `button ${type === "primary" ? "primary" : ""}`;
-        link.href = read(action, "href", "Href", "/presentation");
-        link.textContent = read(action, "label", "Label", "Abrir");
-        container.appendChild(link);
-      }
-
-      const swagger = document.createElement("a");
-      swagger.className = "button";
-      swagger.href = "/swagger";
-      swagger.textContent = "Swagger";
-      container.appendChild(swagger);
-    }
-
-    function renderSections(sections) {
-      const container = $("sections");
-      container.textContent = "";
-
-      for (const section of sections) {
-        const article = document.createElement("article");
-        article.className = "card";
-
-        const eyebrow = document.createElement("span");
-        eyebrow.textContent = read(section, "eyebrow", "Eyebrow", "Secao");
-
-        const heading = document.createElement("h2");
-        heading.textContent = read(section, "heading", "Heading", "Conteudo");
-
-        const body = document.createElement("p");
-        body.textContent = read(section, "body", "Body", "");
-
-        article.append(eyebrow, heading, body);
-        container.appendChild(article);
-      }
-    }
-
-    function renderPalette(palette) {
-      const container = $("palette");
-      container.textContent = "";
-
-      for (const item of palette) {
-        const name = read(item, "name", "Name", "Color");
-        const hex = read(item, "hex", "Hex", "#36e0a1");
-        const row = document.createElement("div");
-        row.className = "swatch";
-
-        const color = document.createElement("span");
-        color.className = "swatch-color";
-        color.style.background = hex;
-
-        const label = document.createElement("strong");
-        label.textContent = name;
-
-        const code = document.createElement("span");
-        code.textContent = hex;
-
-        row.append(color, label, code);
-        container.appendChild(row);
-      }
-
-      const firstColor = palette[0] && read(palette[0], "hex", "Hex", null);
-      if (/^#[0-9a-f]{6}$/i.test(firstColor || "")) {
-        document.documentElement.style.setProperty("--accent", firstColor);
-      }
-    }
-
-    async function loadPresentation() {
-      try {
-        const data = await requestJson("/presentation");
-        const brand = read(data, "brand", "Brand", "Loud API");
-        const title = read(data, "title", "Title", "Loud API");
-        const subtitle = read(data, "subtitle", "Subtitle", "API conectada");
-        const description = read(data, "description", "Description", "");
-        const sections = read(data, "sections", "Sections", []);
-        const palette = read(data, "palette", "Palette", []);
-        const actions = read(data, "actions", "Actions", []);
-
-        $("brandName").textContent = brand;
-        $("brandMark").textContent = brand.slice(0, 1).toUpperCase();
-        $("heroTitle").textContent = title;
-        $("heroSubtitle").textContent = subtitle;
-        $("heroDescription").textContent = description;
-
-        renderActions(actions);
-        renderSections(Array.isArray(sections) ? sections : []);
-        renderPalette(Array.isArray(palette) ? palette : []);
-      } catch (error) {
-        $("apiStatus").textContent = "erro";
-        setError(`Nao foi possivel carregar /presentation: ${error.message}`);
-      }
-    }
-
-    function getPriorityValue(priority, name, fallback) {
-      const pascal = name.charAt(0).toUpperCase() + name.slice(1);
-      return read(priority, name, pascal, fallback);
-    }
-
-    function renderPriorities() {
-      const list = $("priorityList");
-      const empty = $("emptyState");
-      list.textContent = "";
-      empty.style.display = state.priorities.length === 0 ? "block" : "none";
-
-      for (const priority of state.priorities) {
-        const id = getPriorityValue(priority, "id", 0);
-        const title = getPriorityValue(priority, "title", "");
-        const description = getPriorityValue(priority, "description", "");
-        const isDone = Boolean(getPriorityValue(priority, "isDone", false));
-
-        const item = document.createElement("li");
-        item.className = `priority ${isDone ? "done" : ""}`;
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = isDone;
-        checkbox.dataset.action = "toggle";
-        checkbox.dataset.id = id;
-        checkbox.setAttribute("aria-label", `Marcar ${title}`);
-
-        const content = document.createElement("div");
-        const heading = document.createElement("h3");
-        heading.textContent = title;
-        const body = document.createElement("p");
-        body.textContent = description || "Sem descricao";
-        content.append(heading, body);
-
-        const remove = document.createElement("button");
-        remove.type = "button";
-        remove.className = "icon-button";
-        remove.dataset.action = "delete";
-        remove.dataset.id = id;
-        remove.setAttribute("aria-label", `Apagar ${title}`);
-        remove.textContent = "Del";
-
-        item.append(checkbox, content, remove);
-        list.appendChild(item);
-      }
-    }
-
-    async function loadPriorities() {
-      try {
-        state.priorities = await requestJson("/priorities");
-        $("apiStatus").textContent = "online";
-        renderPriorities();
-      } catch (error) {
-        $("apiStatus").textContent = "erro";
-        setError(`Nao foi possivel carregar /priorities: ${error.message}`);
-      }
-    }
-
-    async function createPriority(event) {
-      event.preventDefault();
-      setError("");
-
-      const title = $("priorityTitle").value.trim();
-      const description = $("priorityDescription").value.trim();
-
-      if (!title) {
-        setError("Preenche o titulo antes de adicionar.");
-        return;
-      }
-
-      try {
-        await requestJson("/priorities", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title, description: description || null })
-        });
-
-        event.currentTarget.reset();
-        await loadPriorities();
-      } catch (error) {
-        setError(`Nao foi possivel criar a prioridade: ${error.message}`);
-      }
-    }
-
-    async function togglePriority(id) {
-      const priority = state.priorities.find((item) => String(getPriorityValue(item, "id", "")) === String(id));
-
-      if (!priority) {
-        return;
-      }
-
-      const title = getPriorityValue(priority, "title", "");
-      const description = getPriorityValue(priority, "description", null);
-      const isDone = Boolean(getPriorityValue(priority, "isDone", false));
-
-      try {
-        await requestJson(`/priorities/${id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title, description, isDone: !isDone })
-        });
-
-        await loadPriorities();
-      } catch (error) {
-        setError(`Nao foi possivel atualizar a prioridade: ${error.message}`);
-      }
-    }
-
-    async function deletePriority(id) {
-      try {
-        await requestJson(`/priorities/${id}`, { method: "DELETE" });
-        await loadPriorities();
-      } catch (error) {
-        setError(`Nao foi possivel apagar a prioridade: ${error.message}`);
-      }
-    }
-
-    $("priorityForm").addEventListener("submit", createPriority);
-    document.addEventListener("click", (event) => {
-      const target = event.target.closest(".button, .nav-links a, .icon-button");
-
-      if (!target) {
-        return;
-      }
-
-      target.classList.remove("clicked");
-      window.requestAnimationFrame(() => {
-        target.classList.add("clicked");
-        window.setTimeout(() => target.classList.remove("clicked"), 280);
-      });
-    });
-
-    $("priorityList").addEventListener("click", (event) => {
-      const action = event.target.dataset.action;
-      const id = event.target.dataset.id;
-
-      if (action === "toggle") {
-        togglePriority(id);
-      }
-
-      if (action === "delete") {
-        deletePriority(id);
-      }
-    });
-
-    loadPresentation();
-    loadPriorities();
-  </script>
 </body>
 </html>
