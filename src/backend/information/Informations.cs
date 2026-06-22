@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace LoudApi.Presentation;
 
 public sealed record Informations(
