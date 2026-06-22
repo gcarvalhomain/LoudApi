@@ -147,6 +147,12 @@
       display: grid;
       align-content: end;
       gap: 22px;
+      overflow: hidden;
+      background:
+        linear-gradient(0deg, rgba(9, 8, 6, 0.92), rgba(9, 8, 6, 0.30) 56%, rgba(9, 8, 6, 0.80)),
+        linear-gradient(90deg, rgba(61, 39, 24, 0.72), rgba(9, 8, 6, 0.18)),
+        url("https://img-cdn.hltv.org/gallerypicture/akUiy3kmF2oiaR6oqgP6Mz.jpg?auto=compress&ixlib=java-2.1.0&m=%2Fm.png&mw=107&mx=20&my=473&q=75&w=800&s=cd08a126b863a78f3f4305c43f95be51") center / cover;
+      text-shadow: 0 8px 34px rgba(0, 0, 0, 0.84);
     }
 
     .eyebrow {
@@ -285,6 +291,10 @@
       gap: 18px;
     }
 
+    #players {
+      grid-template-columns: 1fr;
+    }
+
     .story {
       min-height: 360px;
       padding: 24px;
@@ -349,6 +359,51 @@
       padding-top: 0;
     }
 
+    .players-market-card {
+      min-height: 430px;
+      overflow: hidden;
+      background:
+        linear-gradient(0deg, rgba(9, 8, 6, 0.94), rgba(9, 8, 6, 0.24) 58%, rgba(9, 8, 6, 0.78)),
+        linear-gradient(90deg, rgba(61, 39, 24, 0.78), rgba(9, 8, 6, 0.18)),
+        url("https://community.skin.club/wp-content/uploads/2026/06/20260613_Adela-Sznajder_IEM-Cologne_08916.webp") center / cover;
+      text-shadow: 0 8px 34px rgba(0, 0, 0, 0.84);
+    }
+
+    .players-market-card h2 {
+      max-width: 780px;
+      font-size: clamp(34px, 5vw, 58px);
+    }
+
+    .players-market-card > p {
+      max-width: 700px;
+    }
+
+    .market-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 22px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .players-market-card .market-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      border-top: 0;
+      border-left: 1px solid var(--line);
+      padding: 0 14px;
+    }
+
+    .players-market-card .market-row:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .players-market-card .market-row:last-child {
+      padding-right: 0;
+    }
+
     .badge {
       border: 1px solid rgba(216, 184, 137, 0.36);
       border-radius: 999px;
@@ -393,6 +448,24 @@
       .grid-3,
       .grid-4 {
         grid-template-columns: 1fr;
+      }
+
+      .market-list {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .players-market-card .market-row,
+      .players-market-card .market-row:first-child,
+      .players-market-card .market-row:last-child {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+        padding: 12px 0 0;
+      }
+
+      .players-market-card .market-row:first-child {
+        padding-top: 0;
+        border-top: 0;
       }
     }
 
