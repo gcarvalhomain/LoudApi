@@ -337,4 +337,4 @@ C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\verify\tr\Microsoft.CodeAna
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\verify\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\verify\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\verify\runtimes\win\lib\net9.0\System.Windows.Extensions.dll
-C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\compressed\4fa6cz7ix6-{0}-akpcrea29z-akpcrea29z.gz
+C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\compressed\4fa6cz7ix6-{0}-nmh2ga8h61-nmh2ga8h61.gz
