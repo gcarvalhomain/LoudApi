@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LoudApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee0ccaf8c6cf83589fc43205c2a282ccaffed16f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae68335f5a6fa83e9dd81adce6fa1776720bbb3c")]
 [assembly: System.Reflection.AssemblyProductAttribute("LoudApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LoudApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
