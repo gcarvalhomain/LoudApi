@@ -495,5 +495,5 @@ C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\.tmp\build-check\tr\Microsoft.C
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\.tmp\build-check\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\.tmp\build-check\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\.tmp\build-check\runtimes\win\lib\net9.0\System.Windows.Extensions.dll
-C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\compressed\4fa6cz7ix6-{0}-l5rpv3h2qg-l5rpv3h2qg.gz
-C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\compressed\gnqfsxyt0m-{0}-hgyqgizkmz-hgyqgizkmz.gz
+C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\compressed\4fa6cz7ix6-{0}-1uohgpg0ru-1uohgpg0ru.gz
+C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\compressed\gnqfsxyt0m-{0}-w60vcr4vhi-w60vcr4vhi.gz
