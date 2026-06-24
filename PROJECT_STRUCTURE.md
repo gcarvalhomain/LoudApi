@@ -4,30 +4,40 @@ This project is separated by responsibility so each area is easy to find.
 
 ## Visual
 
-Path: `wwwroot/visual/`
+Path: `frontend/visual/`
 
 Purpose: visual system, CSS and future frontend assets.
 
-- `wwwroot/visual/styles/nova-events.css`: NOVA EVENTS page styling, colors, layout, cards, responsive rules and image treatment.
+- `frontend/visual/styles/velotv-events.css`: VELOTV page styling, colors, layout, cards, responsive rules and image treatment.
 
 ## HTML
 
-Path: `wwwroot/`
+Path: `frontend/`
 
-Purpose: public static files served by ASP.NET Core.
+Purpose: frontend static files for the VELOTV page.
 
-- `wwwroot/index.html`: the main NOVA EVENTS page markup. It stays here because `UseDefaultFiles()` serves `index.html` from `wwwroot` automatically.
+- `frontend/index.html`: the main VELOTV page markup.
 
 ## C# Backend
 
 Path: `src/backend/`
 
-Purpose: application startup, endpoints, models and services.
+Purpose: application startup, API features and shared services.
 
-- `src/backend/Program.cs`: ASP.NET Core app setup, middleware and priorities endpoints.
-- `src/backend/models/`: C# data models.
-- `src/backend/services/`: application services.
+- `src/backend/Program.cs`: ASP.NET Core app setup, middleware and endpoint registration.
+- `src/backend/priorities/`: priorities feature with endpoint mapping, request contracts and model.
+- `src/backend/services/`: application service registration and presentation service.
 - `src/backend/information/`: presentation/information endpoint models and routes.
+
+## Priorities API
+
+Path: `src/backend/priorities/`
+
+Purpose: in-memory CRUD API returned by `/priorities`.
+
+- `Priority.cs`: priority model.
+- `PriorityRequests.cs`: create and update request contracts.
+- `PrioritiesGateway.cs`: `/priorities` endpoint mapping.
 
 ## Information API
 
@@ -35,7 +45,7 @@ Path: `src/backend/information/`
 
 Purpose: content returned by `/presentation`.
 
-- `Informations.cs`: NOVA EVENTS content, event cards, palette and actions.
+- `Informations.cs`: VELOTV content, event cards, palette and actions.
 - `Gateway.cs`: `/presentation` endpoint mapping.
 - `Queries.cs`: query object for section lookup.
 - `Support.cs`: supporting records for visual sections, palette colors and actions.

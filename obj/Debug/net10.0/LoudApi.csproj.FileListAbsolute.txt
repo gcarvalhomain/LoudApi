@@ -179,7 +179,6 @@ C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\refint\LoudAp
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\LoudApi.pdb
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\LoudApi.genruntimeconfig.cache
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\ref\LoudApi.dll
-C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\bin\Debug\net10.0\LoudApi.staticwebassets.runtime.json
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\verify\BuildHost-net472\Microsoft.Build.Locator.dll
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\verify\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\verify\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config
@@ -495,5 +494,3 @@ C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\.tmp\build-check\tr\Microsoft.C
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\.tmp\build-check\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\.tmp\build-check\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\.tmp\build-check\runtimes\win\lib\net9.0\System.Windows.Extensions.dll
-C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\compressed\4fa6cz7ix6-{0}-1uohgpg0ru-1uohgpg0ru.gz
-C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi\obj\Debug\net10.0\compressed\gnqfsxyt0m-{0}-w60vcr4vhi-w60vcr4vhi.gz

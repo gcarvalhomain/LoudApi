@@ -12,10 +12,10 @@ public sealed record Informations(
     IReadOnlyList<PresentationAction> Actions)
 {
     public static Informations LoudHome => new(
-        Brand: "NOVA EVENTS",
+        Brand: "VELOTV",
         Title: " The GRANDSLAM OF EVENTS",
         Subtitle: "Counter-Strike 2 event circuit",
-        Description: "NOVA EVENTS tracks the most important Counter-Strike stages of 2026 with a clean arena-style experience built around crowds, tickets, news and player movement.",
+        Description: "VELOTV tracks the most important Counter-Strike stages of 2026 with a clean arena-style experience built around crowds, tickets, news and player movement.",
         Sections:
         [
             new(
