@@ -1,8 +1,8 @@
 using System;
 
-namespace LoudApi.Models;
+namespace LoudApi.Priorities;
 
-public class Priorities
+public sealed class Priority
 {
     public int Id { get; set; }
     public required string Title { get; set; }

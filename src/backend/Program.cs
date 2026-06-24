@@ -1,24 +1,22 @@
-using System.Collections.Generic;
-using System.Linq;
-using LoudApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using LoudApi.Presentation;
+using LoudApi.Priorities;
 using LoudApi.Workers;
-using Microsoft.AspNetCore.Http;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args,
+    WebRootPath = "frontend",
+});
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLoudPresentationServices();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwaggerUI();
@@ -30,80 +28,6 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.MapPresentationGateway();
-
-var priorities = new List<Priorities>();
-var nextPriorityId = 1;
-
-app.MapGet("/priorities", () =>
-{
-    return Results.Ok(priorities);
-});
-
-app.MapGet("/priorities/{id:int}", (int id) =>
-{
-    var priority = priorities.FirstOrDefault(priority => priority.Id == id);
-
-    return priority is null
-        ? Results.NotFound()
-        : Results.Ok(priority);
-});
-
-app.MapPost("/priorities", (CreatePriorityRequest request) =>
-{
-    if (string.IsNullOrWhiteSpace(request.Title))
-    {
-        return Results.BadRequest("Title is required.");
-    }
-
-    var priority = new Priorities
-    {
-        Id = nextPriorityId++,
-        Title = request.Title.Trim(),
-        Description = request.Description?.Trim(),
-    };
-
-    priorities.Add(priority);
-
-    return Results.Created($"/priorities/{priority.Id}", priority);
-});
-
-app.MapPut("/priorities/{id:int}", (int id, UpdatePriorityRequest request) =>
-{
-    var priority = priorities.FirstOrDefault(priority => priority.Id == id);
-
-    if (priority is null)
-    {
-        return Results.NotFound();
-    }
-
-    if (string.IsNullOrWhiteSpace(request.Title))
-    {
-        return Results.BadRequest("Title is required.");
-    }
-
-    priority.Title = request.Title.Trim();
-    priority.Description = request.Description?.Trim();
-    priority.IsDone = request.IsDone;
-
-    return Results.Ok(priority);
-});
-
-app.MapDelete("/priorities/{id:int}", (int id) =>
-{
-    var priority = priorities.FirstOrDefault(priority => priority.Id == id);
-
-    if (priority is null)
-    {
-        return Results.NotFound();
-    }
-
-    priorities.Remove(priority);
-
-    return Results.NoContent();
-});
+app.MapPrioritiesGateway();
 
 app.Run();
-
-public record CreatePriorityRequest(string Title, string? Description);
-
-public record UpdatePriorityRequest(string Title, string? Description, bool IsDone);
