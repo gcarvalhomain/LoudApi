@@ -18,37 +18,37 @@ Antes de rodar o projeto, instale:
 
 Para verificar se o .NET esta instalado, rode:
 
-```powershell
+
 dotnet --version
-```
+
 
 ## Como rodar o projeto
 
 Abra o terminal na pasta do projeto:
 
-```powershell
+
 C:\Users\Leno Carvalho\Developer\Gabriel\LoudApi
-```
+
 
 Depois rode:
 
-```powershell
+
 dotnet restore
 dotnet run
-```
+
 
 Se tudo estiver certo, o terminal vai mostrar algo parecido com:
 
-```text
+
 Now listening on: http://localhost:5152
 Application started.
-```
+
 
 Agora abra no navegador:
 
-```text
+
 http://localhost:5152
-```
+
 
 ## Estrutura de pastas
 
@@ -90,9 +90,9 @@ Este projeto usa `frontend` como pasta publica do site.
 
 Isso esta configurado em `LoudApi.csproj`:
 
-```xml
+
 <WebRootPath>frontend</WebRootPath>
-```
+
 
 ### `src/backend/`
 
@@ -115,16 +115,16 @@ Esta pasta guarda a API de apresentacao da pagina.
 
 Endpoints:
 
-```text
+
 GET /presentation
 GET /presentation/{section}
-```
+
 
 Exemplo:
 
-```text
+
 http://localhost:5152/presentation
-```
+
 
 ### `src/backend/priorities/`
 
@@ -134,13 +134,13 @@ Ela funciona em memoria. Isso significa que os dados somem quando a aplicacao fe
 
 Endpoints:
 
-```text
+
 GET    /priorities
 GET    /priorities/{id}
 POST   /priorities
 PUT    /priorities/{id}
 DELETE /priorities/{id}
-```
+
 
 ### `src/backend/services/`
 
@@ -154,35 +154,35 @@ Swagger e uma pagina que ajuda a testar a API pelo navegador.
 
 Depois de rodar o projeto, abra:
 
-```text
+
 http://localhost:5152/swagger
-```
+
 
 ## Comandos uteis
 
 Restaurar pacotes:
 
-```powershell
+
 dotnet restore
-```
+
 
 Compilar o projeto:
 
-```powershell
+
 dotnet build
-```
+
 
 Rodar o projeto:
 
-```powershell
+
 dotnet run
-```
+
 
 Limpar arquivos gerados:
 
-```powershell
+
 dotnet clean
-```
+
 
 ## Problemas comuns
 
@@ -190,16 +190,16 @@ dotnet clean
 
 Se aparecer algo como:
 
-```text
+
 DirectoryNotFoundException: ...\wwwroot\
-```
+
 
 rode:
 
-```powershell
+
 dotnet clean
 dotnet run
-```
+
 
 Isso pode acontecer porque antes o ASP.NET usava `wwwroot`, mas agora o projeto usa `frontend`.
 
@@ -209,15 +209,15 @@ Isso acontece quando o projeto ja esta rodando.
 
 Pare o servidor com:
 
-```text
+
 Ctrl + C
-```
+
 
 Depois tente de novo:
 
-```powershell
+
 dotnet build
-```
+
 
 ## Ideias para melhorar no futuro
 
@@ -233,12 +233,12 @@ Este projeto serve uma pagina frontend moderna e tambem oferece APIs simples em 
 
 Use:
 
-```powershell
+
 dotnet run
-```
+
 
 E abra:
 
-```text
+
 http://localhost:5152
-```
+
