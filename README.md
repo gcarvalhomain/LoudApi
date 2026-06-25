@@ -5,7 +5,7 @@ Este projeto e uma aplicacao simples feita com **ASP.NET Core**.
 Ele tem duas partes principais:
 
 1. **Backend**: uma API em C#.
-2. **Frontend**: uma pagina HTML/CSS chamada **VELOTV**.
+2. **Frontend**: uma pagina HTML/CSS chamada **VELO**.
 
 A ideia da pagina e mostrar um site visual sobre eventos de Counter-Strike 2, com informacoes sobre eventos, tickets, noticias e jogadores.
 
@@ -146,7 +146,7 @@ DELETE /priorities/{id}
 
 Aqui ficam servicos usados pela aplicacao.
 
-No momento, existe um servico para retornar os dados da apresentacao VELOTV.
+No momento, existe um servico para retornar os dados da apresentacao VELO.
 
 ## Swagger
 

@@ -8,15 +8,15 @@ Path: `frontend/visual/`
 
 Purpose: visual system, CSS and future frontend assets.
 
-- `frontend/visual/styles/velotv-events.css`: VELOTV page styling, colors, layout, cards, responsive rules and image treatment.
+- `frontend/visual/styles/velotv-events.css`: VELO page styling, colors, layout, cards, responsive rules and image treatment.
 
 ## HTML
 
 Path: `frontend/`
 
-Purpose: frontend static files for the VELOTV page.
+Purpose: frontend static files for the VELO page.
 
-- `frontend/index.html`: the main VELOTV page markup.
+- `frontend/index.html`: the main VELO page markup.
 
 ## C# Backend
 
@@ -45,7 +45,7 @@ Path: `src/backend/information/`
 
 Purpose: content returned by `/presentation`.
 
-- `Informations.cs`: VELOTV content, event cards, palette and actions.
+- `Informations.cs`: VELO content, event cards, palette and actions.
 - `Gateway.cs`: `/presentation` endpoint mapping.
 - `Queries.cs`: query object for section lookup.
 - `Support.cs`: supporting records for visual sections, palette colors and actions.
