@@ -16,6 +16,7 @@
   --hero-image: url("https://i.redd.it/mckxqtfxnxgb1.jpg");
   --teams-hero-image: url("https://www.sheepesports.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F9rqbl8zs%2Fproduction%2F0a3e3410d089cd957ff3caa7ed5943947c1cf46d-1920x1080.webp&w=3840&q=75");
   --arena-image: url("https://arena.rtp.pt/wp-content/uploads/2024/08/lanxess_arena_iem_cologne-24-860x507-1.jpg");
+  --market-hero-image: url("https://img.championat.com/c/1200x900/news/big/l/i/niko-prisoedinilsya-k-team-falcons-po-cs2_17331339151178261405.jpg");
   --trophy-image: url("https://img-cdn.hltv.org/gallerypicture/MROEmoGam231pzqNmdFPEf.jpg?ixlib=java-2.1.0&w=1200&s=39d9344aa85b9be675d668eb74d089b8");
 }
 
@@ -133,7 +134,7 @@ p {
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  overflow-x: auto;
+  overflow: visible;
   scrollbar-width: none;
 }
 
@@ -142,6 +143,7 @@ p {
 }
 
 .menu a,
+.nav-dropdown-toggle,
 .button {
   min-height: 42px;
   display: inline-flex;
@@ -168,6 +170,8 @@ p {
 }
 
 .menu a:hover,
+.nav-dropdown-toggle:hover,
+.nav-dropdown:focus-within .nav-dropdown-toggle,
 .button:hover {
   border-color: rgba(198, 150, 98, 0.58);
   background: rgba(198, 150, 98, 0.16);
@@ -177,6 +181,99 @@ p {
 .menu a:hover {
   color: var(--black);
   background: rgba(198, 150, 98, 0.20);
+}
+
+.nav-dropdown {
+  position: relative;
+  overflow: visible;
+}
+
+.nav-dropdown-toggle {
+  border-color: rgba(47, 35, 25, 0.10);
+  border-radius: 12px;
+  color: var(--accent-dark);
+  background: rgba(255, 253, 248, 0.58);
+  box-shadow: none;
+}
+
+.nav-dropdown-toggle::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-left: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-toggle::after,
+.nav-dropdown[open] .nav-dropdown-toggle::after,
+.nav-dropdown:focus-within .nav-dropdown-toggle::after {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.nav-dropdown-toggle {
+  list-style: none;
+  cursor: pointer;
+}
+
+.nav-dropdown-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 12px);
+  width: min(310px, calc(100vw - 42px));
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(47, 35, 25, 0.14);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(255, 250, 240, 0.98);
+  box-shadow: 0 24px 58px rgba(16, 14, 12, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 160ms ease,
+    visibility 160ms ease,
+    transform 160ms ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown[open] .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown-menu a {
+  width: 100%;
+  min-height: 58px;
+  display: grid;
+  justify-content: stretch;
+  justify-items: start;
+  gap: 4px;
+  padding: 10px 12px;
+  text-align: left;
+  white-space: normal;
+}
+
+.nav-dropdown-menu span {
+  font-size: 13px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.nav-dropdown-menu small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  text-transform: none;
 }
 
 .button {
@@ -297,8 +394,7 @@ p {
     var(--black);
 }
 
-.tournament-hero,
-.market-hero {
+.tournament-hero {
   background:
     linear-gradient(0deg, rgba(16, 14, 12, 0.84), rgba(16, 14, 12, 0.18) 58%, rgba(16, 14, 12, 0.56)),
     linear-gradient(90deg, rgba(48, 34, 24, 0.56), rgba(16, 14, 12, 0.10)),
@@ -306,12 +402,67 @@ p {
     var(--black);
 }
 
+.market-hero {
+  background:
+    linear-gradient(0deg, rgba(16, 14, 12, 0.86), rgba(16, 14, 12, 0.24) 58%, rgba(16, 14, 12, 0.58)),
+    linear-gradient(90deg, rgba(48, 34, 24, 0.62), rgba(16, 14, 12, 0.12)),
+    var(--market-hero-image) center / cover,
+    var(--black);
+}
+
 .hero-copy {
+  align-self: start;
+  min-height: 62vh;
   display: grid;
   justify-items: center;
-  gap: 14px;
+  align-content: center;
+  gap: 18px;
   text-align: center;
   text-shadow: 0 12px 36px rgba(0, 0, 0, 0.64);
+}
+
+.scroll-prompt {
+  position: absolute;
+  top: clamp(26px, 7vh, 64px);
+  left: 50%;
+  z-index: 1;
+  width: min(92%, 520px);
+  border: 1px solid rgba(255, 253, 248, 0.34);
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: rgba(255, 253, 248, 0.94);
+  background: rgba(16, 14, 12, 0.46);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.30);
+  backdrop-filter: blur(10px);
+  font-size: clamp(12px, 2vw, 15px);
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  animation: scrollPromptIn 700ms ease both, scrollPromptPulse 1600ms ease-in-out 800ms infinite;
+}
+
+@keyframes scrollPromptIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes scrollPromptPulse {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, 8px);
+  }
 }
 
 .hero h1 {
@@ -761,7 +912,7 @@ p {
 .market-card-bg {
   background:
     linear-gradient(0deg, rgba(16, 14, 12, 0.90), rgba(16, 14, 12, 0.22) 58%, rgba(16, 14, 12, 0.64)),
-    var(--trophy-image) center / cover,
+    var(--market-hero-image) center / cover,
     var(--black);
 }
 
@@ -852,10 +1003,105 @@ p {
   text-transform: uppercase;
 }
 
+.stat-button {
+  min-height: 72px;
+  border: 1px solid rgba(63, 45, 32, 0.12);
+  border-radius: 6px;
+  padding: 12px;
+  color: var(--accent-dark);
+  background: rgba(255, 253, 248, 0.68);
+  font-size: 12px;
+  font-weight: 850;
+  text-align: left;
+  text-transform: uppercase;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.stat-button:hover,
+.stat-button:focus-visible {
+  border-color: rgba(155, 107, 67, 0.38);
+  background: rgba(255, 253, 248, 0.92);
+  transform: translateY(-2px);
+}
+
+.stat-button:focus-visible {
+  outline: 3px solid rgba(155, 107, 67, 0.28);
+  outline-offset: 2px;
+}
+
 .stat-strip strong {
   display: block;
   color: var(--black);
   font-size: 17px;
+}
+
+.tournament-modal[hidden] {
+  display: none;
+}
+
+.tournament-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(16, 14, 12, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.tournament-dialog {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: min(760px, calc(100vh - 44px));
+  overflow: auto;
+  border: 1px solid rgba(255, 253, 248, 0.24);
+  border-radius: 8px;
+  color: var(--white);
+  background:
+    linear-gradient(145deg, rgba(16, 14, 12, 0.98), rgba(63, 45, 32, 0.94)),
+    var(--black);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.46);
+}
+
+.tournament-modal-copy {
+  display: grid;
+  gap: 16px;
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.tournament-modal-copy h2 {
+  padding-right: 74px;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 0.96;
+}
+
+.tournament-modal-body {
+  color: rgba(255, 253, 248, 0.82);
+  font-size: 14px;
+  line-height: 1.56;
+}
+
+.tournament-modal-body p + p {
+  margin-top: 12px;
+}
+
+.standings-list,
+.playoff-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.standings-list {
+  columns: 2;
+  display: block;
+}
+
+.standings-list li,
+.playoff-list li {
+  margin-bottom: 6px;
 }
 
 .market-section {
@@ -947,6 +1193,12 @@ footer {
     justify-content: flex-start;
   }
 
+  .nav-dropdown-menu {
+    left: 0;
+    right: auto;
+    bottom: calc(100% + 10px);
+  }
+
   .hero {
     min-height: calc(100vh + 96px);
     background-attachment: scroll;
@@ -1005,6 +1257,16 @@ footer {
 
   .menu a {
     min-width: max-content;
+  }
+
+  .menu,
+  .nav-dropdown,
+  .nav-dropdown-toggle {
+    width: 100%;
+  }
+
+  .nav-dropdown-menu {
+    width: 100%;
   }
 
   .hero {

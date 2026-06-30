@@ -10,6 +10,7 @@
   <main class="page home-page">
     <section class="hero" id="events" aria-labelledby="heroTitle">
       <div class="hero-copy">
+        <p class="scroll-prompt">Scroll for more information</p>
         <h1 id="heroTitle">VELO</h1>
       </div>
     </section>
@@ -19,9 +20,27 @@
         <span class="mark">V</span>
         <span>VELO</span>
       </a>
-      <div class="menu">
-        <a href="#events">Events</a>
-      </div>
+      <details class="menu nav-dropdown">
+        <summary class="nav-dropdown-toggle">Explore</summary>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="#events" role="menuitem">
+            <span>Home</span>
+            <small>Start at VELO</small>
+          </a>
+          <a href="/teams.html" role="menuitem">
+            <span>Teams</span>
+            <small>Current contenders</small>
+          </a>
+          <a href="/tournament.html" role="menuitem">
+            <span>Last tournament</span>
+            <small>Cologne Major recap</small>
+          </a>
+          <a href="/market.html" role="menuitem">
+            <span>Market</span>
+            <small>Roster movement</small>
+          </a>
+        </div>
+      </details>
     </nav>
 
     <div class="hub-grid home-hub">
