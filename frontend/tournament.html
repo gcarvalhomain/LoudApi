@@ -13,34 +13,68 @@
         <span class="mark">V</span>
         <span>VELO</span>
       </a>
-      <div class="menu">
-        <a href="/">Events</a>
-      </div>
+      <details class="menu nav-dropdown">
+        <summary class="nav-dropdown-toggle">Explore</summary>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="/" role="menuitem">
+            <span>Home</span>
+            <small>Start at VELO</small>
+          </a>
+          <a href="/teams.html" role="menuitem">
+            <span>Teams</span>
+            <small>Current contenders</small>
+          </a>
+          <a href="/tournament.html" role="menuitem">
+            <span>Last tournament</span>
+            <small>Cologne Major recap</small>
+          </a>
+          <a href="/market.html" role="menuitem">
+            <span>Market</span>
+            <small>Roster movement</small>
+          </a>
+        </div>
+      </details>
     </nav>
 
     <section class="page-hero tournament-hero">
       <p class="eyebrow">Last Tournament</p>
       <h1>IEM Cologne Major 2026</h1>
-      <p>CS2 returns to Cologne from June 2-21, 2026, with playoffs at LANXESS Arena and 32 invited teams.</p>
+      <p>Falcons closed the Cologne Major with a 3-0 grand final over FURIA, lifting the trophy after a 32-team run from June 2-21.</p>
     </section>
 
     <section class="feature-panel">
       <article class="photo-panel">
-        <img src="https://arena.rtp.pt/wp-content/uploads/2024/08/lanxess_arena_iem_cologne-24-860x507-1.jpg" alt="CS2 arena crowd during an esports event">
+        <img src="https://arena.rtp.pt/wp-content/uploads/2024/08/lanxess_arena_iem_cologne-24-860x507-1.jpg" alt="LANXESS Arena crowd during IEM Cologne">
         <div class="photo-copy">
           <p class="eyebrow">Cathedral of Counter-Strike</p>
-          <h2>Major pressure in an arena built for noise</h2>
-          <p>The tournament block focuses on what fans need quickly: date, venue, scale and why the event matters.</p>
+          <h2>Cologne finished the first Major cycle of 2026</h2>
+          <p>Three Swiss stages filtered the field before the final eight reached LANXESS Arena for a single-elimination playoff finish.</p>
         </div>
       </article>
       <article class="story">
-        <p class="eyebrow">Format</p>
-        <h2>Swiss stages into an arena playoff finish</h2>
-        <p>The Major structure moves invited teams through Swiss competition before the final eight reach a single-elimination playoff bracket.</p>
+        <p class="eyebrow">Champion</p>
+        <h2>Falcons complete the run</h2>
+        <p>Team Falcons beat FURIA 3-0 in the grand final, with m0NESY named tournament MVP after a title path through Vitality, Spirit and FURIA.</p>
         <div class="stat-strip" aria-label="Tournament highlights">
-          <span><strong>32</strong> teams</span>
-          <span><strong>June</strong> 2-21</span>
-          <span><strong>LANXESS</strong> playoffs</span>
+          <button class="stat-button" type="button" data-modal="teams"><strong>32</strong> teams</button>
+          <button class="stat-button" type="button" data-modal="format"><strong>June</strong> 2-21</button>
+          <button class="stat-button" type="button" data-modal="playoffs"><strong>LANXESS</strong> playoffs</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="feature-panel">
+      <article class="story">
+        <p class="eyebrow">Trophy lift</p>
+        <h2>m0NESY turns star value into a Major title</h2>
+        <p>Falcons' marquee build paid off in Cologne. The final result was direct, the bracket path was demanding and the MVP award gave the roster a defining event headline.</p>
+      </article>
+      <article class="photo-panel">
+        <img src="https://img-cdn.hltv.org/gallerypicture/MROEmoGam231pzqNmdFPEf.jpg?ixlib=java-2.1.0&amp;w=1200&amp;s=39d9344aa85b9be675d668eb74d089b8" alt="Team Falcons player celebrating with the IEM Cologne Major trophy">
+        <div class="photo-copy">
+          <p class="eyebrow">Falcons 3-0 FURIA</p>
+          <h2>The trophy photo belongs to the roster, not the logo</h2>
+          <p>The champion section uses a real event photo so the page reads like a serious tournament recap.</p>
         </div>
       </article>
     </section>
@@ -48,39 +82,150 @@
     <section class="surface">
       <div class="section-header">
         <div>
-          <p class="eyebrow">What matters</p>
-          <h2>Relevant notes without unnecessary noise</h2>
+          <p class="eyebrow">Result file</p>
+          <h2>Relevant Cologne facts</h2>
         </div>
-        <p>The page is structured for quick updates when new results, brackets or storylines are confirmed.</p>
+        <p>Confirmed details that matter for a final tournament page: champion, MVP, prize pool, final and venue.</p>
       </div>
       <div class="market-grid">
         <article class="card">
-          <span class="meta">Venue</span>
-          <h3>LANXESS Arena</h3>
-          <p>Cologne remains one of the strongest live crowd identities in Counter-Strike.</p>
+          <span class="meta">Champion</span>
+          <h3>Team Falcons</h3>
+          <p>Falcons won the title after eliminating Vitality, Spirit and FURIA during the final playoff run.</p>
         </article>
         <article class="card">
-          <span class="meta">Storyline</span>
-          <h3>Major pressure</h3>
-          <p>Teams are judged by composure, map depth and how they survive long Swiss-stage runs.</p>
+          <span class="meta">MVP</span>
+          <h3>m0NESY</h3>
+          <p>Ilya "m0NESY" Osipov was named tournament MVP, turning Falcons' superstar investment into a title result.</p>
         </article>
         <article class="card">
-          <span class="meta">Fan angle</span>
-          <h3>Playoff weekend</h3>
-          <p>The final bracket is the page's strongest content anchor for match previews and arena updates.</p>
+          <span class="meta">Prize pool</span>
+          <h3>$1,250,000</h3>
+          <p>The Cologne Major carried a seven-figure prize pool across 32 invited and qualified teams.</p>
         </article>
         <article class="card">
-          <span class="meta">Update slot</span>
-          <h3>Results section</h3>
-          <p>Confirmed standings and playoff results can be added here when you choose the final tournament source.</p>
+          <span class="meta">Grand final</span>
+          <h3>Falcons 3-0 FURIA</h3>
+          <p>The best-of-five final ended in a clean sweep, giving Falcons the clearest possible closing statement.</p>
         </article>
       </div>
     </section>
 
     <footer>
       <span>VELO - Last tournament</span>
-      <span>Source checked for current date and venue details</span>
+      <span>Cologne Major recap, playoff field and result notes</span>
     </footer>
   </main>
+
+  <div class="tournament-modal" hidden>
+    <div class="tournament-dialog" role="dialog" aria-modal="true" aria-labelledby="tournament-modal-title">
+      <button class="modal-close" type="button" aria-label="Close tournament details">Close</button>
+      <div class="tournament-modal-copy">
+        <p class="eyebrow">Tournament detail</p>
+        <h2 id="tournament-modal-title">Details</h2>
+        <div class="tournament-modal-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tournamentModal = document.querySelector(".tournament-modal");
+    const tournamentTitle = document.querySelector("#tournament-modal-title");
+    const tournamentBody = document.querySelector(".tournament-modal-body");
+    const tournamentClose = tournamentModal.querySelector(".modal-close");
+    const tournamentDetails = {
+      teams: {
+        title: "Final standings",
+        body: `
+          <ol class="standings-list">
+            <li>Falcons</li>
+            <li>FURIA</li>
+            <li>Aurora</li>
+            <li>Spirit</li>
+            <li>BetBoom</li>
+            <li>9z</li>
+            <li>G2</li>
+            <li>Vitality</li>
+            <li>The MongolZ</li>
+            <li>FUT</li>
+            <li>Natus Vincere</li>
+            <li>MOUZ</li>
+            <li>Monte</li>
+            <li>Legacy</li>
+            <li>B8</li>
+            <li>PARIVISION</li>
+            <li>paiN</li>
+            <li>TYLOO</li>
+            <li>BIG</li>
+            <li>Astralis</li>
+            <li>MIBR</li>
+            <li>M80</li>
+            <li>FlyQuest</li>
+            <li>GamerLegion</li>
+            <li>Lynn Vision</li>
+            <li>Liquid</li>
+            <li>NRG</li>
+            <li>THUNDER dOWNUNDER</li>
+            <li>Sharks</li>
+            <li>HEROIC</li>
+            <li>SINNERS</li>
+            <li>Gaimin Gladiators</li>
+          </ol>
+        `
+      },
+      format: {
+        title: "Tournament format",
+        body: `
+          <p>The Major used three 16-team Swiss stages. Eight teams advanced from each stage, Stage 3 was played entirely as best-of-three matches, and the final eight moved to LANXESS Arena.</p>
+          <p>The playoffs were a single-elimination bracket. Quarter-finals and semi-finals led into a best-of-five grand final.</p>
+        `
+      },
+      playoffs: {
+        title: "LANXESS playoff teams",
+        body: `
+          <ul class="playoff-list">
+            <li>Falcons</li>
+            <li>FURIA</li>
+            <li>Aurora</li>
+            <li>Spirit</li>
+            <li>BetBoom</li>
+            <li>9z</li>
+            <li>G2</li>
+            <li>Vitality</li>
+          </ul>
+        `
+      }
+    };
+
+    function openTournamentModal(key) {
+      const content = tournamentDetails[key];
+      tournamentTitle.textContent = content.title;
+      tournamentBody.innerHTML = content.body;
+      tournamentModal.hidden = false;
+      document.body.classList.add("modal-open");
+      tournamentClose.focus();
+    }
+
+    function closeTournamentModal() {
+      tournamentModal.hidden = true;
+      document.body.classList.remove("modal-open");
+    }
+
+    document.querySelectorAll(".stat-button[data-modal]").forEach((button) => {
+      button.addEventListener("click", () => openTournamentModal(button.dataset.modal));
+    });
+
+    tournamentClose.addEventListener("click", closeTournamentModal);
+    tournamentModal.addEventListener("click", (event) => {
+      if (event.target === tournamentModal) {
+        closeTournamentModal();
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !tournamentModal.hidden) {
+        closeTournamentModal();
+      }
+    });
+  </script>
 </body>
 </html>
