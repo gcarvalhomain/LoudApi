@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO CS2 Arena</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=footer-space-1">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=modal-smooth-1">
 </head>
 <body>
   <main class="page home-page">
@@ -28,9 +28,8 @@
         <span>VELO</span>
       </a>
       <div class="nav-quick-links" aria-label="Account actions">
-        <a href="#events">Events</a>
-        <button type="button">Sign up</button>
-        <button type="button">Login</button>
+        <button type="button" data-modal-target="signupModal">Sign up</button>
+        <button type="button" data-modal-target="loginModal">Login</button>
       </div>
       <details class="menu nav-dropdown">
         <summary class="nav-dropdown-toggle">Explore</summary>
@@ -55,14 +54,14 @@
             <span>Scene activity</span>
             <small>Daily VELO numbers</small>
           </a>
-          <a href="#signup" role="menuitem">
+          <button type="button" role="menuitem" data-modal-target="signupModal">
             <span>Sign up</span>
             <small>Create your VELO profile</small>
-          </a>
-          <a href="#login" role="menuitem">
+          </button>
+          <button type="button" role="menuitem" data-modal-target="loginModal">
             <span>Login</span>
             <small>Return to your dashboard</small>
-          </a>
+          </button>
         </div>
       </details>
     </nav>
@@ -133,17 +132,60 @@
       </div>
     </section>
 
-  <footer>
+    <footer>
       <span>VELO - CS2 Arena</span>
       <span>Copyright 2026. All rights reserved.</span>
     </footer>
   </main>
 
+  <div class="account-modal" id="loginModal" hidden>
+    <div class="account-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <button class="modal-close" type="button" data-modal-close>Close</button>
+      <h2 id="loginTitle">Login</h2>
+      <form class="account-form">
+        <label>Email <input type="email" name="email" autocomplete="email" required></label>
+        <label>Password <input type="password" name="password" autocomplete="current-password" required></label>
+        <button class="button" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="account-modal" id="signupModal" hidden>
+    <div class="account-dialog" role="dialog" aria-modal="true" aria-labelledby="signupTitle">
+      <button class="modal-close" type="button" data-modal-close>Close</button>
+      <h2 id="signupTitle">Sign up</h2>
+      <form class="account-form">
+        <label>Full name <input type="text" name="name" autocomplete="name" required></label>
+        <label>Email <input type="email" name="email" autocomplete="email" required></label>
+        <label>Password <input type="password" name="password" autocomplete="new-password" required></label>
+        <label>Confirm password <input type="password" name="confirm-password" autocomplete="new-password" required></label>
+        <button class="button" type="submit">Create account</button>
+      </form>
+    </div>
+  </div>
+
   <script>
     const exploreMenu = document.querySelector(".nav-dropdown");
+    const exploreToggle = document.querySelector(".nav-dropdown-toggle");
+    const modalTriggers = document.querySelectorAll("[data-modal-target]");
+    const modals = document.querySelectorAll(".account-modal");
 
     function closeExploreMenu() {
-      exploreMenu.open = false;
+      exploreMenu.removeAttribute("open");
+      exploreToggle.blur();
+    }
+
+    function closeModals() {
+      modals.forEach((modal) => {
+        if (!modal.hidden) {
+          modal.classList.add("is-closing");
+          window.setTimeout(() => {
+            modal.hidden = true;
+            modal.classList.remove("is-closing");
+          }, 180);
+        }
+      });
+      document.body.classList.remove("modal-open");
     }
 
     document.addEventListener("click", (event) => {
@@ -152,9 +194,35 @@
       }
     });
 
+    modalTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        closeExploreMenu();
+        closeModals();
+        const modal = document.getElementById(trigger.dataset.modalTarget);
+        modal.classList.remove("is-closing");
+        modal.hidden = false;
+        document.body.classList.add("modal-open");
+      });
+    });
+
+    modals.forEach((modal) => {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal || event.target.matches("[data-modal-close]")) {
+          closeModals();
+        }
+      });
+    });
+
+    document.querySelectorAll(".account-form").forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+      });
+    });
+
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
         closeExploreMenu();
+        closeModals();
       }
     });
   </script>

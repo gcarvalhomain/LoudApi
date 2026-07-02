@@ -144,6 +144,7 @@ p {
 }
 
 .menu a,
+.menu button,
 .nav-quick-links a,
 .nav-quick-links button,
 .nav-dropdown-toggle,
@@ -164,7 +165,8 @@ p {
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
-.menu a {
+.menu a,
+.menu button {
   border-color: rgba(47, 35, 25, 0.10);
   border-radius: 12px;
   color: var(--accent-dark);
@@ -173,17 +175,19 @@ p {
 }
 
 .menu a:hover,
+.menu button:hover,
 .nav-quick-links a:hover,
 .nav-quick-links button:hover,
 .nav-dropdown-toggle:hover,
-.nav-dropdown:focus-within .nav-dropdown-toggle,
+.nav-dropdown[open] .nav-dropdown-toggle,
 .button:hover {
   border-color: rgba(198, 150, 98, 0.58);
   background: rgba(198, 150, 98, 0.16);
   transform: translateY(-2px);
 }
 
-.menu a:hover {
+.menu a:hover,
+.menu button:hover {
   color: var(--black);
   background: rgba(198, 150, 98, 0.20);
 }
@@ -242,9 +246,7 @@ p {
   transition: transform 180ms ease;
 }
 
-.nav-dropdown:hover .nav-dropdown-toggle::after,
-.nav-dropdown[open] .nav-dropdown-toggle::after,
-.nav-dropdown:focus-within .nav-dropdown-toggle::after {
+.nav-dropdown[open] .nav-dropdown-toggle::after {
   transform: translateY(2px) rotate(225deg);
 }
 
@@ -278,15 +280,14 @@ p {
     transform 160ms ease;
 }
 
-.nav-dropdown:hover .nav-dropdown-menu,
-.nav-dropdown[open] .nav-dropdown-menu,
-.nav-dropdown:focus-within .nav-dropdown-menu {
+.nav-dropdown[open] .nav-dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.nav-dropdown-menu a {
+.nav-dropdown-menu a,
+.nav-dropdown-menu button {
   width: 100%;
   min-height: 58px;
   display: grid;
@@ -1105,6 +1106,94 @@ p {
 .modal-close:focus-visible {
   outline: 3px solid rgba(255, 253, 248, 0.86);
   outline-offset: 2px;
+}
+
+.account-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(16, 14, 12, 0.74);
+  backdrop-filter: blur(10px);
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+.account-modal[hidden] {
+  display: none;
+}
+
+.account-modal.is-closing {
+  opacity: 0;
+}
+
+.account-dialog {
+  position: relative;
+  width: min(430px, 100%);
+  display: grid;
+  gap: 18px;
+  border: 1px solid rgba(255, 253, 248, 0.20);
+  border-radius: 8px;
+  padding: 26px;
+  color: var(--white);
+  background:
+    linear-gradient(145deg, rgba(16, 14, 12, 0.98), rgba(63, 45, 32, 0.94)),
+    var(--black);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.46);
+  animation: accountDialogIn 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.account-modal.is-closing .account-dialog {
+  animation: accountDialogOut 180ms ease both;
+}
+
+@keyframes accountDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes accountDialogOut {
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+.account-dialog h2 {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.account-form {
+  display: grid;
+  gap: 12px;
+}
+
+.account-form label {
+  display: grid;
+  gap: 7px;
+  color: rgba(255, 253, 248, 0.78);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.account-form input {
+  min-height: 44px;
+  border: 1px solid rgba(255, 253, 248, 0.18);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: var(--white);
+  background: rgba(255, 253, 248, 0.08);
 }
 
 .modal-open {
