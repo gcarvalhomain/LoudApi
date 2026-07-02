@@ -4,14 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO CS2 Arena</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=home-refresh-4">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=footer-space-1">
 </head>
 <body>
   <main class="page home-page">
     <section class="hero" id="events" aria-labelledby="heroTitle">
       <div class="hero-copy">
         <p class="scroll-prompt">Scroll for more information</p>
-        <h1 id="heroTitle">VELO</h1>
+        <h1 id="heroTitle" class="hero-title velo-assembly" aria-label="VELO">
+          <span class="velo-part velo-part-left">
+            <span class="velo-letter velo-letter-v">V</span><span class="velo-letter velo-letter-e">E</span>
+          </span>
+          <span class="velo-part velo-part-right">
+            <span class="velo-letter velo-letter-l">L</span><span class="velo-letter velo-letter-o">O</span>
+          </span>
+        </h1>
       </div>
     </section>
 
@@ -22,9 +29,8 @@
       </a>
       <div class="nav-quick-links" aria-label="Account actions">
         <a href="#events">Events</a>
-        <a href="#scene">Scene data</a>
-        <a href="#signup">Sign up</a>
-        <a href="#login">Login</a>
+        <button type="button">Sign up</button>
+        <button type="button">Login</button>
       </div>
       <details class="menu nav-dropdown">
         <summary class="nav-dropdown-toggle">Explore</summary>
@@ -61,39 +67,36 @@
       </details>
     </nav>
 
-    <div class="hub-grid home-hub">
-        <article class="image-card hub-card teams-card">
+    <div class="hub-grid home-hub" aria-label="VELO sections">
+        <a class="image-card hub-card teams-card" href="/teams.html">
           <div class="image-card-copy">
-            <a class="button" href="/teams.html">WHAT IS YOUR FAVORITE TEAM?</a>
+            <span class="button">WHAT IS YOUR FAVORITE TEAM?</span>
           </div>
-        </article>
-        <article class="image-card hub-card tournament-card">
+        </a>
+        <a class="image-card hub-card tournament-card" href="/tournament.html">
           <div class="image-card-copy">
-            <a class="button" href="/tournament.html">ABOUT THE LAST TOURNAMENT</a>
+            <span class="button">ABOUT THE LAST TOURNAMENT</span>
           </div>
-        </article>
-        <article class="image-card hub-card market-card-bg">
+        </a>
+        <a class="image-card hub-card market-card-bg" href="/market.html">
           <div class="image-card-copy">
-            <a class="button" href="/market.html">ABOUT THE MARKET AND PLAYERS</a>
+            <span class="button">ABOUT THE MARKET AND PLAYERS</span>
           </div>
-        </article>
+        </a>
     </div>
 
     <section class="scene-signal" id="scene" aria-labelledby="sceneSignalTitle">
-      <span class="nav-anchor" id="signup"></span>
-      <span class="nav-anchor" id="login"></span>
       <div class="scene-signal-inner">
         <div class="scene-signal-copy">
-          <p class="eyebrow">Live scene pulse</p>
           <h2 id="sceneSignalTitle">CS2 traffic moving through VELO every day.</h2>
         </div>
         <div class="scene-stats" aria-label="VELO daily activity">
           <article>
-            <strong>84K</strong>
+            <strong>55K</strong>
             <span>daily page visits</span>
           </article>
           <article>
-            <strong>21K</strong>
+            <strong>88K</strong>
             <span>match notes scanned</span>
           </article>
           <article>
@@ -104,9 +107,35 @@
       </div>
     </section>
 
+    <section class="official-panel page-footer-panel" aria-labelledby="officialTitle">
+      <div>
+        <h2 id="officialTitle">VELO ARENA</h2>
+      </div>
+      <div class="official-grid">
+        <article>
+          <span>Contact</span>
+          <strong>hello@veloarena.gg</strong>
+          <p>Partnerships and team verification.<p>
+            <p>editorial requests and event updates.</p>
+        </article>
+        <article>
+          <span>Channels</span>
+          <strong>Support and press</strong>
+          <p>Business: partners@veloarena.gg<p>
+          <p> press@veloarena.gg</p>
+        </article>
+        <article>
+          <span>Rights</span>
+          <strong>All rights reserved</strong>
+          <p>VELO CS2 Arena is a concept experience. <p>
+          <p>Team names and marks belong to their owners.</p>
+        </article>
+      </div>
+    </section>
+
   <footer>
-      <span>VELO - CS2 arena concept</span>
-      <span>Events, favorite teams, tournament notes and roster market</span>
+      <span>VELO - CS2 Arena</span>
+      <span>Copyright 2026. All rights reserved.</span>
     </footer>
   </main>
 
@@ -116,8 +145,6 @@
     function closeExploreMenu() {
       exploreMenu.open = false;
     }
-
-    exploreMenu.addEventListener("mouseleave", closeExploreMenu);
 
     document.addEventListener("click", (event) => {
       if (!exploreMenu.contains(event.target)) {
