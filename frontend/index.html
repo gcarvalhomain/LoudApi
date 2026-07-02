@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO CS2 Arena</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=cs2-arena-1">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=home-refresh-4">
 </head>
 <body>
   <main class="page home-page">
@@ -20,6 +20,12 @@
         <span class="mark">V</span>
         <span>VELO</span>
       </a>
+      <div class="nav-quick-links" aria-label="Account actions">
+        <a href="#events">Events</a>
+        <a href="#scene">Scene data</a>
+        <a href="#signup">Sign up</a>
+        <a href="#login">Login</a>
+      </div>
       <details class="menu nav-dropdown">
         <summary class="nav-dropdown-toggle">Explore</summary>
         <div class="nav-dropdown-menu" role="menu">
@@ -38,6 +44,18 @@
           <a href="/market.html" role="menuitem">
             <span>Market</span>
             <small>Roster movement</small>
+          </a>
+          <a href="#scene" role="menuitem">
+            <span>Scene activity</span>
+            <small>Daily VELO numbers</small>
+          </a>
+          <a href="#signup" role="menuitem">
+            <span>Sign up</span>
+            <small>Create your VELO profile</small>
+          </a>
+          <a href="#login" role="menuitem">
+            <span>Login</span>
+            <small>Return to your dashboard</small>
           </a>
         </div>
       </details>
@@ -61,10 +79,57 @@
         </article>
     </div>
 
-    <footer>
+    <section class="scene-signal" id="scene" aria-labelledby="sceneSignalTitle">
+      <span class="nav-anchor" id="signup"></span>
+      <span class="nav-anchor" id="login"></span>
+      <div class="scene-signal-inner">
+        <div class="scene-signal-copy">
+          <p class="eyebrow">Live scene pulse</p>
+          <h2 id="sceneSignalTitle">CS2 traffic moving through VELO every day.</h2>
+        </div>
+        <div class="scene-stats" aria-label="VELO daily activity">
+          <article>
+            <strong>84K</strong>
+            <span>daily page visits</span>
+          </article>
+          <article>
+            <strong>21K</strong>
+            <span>match notes scanned</span>
+          </article>
+          <article>
+            <strong>38</strong>
+            <span>team partners mapped</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  <footer>
       <span>VELO - CS2 arena concept</span>
       <span>Events, favorite teams, tournament notes and roster market</span>
     </footer>
   </main>
+
+  <script>
+    const exploreMenu = document.querySelector(".nav-dropdown");
+
+    function closeExploreMenu() {
+      exploreMenu.open = false;
+    }
+
+    exploreMenu.addEventListener("mouseleave", closeExploreMenu);
+
+    document.addEventListener("click", (event) => {
+      if (!exploreMenu.contains(event.target)) {
+        closeExploreMenu();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeExploreMenu();
+      }
+    });
+  </script>
 </body>
 </html>
