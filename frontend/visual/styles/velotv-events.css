@@ -673,11 +673,11 @@ p {
     transform: rotateY(0deg) scale(1);
   }
 
-  100% {
+  45% {
     transform: rotateY(520deg) scale(1.04);
   }
 
-  100% {
+  78% {
     transform: rotateY(900deg) scale(0.98);
   }
 
@@ -728,7 +728,7 @@ p {
     background-position: 135% 0;
   }
 
-  50% {
+  38% {
     opacity: 0.24;
   }
 
@@ -1550,6 +1550,8 @@ p {
 
 .page-footer-panel h2 {
   color: var(--white);
+  margin-inline: auto;
+  text-align: center;
 }
 
 .page-footer-panel .official-grid article {
