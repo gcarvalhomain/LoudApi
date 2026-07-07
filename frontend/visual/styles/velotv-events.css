@@ -343,11 +343,11 @@ p {
 .nav-dropdown-menu a,
 .nav-dropdown-menu button {
   width: 100%;
-  min-height: 58px;
+  min-height: 46px;
   display: grid;
   justify-content: stretch;
   justify-items: start;
-  gap: 4px;
+  gap: 0;
   padding: 10px 12px;
   text-align: left;
   white-space: normal;
