@@ -1,12 +1,14 @@
+
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using LoudApi.Priorities;
 
 namespace LoudApi.Priorities;
 
-public static class PrioritiesGateway
+public static class AuthEndpoints
 {
     private static readonly List<Priority> Priorities = [];
     private static int _nextPriorityId = 1;
@@ -22,17 +24,25 @@ public static class PrioritiesGateway
         group.MapGet("/{id:int}", (int id) =>
         {
             var priority = Priorities.FirstOrDefault(priority => priority.Id == id);
+            if (priority is null)
+            {
+                return Results.NotFound(new ErrorResponse
+                {
+                    Message = "User not foud."
+                });
+            }
 
-            return priority is null
-                ? Results.NotFound()
-                : Results.Ok(priority);
+            return Results.Ok(priority);
         });
 
         group.MapPost("", (CreatePriorityRequest request) =>
         {
             if (string.IsNullOrWhiteSpace(request.Title))
             {
-                return Results.BadRequest("Title is required.");
+                return Results.BadRequest(new ErrorResponse
+                {
+                    Message = "User not foud."
+                });
             }
 
             var priority = new Priority
@@ -53,7 +63,10 @@ public static class PrioritiesGateway
 
             if (priority is null)
             {
-                return Results.NotFound();
+                return Results.NotFound(new ErrorResponse
+                {
+                    Message = "User not foud."
+                });
             }
 
             if (string.IsNullOrWhiteSpace(request.Title))
@@ -68,13 +81,16 @@ public static class PrioritiesGateway
             return Results.Ok(priority);
         });
 
-        group.MapDelete("/{id:int}", (int id) =>
+        group.MapDelete("{id:int}", (int id ) =>
         {
             var priority = Priorities.FirstOrDefault(priority => priority.Id == id);
 
             if (priority is null)
             {
-                return Results.NotFound();
+                return Results.BadRequest(new ErrorResponse
+                {
+                  Message = "User not foud."  
+                });
             }
 
             Priorities.Remove(priority);

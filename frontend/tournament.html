@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO Last Tournament</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=cs2-arena-1">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=nav-clean-8">
 </head>
 <body>
-  <main class="page inner-page">
+  <main class="page inner-page tournament-page">
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="/">
         <span class="mark">V</span>
@@ -18,42 +18,33 @@
         <div class="nav-dropdown-menu" role="menu">
           <a href="/" role="menuitem">
             <span>Home</span>
-            <small>Start at VELO</small>
           </a>
           <a href="/teams.html" role="menuitem">
             <span>Teams</span>
-            <small>Current contenders</small>
           </a>
           <a href="/tournament.html" role="menuitem">
             <span>Last tournament</span>
-            <small>Cologne Major recap</small>
           </a>
           <a href="/market.html" role="menuitem">
             <span>Market</span>
-            <small>Roster movement</small>
           </a>
         </div>
       </details>
     </nav>
 
     <section class="page-hero tournament-hero">
-      <p class="eyebrow">Last Tournament</p>
       <h1>IEM Cologne Major 2026</h1>
-      <p>Falcons closed the Cologne Major with a 3-0 grand final over FURIA, lifting the trophy after a 32-team run from June 2-21.</p>
     </section>
 
     <section class="feature-panel">
-      <article class="photo-panel">
-        <img src="https://arena.rtp.pt/wp-content/uploads/2024/08/lanxess_arena_iem_cologne-24-860x507-1.jpg" alt="LANXESS Arena crowd during IEM Cologne">
+      <article class="photo-panel tournament-full-bleed tournament-intro-card">
+        <img src="https://pro.eslgaming.com/tour/wp-content/uploads/2026/06/20260621_Adela-Sznajder_IEM-Cologne_24004.jpg" alt="IEM Cologne 2026 stage and crowd">
         <div class="photo-copy">
-          <p class="eyebrow">Cathedral of Counter-Strike</p>
-          <h2>Cologne finished the first Major cycle of 2026</h2>
-          <p>Three Swiss stages filtered the field before the final eight reached LANXESS Arena for a single-elimination playoff finish.</p>
+          <h1>Cologne finished the first Major cycle of 2026</h1>
         </div>
       </article>
-      <article class="story">
-        <p class="eyebrow">Champion</p>
-        <h2>Falcons complete the run</h2>
+      <article class="story tournament-full-bleed tournament-story-card tournament-run-card">
+        <h2>FALCONS COMPLETE THE RUN</h2>
         <p>Team Falcons beat FURIA 3-0 in the grand final, with m0NESY named tournament MVP after a title path through Vitality, Spirit and FURIA.</p>
         <div class="stat-strip" aria-label="Tournament highlights">
           <button class="stat-button" type="button" data-modal="teams"><strong>32</strong> teams</button>
@@ -64,17 +55,13 @@
     </section>
 
     <section class="feature-panel">
-      <article class="story">
-        <p class="eyebrow">Trophy lift</p>
+      <article class="story tournament-full-bleed tournament-story-card tournament-mvp-card">
         <h2>m0NESY turns star value into a Major title</h2>
-        <p>Falcons' marquee build paid off in Cologne. The final result was direct, the bracket path was demanding and the MVP award gave the roster a defining event headline.</p>
       </article>
-      <article class="photo-panel">
-        <img src="https://img-cdn.hltv.org/gallerypicture/MROEmoGam231pzqNmdFPEf.jpg?ixlib=java-2.1.0&amp;w=1200&amp;s=39d9344aa85b9be675d668eb74d089b8" alt="Team Falcons player celebrating with the IEM Cologne Major trophy">
+      <article class="photo-panel tournament-full-bleed tournament-final-card">
         <div class="photo-copy">
           <p class="eyebrow">Falcons 3-0 FURIA</p>
-          <h2>The trophy photo belongs to the roster, not the logo</h2>
-          <p>The champion section uses a real event photo so the page reads like a serious tournament recap.</p>
+          <h2>EMOTIONAL FINAL</h2>
         </div>
       </article>
     </section>
@@ -82,31 +69,22 @@
     <section class="surface">
       <div class="section-header">
         <div>
-          <p class="eyebrow">Result file</p>
           <h2>Relevant Cologne facts</h2>
         </div>
-        <p>Confirmed details that matter for a final tournament page: champion, MVP, prize pool, final and venue.</p>
       </div>
       <div class="market-grid">
-        <article class="card">
+        <article class="card tournament-full-bleed tournament-result-card tournament-champion-card">
           <span class="meta">Champion</span>
-          <h3>Team Falcons</h3>
-          <p>Falcons won the title after eliminating Vitality, Spirit and FURIA during the final playoff run.</p>
         </article>
-        <article class="card">
-          <span class="meta">MVP</span>
-          <h3>m0NESY</h3>
-          <p>Ilya "m0NESY" Osipov was named tournament MVP, turning Falcons' superstar investment into a title result.</p>
+        <article class="card tournament-full-bleed tournament-result-card tournament-result-mvp-card">
+          <h3>MVP m0NESY</h3>
         </article>
-        <article class="card">
+        <article class="card tournament-full-bleed tournament-result-card tournament-prize-card">
           <span class="meta">Prize pool</span>
           <h3>$1,250,000</h3>
-          <p>The Cologne Major carried a seven-figure prize pool across 32 invited and qualified teams.</p>
         </article>
-        <article class="card">
-          <span class="meta">Grand final</span>
+        <article class="card tournament-full-bleed tournament-result-card tournament-grand-final-card">
           <h3>Falcons 3-0 FURIA</h3>
-          <p>The best-of-five final ended in a clean sweep, giving Falcons the clearest possible closing statement.</p>
         </article>
       </div>
     </section>
@@ -197,22 +175,30 @@
       }
     };
 
-    function openTournamentModal(key) {
+    function openTournamentModal(key, trigger) {
       const content = tournamentDetails[key];
+      const rect = trigger.getBoundingClientRect();
+      tournamentModal.style.setProperty("--modal-origin-x", `${rect.left + rect.width / 2}px`);
+      tournamentModal.style.setProperty("--modal-origin-y", `${rect.top + rect.height / 2}px`);
       tournamentTitle.textContent = content.title;
       tournamentBody.innerHTML = content.body;
+      tournamentModal.classList.remove("is-closing");
       tournamentModal.hidden = false;
       document.body.classList.add("modal-open");
       tournamentClose.focus();
     }
 
     function closeTournamentModal() {
-      tournamentModal.hidden = true;
+      tournamentModal.classList.add("is-closing");
+      window.setTimeout(() => {
+        tournamentModal.hidden = true;
+        tournamentModal.classList.remove("is-closing");
+      }, 240);
       document.body.classList.remove("modal-open");
     }
 
     document.querySelectorAll(".stat-button[data-modal]").forEach((button) => {
-      button.addEventListener("click", () => openTournamentModal(button.dataset.modal));
+      button.addEventListener("click", () => openTournamentModal(button.dataset.modal, button));
     });
 
     tournamentClose.addEventListener("click", closeTournamentModal);
