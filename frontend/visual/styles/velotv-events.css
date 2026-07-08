@@ -33,6 +33,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--page);
@@ -82,6 +83,10 @@ p {
 
 .inner-page {
   padding-top: 18px;
+}
+
+.teams-page {
+  padding-top: 0;
 }
 
 .nav {
@@ -287,6 +292,11 @@ p {
   color: var(--accent-dark);
   background: rgba(255, 253, 248, 0.58);
   box-shadow: none;
+  transition:
+    color 240ms ease,
+    background 240ms ease,
+    box-shadow 280ms ease,
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-dropdown-toggle::after {
@@ -302,6 +312,13 @@ p {
 
 .nav-dropdown[open] .nav-dropdown-toggle::after {
   transform: translateY(2px) rotate(225deg);
+}
+
+.nav-dropdown[open] .nav-dropdown-toggle {
+  color: var(--black);
+  background: rgba(198, 150, 98, 0.22);
+  box-shadow: 0 12px 28px rgba(47, 35, 25, 0.14);
+  transform: translateY(-1px);
 }
 
 .nav-dropdown-toggle {
@@ -327,17 +344,55 @@ p {
   box-shadow: 0 24px 58px rgba(16, 14, 12, 0.22);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(8px);
+  transform: translateY(16px) scale(0.96);
+  transform-origin: bottom right;
   transition:
-    opacity 160ms ease,
-    visibility 160ms ease,
-    transform 160ms ease;
+    opacity 280ms ease,
+    visibility 280ms ease,
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-dropdown[open] .nav-dropdown-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+}
+
+.nav-dropdown.is-opening .nav-dropdown-menu {
+  animation: exploreMenuIn 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nav-dropdown.is-closing .nav-dropdown-menu {
+  visibility: visible;
+  animation: exploreMenuOut 300ms cubic-bezier(0.7, 0, 0.84, 0) both;
+}
+
+.nav-dropdown.is-closing .nav-dropdown-toggle::after {
+  transform: translateY(-2px) rotate(45deg);
+}
+
+@keyframes exploreMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes exploreMenuOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
 }
 
 .nav-dropdown-menu a,
@@ -552,6 +607,17 @@ p {
 }
 
 .teams-hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  border: 0;
+  border-radius: 0;
+  padding: clamp(34px, 7vw, 96px);
   background:
     linear-gradient(0deg, rgba(16, 14, 12, 0.88), rgba(16, 14, 12, 0.22) 58%, rgba(16, 14, 12, 0.58)),
     linear-gradient(90deg, rgba(48, 34, 24, 0.58), rgba(16, 14, 12, 0.12)),
@@ -597,7 +663,7 @@ p {
 
 .scroll-prompt {
   position: absolute;
-  bottom: calc(var(--home-nav-height, 70px) + 38px);
+  bottom: calc(var(--home-nav-height, 70px) + 118px);
   left: 50%;
   z-index: 1;
   width: max-content;
@@ -618,7 +684,9 @@ p {
   letter-spacing: 0;
   text-transform: uppercase;
   transform: translateX(-50%);
-  animation: scrollPromptIn 700ms ease both, scrollPromptPulse 1600ms ease-in-out 800ms infinite;
+  pointer-events: none;
+  will-change: opacity, transform;
+  animation: scrollPromptLifecycle 5.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .scroll-prompt::after {
@@ -630,26 +698,35 @@ p {
   transform: translateY(-2px) rotate(45deg);
 }
 
-@keyframes scrollPromptIn {
-  from {
+@keyframes scrollPromptLifecycle {
+  0% {
     opacity: 0;
-    transform: translate(-50%, 12px);
+    transform: translate3d(-50%, 10px, 0) scale(0.98);
+    visibility: visible;
   }
 
-  to {
+  16% {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate3d(-50%, 0, 0) scale(1);
+    visibility: visible;
   }
-}
 
-@keyframes scrollPromptPulse {
-  0%,
+  64% {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0) scale(1);
+    visibility: visible;
+  }
+
+  78% {
+    opacity: 0.94;
+    transform: translate3d(-50%, -3px, 0) scale(0.995);
+    visibility: visible;
+  }
+
   100% {
-    transform: translate(-50%, 0);
-  }
-
-  50% {
-    transform: translate(-50%, 8px);
+    opacity: 0;
+    transform: translate3d(-50%, -8px, 0) scale(0.985);
+    visibility: hidden;
   }
 }
 
@@ -663,7 +740,9 @@ p {
   line-height: 0.86;
   font-weight: 950;
   transform-style: preserve-3d;
-  animation: veloWordSpin 950ms cubic-bezier(0.22, 0.86, 0.24, 1) 1300ms both;
+  transform-origin: center center;
+  animation: veloWordSpin 1250ms cubic-bezier(0.2, 0.82, 0.2, 1) 980ms both;
+  will-change: transform;
 }
 
 .velo-part {
@@ -674,11 +753,11 @@ p {
 }
 
 .velo-part-left {
-  animation: veloPartLeftJoin 3000ms cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+  animation: veloPartLeftJoin 1900ms cubic-bezier(0.2, 0.82, 0.2, 1) 120ms forwards;
 }
 
 .velo-part-right {
-  animation: veloPartRightJoin 3000ms cubic-bezier(0.16, 1, 0.3, 1) 120ms forwards;
+  animation: veloPartRightJoin 1900ms cubic-bezier(0.2, 0.82, 0.2, 1) 120ms forwards;
 }
 
 .velo-letter {
@@ -697,8 +776,8 @@ p {
     0 0 22px rgba(255, 255, 255, 0.20);
   transform-origin: center;
   animation:
-    veloFinalSettle 1200ms cubic-bezier(0.16, 1, 0.3, 1) 2300ms both,
-    veloFinalFloat 2600ms ease-in-out 3500ms infinite;
+    veloFinalSettle 950ms cubic-bezier(0.2, 0.82, 0.2, 1) 2050ms both,
+    veloFinalFloat 2600ms ease-in-out 3050ms infinite;
 }
 
 .velo-letter-v::after {
@@ -718,28 +797,38 @@ p {
 .velo-letter-e,
 .velo-letter-l,
 .velo-letter-o {
-  animation: veloLetterRelease 620ms ease 2300ms forwards;
+  animation: veloLetterRelease 560ms cubic-bezier(0.2, 0.82, 0.2, 1) 2050ms forwards;
 }
 
 @keyframes veloPartLeftJoin {
-  from {
+  0% {
     opacity: 0;
-    transform: translateX(calc(-50vw - 110%)) rotateY(-34deg);
+    transform: translateX(calc(-50vw - 110%)) rotateY(-18deg);
   }
 
-  to {
+  72% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
+
+  100% {
     opacity: 1;
     transform: translateX(0) rotateY(0deg);
   }
 }
 
 @keyframes veloPartRightJoin {
-  from {
+  0% {
     opacity: 0;
-    transform: translateX(calc(50vw + 110%)) rotateY(34deg);
+    transform: translateX(calc(50vw + 110%)) rotateY(18deg);
   }
 
-  to {
+  72% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
+
+  100% {
     opacity: 1;
     transform: translateX(0) rotateY(0deg);
   }
@@ -747,19 +836,19 @@ p {
 
 @keyframes veloWordSpin {
   0% {
-    transform: rotateY(0deg) scale(1);
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
   }
 
-  45% {
-    transform: rotateY(520deg) scale(1.04);
+  35% {
+    transform: rotateX(10deg) rotateY(320deg) rotateZ(-2deg) scale(1.035);
   }
 
-  78% {
-    transform: rotateY(900deg) scale(0.98);
+  72% {
+    transform: rotateX(-8deg) rotateY(720deg) rotateZ(2deg) scale(1.01);
   }
 
   100% {
-    transform: rotateY(1080deg) scale(1);
+    transform: rotateX(0deg) rotateY(1080deg) rotateZ(0deg) scale(1);
   }
 }
 
@@ -922,6 +1011,9 @@ p {
 }
 
 .team-card {
+  align-content: center;
+  justify-items: center;
+  text-align: center;
   cursor: pointer;
   outline: none;
   transition:
@@ -968,6 +1060,21 @@ p {
   background:
     linear-gradient(135deg, rgba(16, 14, 12, 0.92), rgba(63, 45, 32, 0.82)),
     var(--black);
+}
+
+.furia-card > div {
+  position: relative;
+  z-index: 1;
+}
+
+.teams-hero h1 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.teams-page .section-header {
+  justify-content: center;
+  text-align: center;
 }
 
 .furia-card .meta,
@@ -1025,10 +1132,13 @@ p {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background:
-    linear-gradient(180deg, rgba(16, 14, 12, 0.12), rgba(16, 14, 12, 0.70)),
-    radial-gradient(circle at 82% 20%, rgba(255, 253, 248, 0.18), transparent 34%);
+  background: transparent;
   pointer-events: none;
+}
+
+.logo-backdrop-card > div {
+  position: relative;
+  z-index: 1;
 }
 
 .logo-backdrop-card .meta,
@@ -1195,7 +1305,9 @@ p {
   background: rgba(16, 14, 12, 0.74);
   backdrop-filter: blur(10px);
   opacity: 1;
-  transition: opacity 220ms ease;
+  transition:
+    opacity 340ms ease,
+    backdrop-filter 340ms ease;
 }
 
 .account-modal[hidden] {
@@ -1204,6 +1316,11 @@ p {
 
 .account-modal.is-closing {
   opacity: 0;
+}
+
+.account-modal.is-opening {
+  opacity: 0;
+  backdrop-filter: blur(0);
 }
 
 .account-dialog {
@@ -1219,11 +1336,16 @@ p {
     linear-gradient(145deg, rgba(16, 14, 12, 0.98), rgba(63, 45, 32, 0.94)),
     var(--black);
   box-shadow: 0 34px 90px rgba(0, 0, 0, 0.46);
-  animation: accountDialogIn 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: accountDialogIn 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .account-modal.is-closing .account-dialog {
-  animation: accountDialogOut 180ms ease both;
+  animation: accountDialogOut 240ms ease both;
+}
+
+.account-modal.is-opening .account-dialog {
+  opacity: 0;
+  transform: translateY(24px) scale(0.94);
 }
 
 @keyframes accountDialogIn {

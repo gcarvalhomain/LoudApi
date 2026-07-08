@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO CS2 Arena</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=nav-clean-8">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=velo-orbit-smooth-1">
 </head>
 <body>
   <main class="page home-page">
@@ -49,12 +49,6 @@
           <a href="#scene" role="menuitem">
             <span>Scene activity</span>
           </a>
-          <button type="button" role="menuitem" data-modal-target="signupModal">
-            <span>Sign up</span>
-          </button>
-          <button type="button" role="menuitem" data-modal-target="loginModal">
-            <span>Login</span>
-          </button>
         </div>
       </details>
     </nav>
@@ -160,12 +154,36 @@
   <script>
     const exploreMenu = document.querySelector(".nav-dropdown");
     const exploreToggle = document.querySelector(".nav-dropdown-toggle");
+    const scrollPrompt = document.querySelector(".scroll-prompt");
     const modalTriggers = document.querySelectorAll("[data-modal-target]");
     const modals = document.querySelectorAll(".account-modal");
 
     function closeExploreMenu() {
-      exploreMenu.removeAttribute("open");
+      if (!exploreMenu.open || exploreMenu.classList.contains("is-closing")) {
+        return;
+      }
+      exploreMenu.classList.remove("is-opening");
+      exploreMenu.classList.add("is-closing");
       exploreToggle.blur();
+      window.setTimeout(() => {
+        exploreMenu.removeAttribute("open");
+        exploreMenu.classList.remove("is-closing");
+      }, 300);
+    }
+
+    function openExploreMenu() {
+      if (exploreMenu.classList.contains("is-closing")) {
+        return;
+      }
+      if (exploreMenu.open) {
+        closeExploreMenu();
+        return;
+      }
+      exploreMenu.classList.add("is-opening");
+      exploreMenu.setAttribute("open", "");
+      window.setTimeout(() => {
+        exploreMenu.classList.remove("is-opening");
+      }, 360);
     }
 
     function closeModals() {
@@ -175,11 +193,16 @@
           window.setTimeout(() => {
             modal.hidden = true;
             modal.classList.remove("is-closing");
-          }, 180);
+          }, 240);
         }
       });
       document.body.classList.remove("modal-open");
     }
+
+    exploreToggle.addEventListener("click", (event) => {
+      event.preventDefault();
+      openExploreMenu();
+    });
 
     document.addEventListener("click", (event) => {
       if (!exploreMenu.contains(event.target)) {
@@ -193,8 +216,12 @@
         closeModals();
         const modal = document.getElementById(trigger.dataset.modalTarget);
         modal.classList.remove("is-closing");
+        modal.classList.add("is-opening");
         modal.hidden = false;
         document.body.classList.add("modal-open");
+        window.requestAnimationFrame(() => {
+          modal.classList.remove("is-opening");
+        });
       });
     });
 
@@ -211,6 +238,10 @@
         event.preventDefault();
       });
     });
+
+    window.setTimeout(() => {
+      scrollPrompt.hidden = true;
+    }, 5800);
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
