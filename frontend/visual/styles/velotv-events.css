@@ -13,10 +13,10 @@
   --bronze: #c69662;
   --shadow: 0 22px 54px rgba(47, 35, 25, 0.16);
   --dock-shadow: 0 22px 58px rgba(16, 14, 12, 0.28);
-  --hero-image: url("https://i.redd.it/mckxqtfxnxgb1.jpg");
+  --hero-image: url("https://4kwallpapers.com/images/wallpapers/counter-strike--9192.png");
   --teams-hero-image: url("https://www.sheepesports.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F9rqbl8zs%2Fproduction%2F0a3e3410d089cd957ff3caa7ed5943947c1cf46d-1920x1080.webp&w=3840&q=75");
   --arena-image: url("https://arena.rtp.pt/wp-content/uploads/2024/08/lanxess_arena_iem_cologne-24-860x507-1.jpg");
-  --market-hero-image: url("https://img.championat.com/c/1200x900/news/big/l/i/niko-prisoedinilsya-k-team-falcons-po-cs2_17331339151178261405.jpg");
+  --market-hero-image: url("https://wallpapercave.com/wp/wp14609456.png");
   --trophy-image: url("https://img-cdn.hltv.org/gallerypicture/MROEmoGam231pzqNmdFPEf.jpg?ixlib=java-2.1.0&w=1200&s=39d9344aa85b9be675d668eb74d089b8");
 }
 
@@ -87,6 +87,18 @@ p {
 
 .teams-page {
   padding-top: 0;
+}
+
+.market-page {
+  width: 100%;
+  padding-top: 0;
+  gap: 0;
+}
+
+.market-page .market-section,
+.market-page .feature-panel,
+.market-page footer {
+  margin-top: 22px;
 }
 
 .nav {
@@ -643,11 +655,36 @@ p {
 }
 
 .market-hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: clamp(34px, 7vw, 96px) max(18px, calc((100vw - 1180px) / 2));
   background:
-    linear-gradient(0deg, rgba(16, 14, 12, 0.86), rgba(16, 14, 12, 0.24) 58%, rgba(16, 14, 12, 0.58)),
-    linear-gradient(90deg, rgba(48, 34, 24, 0.62), rgba(16, 14, 12, 0.12)),
+    radial-gradient(circle at center, rgba(16, 14, 12, 0.04), rgba(16, 14, 12, 0.34) 58%, rgba(16, 14, 12, 0.68)),
+    linear-gradient(0deg, rgba(16, 14, 12, 0.72), rgba(16, 14, 12, 0.06) 50%, rgba(16, 14, 12, 0.44)),
     var(--market-hero-image) center / cover,
     var(--black);
+}
+
+.market-hero-copy {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.market-hero h1 {
+  max-width: 980px;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .hero-copy {
@@ -1227,6 +1264,140 @@ p {
   background: rgba(255, 253, 248, 0.70);
 }
 
+.player-ranking-section {
+  display: grid;
+  gap: 18px;
+  margin-top: clamp(18px, 3vw, 28px);
+  overflow: hidden;
+}
+
+.player-ranking-header {
+  gap: 18px;
+}
+
+.player-ranking-header .eyebrow {
+  margin-bottom: 8px;
+}
+
+.ranking-source {
+  flex: 0 0 auto;
+  border: 1px solid rgba(63, 45, 32, 0.18);
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.ranking-source:hover,
+.ranking-source:focus-visible {
+  color: var(--white);
+  background: var(--black);
+  border-color: var(--black);
+}
+
+.player-ranking-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(63, 45, 32, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.92), rgba(248, 242, 234, 0.92)),
+    var(--paper-soft);
+}
+
+.player-ranking-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.player-ranking-table th,
+.player-ranking-table td {
+  border-bottom: 1px solid rgba(63, 45, 32, 0.10);
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.player-ranking-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: rgba(16, 14, 12, 0.62);
+  background: rgba(255, 253, 248, 0.96);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.player-ranking-table th:not(:nth-child(2)),
+.player-ranking-table td:not(:nth-child(2)) {
+  text-align: center;
+}
+
+.player-ranking-table tbody tr {
+  transition: background 150ms ease;
+}
+
+.player-ranking-table tbody tr:hover {
+  background: rgba(155, 107, 67, 0.09);
+}
+
+.player-ranking-table tbody tr:nth-child(-n + 3) .player-avatar {
+  color: var(--black);
+  background: linear-gradient(135deg, #f6d223, #fff1a8);
+}
+
+.player-cell {
+  display: flex;
+  align-items: center;
+  min-width: 240px;
+  gap: 12px;
+}
+
+.player-avatar {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(16, 14, 12, 0.10);
+  border-radius: 50%;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 253, 248, 0.30), transparent 35%),
+    linear-gradient(145deg, rgba(16, 14, 12, 0.96), rgba(155, 107, 67, 0.94));
+  box-shadow: 0 10px 24px rgba(16, 14, 12, 0.12);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.player-cell strong,
+.player-cell small {
+  display: block;
+}
+
+.player-cell strong {
+  color: var(--black);
+  font-size: 15px;
+  line-height: 1.1;
+}
+
+.player-cell small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
 .team-photo-modal[hidden] {
   display: none;
 }
@@ -1504,6 +1675,12 @@ p {
   gap: 0;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.tournament-page > .feature-panel,
+.tournament-page > .surface,
+.tournament-page > footer {
+  margin-top: 22px;
 }
 
 .tournament-page .nav {
@@ -1986,10 +2163,30 @@ p {
 }
 
 .market-section {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: clamp(54px, 7vw, 92px) max(18px, calc((100vw - 1180px) / 2));
   color: var(--white);
   background:
-    linear-gradient(145deg, rgba(16, 14, 12, 0.94), rgba(63, 45, 32, 0.92)),
+    radial-gradient(circle at center, rgba(255, 253, 248, 0.10), transparent 42%),
+    linear-gradient(145deg, rgba(16, 14, 12, 0.88), rgba(63, 45, 32, 0.78)),
+    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBuv2u9n1-k_tWaVts7k-Glxa4xKoUeQAN9YBntJTUazdWS80-MaI9Crec&s=10") center / cover,
     var(--black);
+}
+
+.market-section .section-header {
+  justify-content: center;
+  text-align: center;
+}
+
+.market-section .section-header h2 {
+  max-width: 780px;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .market-section .section-header p,
@@ -2004,14 +2201,63 @@ p {
 }
 
 .market-section .card {
-  border-color: rgba(255, 253, 248, 0.16);
+  min-height: 220px;
+  align-content: center;
+  justify-items: center;
+  border: 0;
+  border-color: transparent;
   color: var(--white);
-  background: rgba(255, 253, 248, 0.08);
+  background: rgba(16, 14, 12, 0.58);
   box-shadow: none;
+  text-align: center;
+  text-shadow: 0 10px 28px rgba(0, 0, 0, 0.54);
+  backdrop-filter: blur(2px);
 }
 
 .market-section .meta {
   color: var(--bronze);
+}
+
+.market-section .card h3,
+.market-section .card p {
+  max-width: 290px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.market-section .card p {
+  color: rgba(255, 253, 248, 0.80);
+}
+
+.market-section + .feature-panel {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+}
+
+.market-section + .feature-panel .story {
+  min-height: clamp(360px, 52vh, 560px);
+  align-content: center;
+  justify-items: center;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: clamp(34px, 6vw, 76px);
+  text-align: center;
+}
+
+.market-section + .feature-panel .story h2,
+.market-section + .feature-panel .story p {
+  max-width: 620px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.market-page footer {
+  justify-content: center;
+  text-align: center;
 }
 
 .dark-story {
@@ -2298,5 +2544,19 @@ footer {
 
   .tournament-page .market-grid {
     width: min(100%, calc(100vw - 28px));
+  }
+}
+
+@media (max-width: 860px) {
+  .market-section + .feature-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .market-hero {
+    padding-inline: 20px;
+  }
+
+  .market-section {
+    padding-inline: 20px;
   }
 }
