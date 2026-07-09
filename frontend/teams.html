@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO Favorite Teams</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=teams-player-ranking-1">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=teams-full-bleed-1">
 </head>
 <body>
   <main class="page inner-page teams-page">
@@ -33,7 +33,10 @@
     </nav>
 
     <section class="page-hero teams-hero">
-      <h1>BEST TEAMS AND PLAYERS OF CS2</h1>
+      <h1 class="split-hero-title" aria-label="BEST TEAMS AND PLAYERS OF CS2">
+        <span class="split-title-part split-title-left">BEST TEAMS AND</span>
+        <span class="split-title-part split-title-right">PLAYERS OF CS2</span>
+      </h1>
     </section>
 
     <section class="surface">
@@ -118,13 +121,14 @@
     <section class="surface player-ranking-section" aria-labelledby="player-ranking-title">
       <div class="section-header player-ranking-header">
         <div>
-          <p class="eyebrow">CS2 PRO PLAYERS</p>
-          <h1 id="player-ranking-title">TOP 50 PLAYER RANKING</h1>
+          <h1 id="player-ranking-title">TOP RANKING</h1>
         </div>
-        <a class="ranking-source" href="https://profilerr.net/pt/cs-go/pro-players/" target="_blank" rel="noreferrer">Fonte: Profilerr</a>
+        <div class="ranking-source-group">
+        </div>
       </div>
 
-      <div class="player-ranking-table-wrap">
+      <div class="ranking-split">
+      <div class="player-ranking-table-wrap ranking-panel">
         <table class="player-ranking-table">
           <thead>
             <tr>
@@ -190,6 +194,106 @@
             <tr><td>50</td><td><div class="player-cell"><span class="player-avatar">SK</span><span><strong>sk0R</strong><small>Tengis Batjargal</small></span></div></td><td>Sem equipe</td><td>24</td><td>37%</td><td>83.02</td><td>1.15</td></tr>
           </tbody>
         </table>
+      </div>
+      <div class="player-ranking-table-wrap ranking-panel team-ranking-panel">
+        <table class="player-ranking-table team-ranking-table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Equipe</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Vitórias</th>
+              <th scope="col">K/D</th>
+              <th scope="col">Prêmios</th>
+              <th scope="col">Mapa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><div class="player-cell"><span class="player-avatar">VI</span><span><strong>Vitality</strong><small>Profilerr ranking</small></span></div></td><td>1000</td><td>79%</td><td>0.00</td><td>4.01 KK</td><td>Mirage</td></tr>
+            <tr><td>2</td><td><div class="player-cell"><span class="player-avatar">FU</span><span><strong>FURIA</strong><small>Profilerr ranking</small></span></div></td><td>561</td><td>60%</td><td>0.00</td><td>1.87 KK</td><td>Inferno</td></tr>
+            <tr><td>3</td><td><div class="player-cell"><span class="player-avatar">MZ</span><span><strong>MOUZ</strong><small>Profilerr ranking</small></span></div></td><td>452</td><td>59%</td><td>0.00</td><td>4.04 KK</td><td>Inferno</td></tr>
+            <tr><td>4</td><td><div class="player-cell"><span class="player-avatar">FA</span><span><strong>Falcons</strong><small>Profilerr ranking</small></span></div></td><td>440</td><td>0</td><td>0.00</td><td>N/A</td><td>N/A</td></tr>
+            <tr><td>5</td><td><div class="player-cell"><span class="player-avatar">NA</span><span><strong>Natus Vincere</strong><small>Profilerr ranking</small></span></div></td><td>430</td><td>68%</td><td>0.00</td><td>9.48 KK</td><td>Inferno</td></tr>
+            <tr><td>6</td><td><div class="player-cell"><span class="player-avatar">PV</span><span><strong>PARIVISION</strong><small>Profilerr ranking</small></span></div></td><td>371</td><td>25%</td><td>0.00</td><td>N/A</td><td>Inferno</td></tr>
+            <tr><td>7</td><td><div class="player-cell"><span class="player-avatar">SP</span><span><strong>Spirit</strong><small>Profilerr ranking</small></span></div></td><td>365</td><td>89%</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>8</td><td><div class="player-cell"><span class="player-avatar">TM</span><span><strong>TheMongolz</strong><small>Profilerr ranking</small></span></div></td><td>296</td><td>50%</td><td>0.00</td><td>N/A</td><td>Inferno</td></tr>
+            <tr><td>9</td><td><div class="player-cell"><span class="player-avatar">AS</span><span><strong>Astralis</strong><small>Profilerr ranking</small></span></div></td><td>244</td><td>43%</td><td>0.00</td><td>9.94 KK</td><td>Inferno</td></tr>
+            <tr><td>10</td><td><div class="player-cell"><span class="player-avatar">FZ</span><span><strong>FaZe</strong><small>Profilerr ranking</small></span></div></td><td>224</td><td>46%</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>11</td><td><div class="player-cell"><span class="player-avatar">G2</span><span><strong>G2</strong><small>Profilerr ranking</small></span></div></td><td>190</td><td>52%</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>12</td><td><div class="player-cell"><span class="player-avatar">3D</span><span><strong>3DMAX</strong><small>Profilerr ranking</small></span></div></td><td>111</td><td>27%</td><td>0.00</td><td>97.16 K</td><td>Mirage</td></tr>
+            <tr><td>13</td><td><div class="player-cell"><span class="player-avatar">GL</span><span><strong>GamerLegion</strong><small>Profilerr ranking</small></span></div></td><td>75</td><td>53%</td><td>0.00</td><td>524.56 K</td><td>Inferno</td></tr>
+            <tr><td>14</td><td><div class="player-cell"><span class="player-avatar">PN</span><span><strong>paiN</strong><small>Profilerr ranking</small></span></div></td><td>74</td><td>46%</td><td>0.00</td><td>N/A</td><td>Inferno</td></tr>
+            <tr><td>15</td><td><div class="player-cell"><span class="player-avatar">HE</span><span><strong>Heroic</strong><small>Profilerr ranking</small></span></div></td><td>72</td><td>31%</td><td>0.00</td><td>3.28 KK</td><td>Inferno</td></tr>
+            <tr><td>16</td><td><div class="player-cell"><span class="player-avatar">LI</span><span><strong>Liquid</strong><small>Profilerr ranking</small></span></div></td><td>70</td><td>31%</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>17</td><td><div class="player-cell"><span class="player-avatar">B8</span><span><strong>B8</strong><small>Profilerr ranking</small></span></div></td><td>65</td><td>48%</td><td>0.00</td><td>29.37 K</td><td>Inferno</td></tr>
+            <tr><td>18</td><td><div class="player-cell"><span class="player-avatar">NP</span><span><strong>NIP</strong><small>Profilerr ranking</small></span></div></td><td>55</td><td>54%</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>19</td><td><div class="player-cell"><span class="player-avatar">9Z</span><span><strong>9z</strong><small>Profilerr ranking</small></span></div></td><td>53</td><td>62%</td><td>0.00</td><td>N/A</td><td>Inferno</td></tr>
+            <tr><td>20</td><td><div class="player-cell"><span class="player-avatar">NR</span><span><strong>NRG</strong><small>Profilerr ranking</small></span></div></td><td>52</td><td>33%</td><td>0.00</td><td>1.14 KK</td><td>Inferno</td></tr>
+            <tr><td>21</td><td><div class="player-cell"><span class="player-avatar">GM</span><span><strong>Gentle Mates</strong><small>Profilerr ranking</small></span></div></td><td>50</td><td>62%</td><td>0.00</td><td>N/A</td><td>N/A</td></tr>
+            <tr><td>22</td><td><div class="player-cell"><span class="player-avatar">TY</span><span><strong>TYLOO</strong><small>Profilerr ranking</small></span></div></td><td>49</td><td>63%</td><td>0.00</td><td>1.41 KK</td><td>Overpass</td></tr>
+            <tr><td>23</td><td><div class="player-cell"><span class="player-avatar">MO</span><span><strong>Monte</strong><small>Profilerr ranking</small></span></div></td><td>49</td><td>53%</td><td>0.00</td><td>290.98 K</td><td>Anubis</td></tr>
+            <tr><td>24</td><td><div class="player-cell"><span class="player-avatar">PU</span><span><strong>Passion UA</strong><small>Profilerr ranking</small></span></div></td><td>42</td><td>36%</td><td>0.00</td><td>N/A</td><td>Inferno</td></tr>
+            <tr><td>25</td><td><div class="player-cell"><span class="player-avatar">HO</span><span><strong>HOTU</strong><small>Profilerr ranking</small></span></div></td><td>35</td><td>71%</td><td>0.00</td><td>N/A</td><td>Inferno</td></tr>
+            <tr><td>26</td><td><div class="player-cell"><span class="player-avatar">MI</span><span><strong>MIBR</strong><small>Profilerr ranking</small></span></div></td><td>33</td><td>50%</td><td>0.00</td><td>1.95 KK</td><td>Inferno</td></tr>
+            <tr><td>27</td><td><div class="player-cell"><span class="player-avatar">M8</span><span><strong>M80</strong><small>Profilerr ranking</small></span></div></td><td>33</td><td>53%</td><td>0.00</td><td>9.00 K</td><td>Overpass</td></tr>
+            <tr><td>28</td><td><div class="player-cell"><span class="player-avatar">SH</span><span><strong>Sharks</strong><small>Profilerr ranking</small></span></div></td><td>29</td><td>44%</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>29</td><td><div class="player-cell"><span class="player-avatar">10</span><span><strong>100 Thieves</strong><small>Profilerr ranking</small></span></div></td><td>29</td><td>73%</td><td>0.00</td><td>190.50 K</td><td>Overpass</td></tr>
+            <tr><td>30</td><td><div class="player-cell"><span class="player-avatar">FN</span><span><strong>fnatic</strong><small>Profilerr ranking</small></span></div></td><td>27</td><td>60%</td><td>0.00</td><td>5.32 KK</td><td>Inferno</td></tr>
+            <tr><td>31</td><td><div class="player-cell"><span class="player-avatar">K2</span><span><strong>K27</strong><small>Profilerr ranking</small></span></div></td><td>27</td><td>44%</td><td>0.00</td><td>N/A</td><td>Inferno</td></tr>
+            <tr><td>32</td><td><div class="player-cell"><span class="player-avatar">SI</span><span><strong>Sinners</strong><small>Profilerr ranking</small></span></div></td><td>26</td><td>43%</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>33</td><td><div class="player-cell"><span class="player-avatar">IL</span><span><strong>illwill</strong><small>Profilerr ranking</small></span></div></td><td>26</td><td>33%</td><td>0.00</td><td>N/A</td><td>N/A</td></tr>
+            <tr><td>34</td><td><div class="player-cell"><span class="player-avatar">LV</span><span><strong>Lynn Vision</strong><small>Profilerr ranking</small></span></div></td><td>25</td><td>62%</td><td>0.00</td><td>N/A</td><td>Overpass</td></tr>
+            <tr><td>35</td><td><div class="player-cell"><span class="player-avatar">OG</span><span><strong>OG</strong><small>Profilerr ranking</small></span></div></td><td>24</td><td>57%</td><td>0.00</td><td>1.12 KK</td><td>Vertigo</td></tr>
+            <tr><td>36</td><td><div class="player-cell"><span class="player-avatar">EC</span><span><strong>ECSTATIC</strong><small>Profilerr ranking</small></span></div></td><td>24</td><td>50%</td><td>0.00</td><td>300.36 K</td><td>Vertigo</td></tr>
+            <tr><td>37</td><td><div class="player-cell"><span class="player-avatar">AL</span><span><strong>Alliance</strong><small>Profilerr ranking</small></span></div></td><td>21</td><td>73%</td><td>0.00</td><td>7.66 K</td><td>Inferno</td></tr>
+            <tr><td>38</td><td><div class="player-cell"><span class="player-avatar">FQ</span><span><strong>FlyQuest</strong><small>Profilerr ranking</small></span></div></td><td>21</td><td>36%</td><td>0.00</td><td>13.00 K</td><td>Mirage</td></tr>
+            <tr><td>39</td><td><div class="player-cell"><span class="player-avatar">NE</span><span><strong>Nemiga</strong><small>Profilerr ranking</small></span></div></td><td>20</td><td>68%</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>40</td><td><div class="player-cell"><span class="player-avatar">9I</span><span><strong>9INE</strong><small>Profilerr ranking</small></span></div></td><td>20</td><td>17%</td><td>0.00</td><td>200.58 K</td><td>Mirage</td></tr>
+            <tr><td>41</td><td><div class="player-cell"><span class="player-avatar">RC</span><span><strong>RED Canids</strong><small>Profilerr ranking</small></span></div></td><td>20</td><td>33%</td><td>0.00</td><td>31.17 K</td><td>Inferno</td></tr>
+            <tr><td>42</td><td><div class="player-cell"><span class="player-avatar">EY</span><span><strong>EYEBALLERS</strong><small>Profilerr ranking</small></span></div></td><td>20</td><td>55%</td><td>0.00</td><td>54.71 K</td><td>Mirage</td></tr>
+            <tr><td>43</td><td><div class="player-cell"><span class="player-avatar">SP</span><span><strong>SPARTA</strong><small>Profilerr ranking</small></span></div></td><td>19</td><td>49%</td><td>0.00</td><td>N/A</td><td>Nuke</td></tr>
+            <tr><td>44</td><td><div class="player-cell"><span class="player-avatar">OD</span><span><strong>ODDIK</strong><small>Profilerr ranking</small></span></div></td><td>18</td><td>60%</td><td>0.00</td><td>49.53 K</td><td>Mirage</td></tr>
+            <tr><td>45</td><td><div class="player-cell"><span class="player-avatar">MA</span><span><strong>Marsborne</strong><small>Profilerr ranking</small></span></div></td><td>18</td><td>71%</td><td>0.00</td><td>N/A</td><td>Inferno</td></tr>
+            <tr><td>46</td><td><div class="player-cell"><span class="player-avatar">VO</span><span><strong>Voca</strong><small>Profilerr ranking</small></span></div></td><td>18</td><td>62%</td><td>0.00</td><td>N/A</td><td>N/A</td></tr>
+            <tr><td>47</td><td><div class="player-cell"><span class="player-avatar">TD</span><span><strong>TDK</strong><small>Profilerr ranking</small></span></div></td><td>18</td><td>67%</td><td>0.00</td><td>N/A</td><td>N/A</td></tr>
+            <tr><td>48</td><td><div class="player-cell"><span class="player-avatar">NM</span><span><strong>Nemesis</strong><small>Profilerr ranking</small></span></div></td><td>17</td><td>0</td><td>0.00</td><td>N/A</td><td>Mirage</td></tr>
+            <tr><td>49</td><td><div class="player-cell"><span class="player-avatar">AR</span><span><strong>ARCRED</strong><small>Profilerr ranking</small></span></div></td><td>16</td><td>58%</td><td>0.00</td><td>N/A</td><td>Overpass</td></tr>
+            <tr><td>50</td><td><div class="player-cell"><span class="player-avatar">BE</span><span><strong>BESTIA</strong><small>Profilerr ranking</small></span></div></td><td>16</td><td>60%</td><td>0.00</td><td>81.27 K</td><td>Inferno</td></tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <div class="ranking-notes" aria-label="Metodologia dos rankings">
+        <div class="ranking-notes-header">
+          <h2>How CS2 performance turns into ranking pressure</h2>
+          <p>These boards are a compact read of form, consistency and competitive impact. In Counter-Strike, the best teams are not only the ones with star aim; they are the ones that repeat strong decisions across maps, economies and playoff-level pressure.</p>
+        </div>
+        <div class="ranking-note-grid">
+          <article>
+            <span>Calculation logic</span>
+            <p>Rating gives the first signal, but it needs context. Win rate, K/D, prize history and map strength help separate a hot streak from a team that is consistently beating serious opposition.</p>
+          </article>
+          <article>
+            <span>Team context</span>
+            <p>CS2 is round-based, so team ranking depends on structure: trade spacing, utility usage, post-plant discipline, retake quality and how often a roster converts advantage rounds.</p>
+          </article>
+          <article>
+            <span>Map pool value</span>
+            <p>A strong favorite map matters because every best-of-three starts in veto. Teams with reliable picks and fewer weak bans are harder to prepare against in deep tournament runs.</p>
+          </article>
+          <article>
+            <span>Economy impact</span>
+            <p>Elite teams protect money better. Clean anti-ecos, low-loss conversions and smart force-buy calls create extra rifle rounds, which usually matters more than one highlight play.</p>
+          </article>
+          <article>
+            <span>Player signal</span>
+            <p>Individual numbers are useful when they translate into round wins. ADR, K/D and headshot rate become more valuable when paired with opening kills, clutch output and role difficulty.</p>
+          </article>
+          <article>
+            <span>Why this ranking</span>
+            <p>The goal is fast comparison. It shows who is in form, who has a stable base, who owns a dangerous map pool and who is producing results that survive beyond one matchup.</p>
+          </article>
+        </div>
       </div>
     </section>
 
