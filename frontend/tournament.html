@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO Last Tournament</title>
   <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=tournament-spaced-sections-1">
+  <style>
+    body::after {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--black, #100e0c);
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
   <main class="page inner-page tournament-page">
@@ -33,7 +45,10 @@
     </nav>
 
     <section class="page-hero tournament-hero">
-      <h1>IEM Cologne Major 2026</h1>
+      <h1 class="split-hero-title" aria-label="IEM Cologne Major 2026">
+        <span class="split-title-part split-title-left">IEM Cologne</span>
+        <span class="split-title-part split-title-right">Major 2026</span>
+      </h1>
     </section>
 
     <section class="feature-panel">
