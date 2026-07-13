@@ -1,4 +1,4 @@
-$root = Split-Path -Parent $PSScriptRoot
+$root = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $indexPath = Join-Path $root "index.html"
 $cssPath = Join-Path $root "visual/styles/velotv-events.css"
 
