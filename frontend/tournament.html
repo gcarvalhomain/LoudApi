@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO Last Tournament</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=tournament-spaced-sections-1">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=branded-content-blocks-1">
   <style>
     body::after {
       content: "";
@@ -44,14 +44,17 @@
       </details>
     </nav>
 
+    <div class="inner-page-intro-transition tournament-intro-transition" data-inner-intro-transition>
+      <div class="inner-intro-stage">
     <section class="page-hero tournament-hero">
       <h1 class="split-hero-title" aria-label="IEM Cologne Major 2026">
         <span class="split-title-part split-title-left">IEM Cologne</span>
         <span class="split-title-part split-title-right">Major 2026</span>
       </h1>
     </section>
+      </div>
 
-    <section class="feature-panel">
+    <section class="feature-panel brand-content-block inner-intro-content">
       <article class="photo-panel tournament-full-bleed tournament-intro-card">
         <img src="https://pro.eslgaming.com/tour/wp-content/uploads/2026/06/20260621_Adela-Sznajder_IEM-Cologne_24004.jpg" alt="IEM Cologne 2026 stage and crowd">
         <div class="photo-copy">
@@ -68,8 +71,9 @@
         </div>
       </article>
     </section>
+    </div><!-- /tournament-intro-transition -->
 
-    <section class="feature-panel">
+    <section class="feature-panel brand-content-block">
       <article class="story tournament-full-bleed tournament-story-card tournament-mvp-card">
         <h2>m0NESY turns star value into a Major title</h2>
       </article>
@@ -81,7 +85,7 @@
       </article>
     </section>
 
-    <section class="surface">
+    <section class="surface brand-content-block">
       <div class="section-header">
         <div>
           <h2>Relevant Cologne facts</h2>
@@ -121,6 +125,7 @@
     </div>
   </div>
 
+  <script src="/visual/scripts/inner-page-intro-transition.js?v=inner-page-intro-1"></script>
   <script>
     const tournamentModal = document.querySelector(".tournament-modal");
     const tournamentTitle = document.querySelector("#tournament-modal-title");
