@@ -21,7 +21,11 @@ Assert-Contains $teams 'surface teams-overview brand-content-block' "Teams overv
 Assert-Contains $teams 'surface player-ranking-section brand-content-block' "Teams rankings are not branded."
 Assert-Contains $market 'surface market-section brand-content-block' "Market grid is not branded."
 Assert-Contains $market 'feature-panel brand-content-block' "Market feature panel is not branded."
+Assert-Contains $market 'market-intro-transition" data-inner-intro-transition' "Market intro transition is missing."
 Assert-Contains $tournament 'feature-panel brand-content-block' "Tournament feature panels are not branded."
 Assert-Contains $tournament 'surface brand-content-block' "Tournament facts are not branded."
+Assert-Contains $tournament 'tournament-intro-transition" data-inner-intro-transition' "Tournament intro transition is missing."
+Assert-Contains $market '/visual/scripts/inner-page-intro-transition.js?v=inner-page-intro-1' "Market transition script is missing."
+Assert-Contains $tournament '/visual/scripts/inner-page-intro-transition.js?v=inner-page-intro-1' "Tournament transition script is missing."
 
 Write-Output "Branded content blocks are present on all frontend pages."

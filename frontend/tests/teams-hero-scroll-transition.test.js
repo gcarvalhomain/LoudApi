@@ -13,9 +13,9 @@ const css = fs.readFileSync(
 test("isolates the hero transition before TOP RANKING", () => {
   const transitionStart = html.indexOf('<div class="teams-intro-transition">');
   const hero = html.indexOf('<section class="page-hero teams-hero">');
-  const overview = html.indexOf('<section class="surface teams-overview">');
+  const overview = html.indexOf('<section class="surface teams-overview brand-content-block">');
   const transitionEnd = html.indexOf("<!-- /teams-intro-transition -->");
-  const ranking = html.indexOf('<section class="surface player-ranking-section"');
+  const ranking = html.indexOf('<section class="surface player-ranking-section brand-content-block"');
 
   assert.ok(transitionStart >= 0, "transition container should exist");
   assert.ok(transitionStart < hero, "transition should start before the hero");
