@@ -8,6 +8,57 @@
     return clampProgress((progress - start) / distance);
   }
 
+  function getIntroVisualState(value) {
+    const progress = clampProgress(value);
+
+    return {
+      progress,
+      heroOpacity: 1 - progress,
+      heroScale: 1 + progress * 0.025,
+      heroBlur: progress * 16,
+      heroBrightness: 1 - progress * 0.42,
+      aboutShift: (1 - progress) * 10,
+      aboutFeather: (1 - progress) * 30
+    };
+  }
+
+  function initHomeIntroTransition(documentRef, windowRef) {
+    const introTransition = documentRef.querySelector(".home-intro-transition");
+    const reducedMotion = windowRef.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (!introTransition || reducedMotion.matches) {
+      return;
+    }
+
+    let animationFrame = 0;
+
+    function updateIntroTransition() {
+      animationFrame = 0;
+      const bounds = introTransition.getBoundingClientRect();
+      const distance = Math.max(windowRef.innerHeight, 1);
+      const state = getIntroVisualState(-bounds.top / distance);
+
+      introTransition.style.setProperty("--home-intro-progress", state.progress.toFixed(4));
+      introTransition.style.setProperty("--home-intro-hero-opacity", state.heroOpacity.toFixed(4));
+      introTransition.style.setProperty("--home-intro-hero-scale", state.heroScale.toFixed(4));
+      introTransition.style.setProperty("--home-intro-hero-blur", `${state.heroBlur.toFixed(2)}px`);
+      introTransition.style.setProperty("--home-intro-hero-brightness", state.heroBrightness.toFixed(4));
+      introTransition.style.setProperty("--home-intro-about-shift", `${state.aboutShift.toFixed(3)}vh`);
+      introTransition.style.setProperty("--home-intro-about-feather", `${state.aboutFeather.toFixed(3)}vh`);
+    }
+
+    function scheduleIntroTransitionUpdate() {
+      if (animationFrame === 0) {
+        animationFrame = windowRef.requestAnimationFrame(updateIntroTransition);
+      }
+    }
+
+    introTransition.classList.add("is-intro-enhanced");
+    updateIntroTransition();
+    windowRef.addEventListener("scroll", scheduleIntroTransitionUpdate, { passive: true });
+    windowRef.addEventListener("resize", scheduleIntroTransitionUpdate);
+  }
+
   function initAboutScroll(documentRef, windowRef) {
     const aboutSection = documentRef.querySelector(".home-about-scroll");
     const reducedMotion = windowRef.matchMedia("(prefers-reduced-motion: reduce)");
@@ -53,14 +104,25 @@
   }
 
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = { clampProgress, getSegmentProgress, initAboutScroll };
+    module.exports = {
+      clampProgress,
+      getSegmentProgress,
+      getIntroVisualState,
+      initAboutScroll,
+      initHomeIntroTransition
+    };
   }
 
   if (typeof document !== "undefined" && typeof window !== "undefined") {
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => initAboutScroll(document, window), { once: true });
-    } else {
+    const initializeHomeScrollEffects = () => {
+      initHomeIntroTransition(document, window);
       initAboutScroll(document, window);
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeHomeScrollEffects, { once: true });
+    } else {
+      initializeHomeScrollEffects();
     }
   }
 })();

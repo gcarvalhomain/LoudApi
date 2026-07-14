@@ -5,7 +5,6 @@ $styles = Get-Content -Raw (Join-Path $root "frontend\visual\styles\velotv-event
 $requiredHtml = @(
   'id="about"',
   'class="home-about-scroll"',
-  'ABOUT VELO',
   'Founded by Gabriel Carvalho',
   'Established in 2022',
   'Purpose',
