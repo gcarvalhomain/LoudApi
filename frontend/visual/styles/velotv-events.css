@@ -530,6 +530,60 @@ p {
   pointer-events: none;
 }
 
+.home-intro-transition {
+  --home-intro-progress: 0;
+  --home-intro-hero-opacity: 1;
+  --home-intro-hero-scale: 1;
+  --home-intro-hero-blur: 0px;
+  --home-intro-hero-brightness: 1;
+  --home-intro-about-shift: 0vh;
+  --home-intro-about-feather: 0vh;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: var(--black);
+}
+
+.home-intro-stage {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.home-intro-transition.is-intro-enhanced .home-intro-stage {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.home-intro-transition.is-intro-enhanced .home-intro-hero {
+  height: 100%;
+  min-height: 100%;
+  opacity: var(--home-intro-hero-opacity);
+  transform: scale(var(--home-intro-hero-scale));
+  filter: blur(var(--home-intro-hero-blur)) brightness(var(--home-intro-hero-brightness));
+  transform-origin: center;
+  will-change: opacity, transform, filter;
+}
+
+.home-intro-transition.is-intro-enhanced .home-about-scroll {
+  position: relative;
+  z-index: 1;
+  transform: translateY(var(--home-intro-about-shift));
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--home-intro-about-feather), #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 var(--home-intro-about-feather), #000 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  box-shadow: 0 -42px 90px rgba(0, 0, 0, 0.46);
+  will-change: transform;
+}
+
 .home-about-scroll {
   --about-panel-shift: 0vh;
   --about-panel-feather: 0vh;
@@ -754,6 +808,37 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .home-intro-transition,
+  .home-intro-transition.is-intro-enhanced {
+    --home-intro-hero-opacity: 1;
+    --home-intro-hero-scale: 1;
+    --home-intro-hero-blur: 0px;
+    --home-intro-hero-brightness: 1;
+    --home-intro-about-shift: 0vh;
+    --home-intro-about-feather: 0vh;
+  }
+
+  .home-intro-transition .home-intro-stage,
+  .home-intro-transition.is-intro-enhanced .home-intro-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .home-intro-transition .home-intro-hero,
+  .home-intro-transition.is-intro-enhanced .home-intro-hero {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .home-intro-transition .home-about-scroll,
+  .home-intro-transition.is-intro-enhanced .home-about-scroll {
+    transform: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
   .home-about-scroll {
     height: auto;
   }

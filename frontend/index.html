@@ -4,23 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO CS2 Arena</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=home-about-scroll-1">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=home-hero-about-transition-1">
 </head>
 <body>
   <main class="page home-page">
-    <section class="hero" id="events" aria-labelledby="heroTitle">
-      <div class="hero-copy">
-        <p class="scroll-prompt">SHOW MORE</p>
-        <h1 id="heroTitle" class="hero-title velo-assembly" aria-label="VELO">
-          <span class="velo-part velo-part-left">
-            <span class="velo-letter velo-letter-v">V</span><span class="velo-letter velo-letter-e">E</span>
-          </span>
-          <span class="velo-part velo-part-right">
-            <span class="velo-letter velo-letter-l">L</span><span class="velo-letter velo-letter-o">O</span>
-          </span>
-        </h1>
+    <div class="home-intro-transition">
+      <div class="home-intro-stage">
+        <section class="hero home-intro-hero" id="events" aria-labelledby="heroTitle">
+          <div class="hero-copy">
+            <p class="scroll-prompt">SHOW MORE</p>
+            <h1 id="heroTitle" class="hero-title velo-assembly" aria-label="VELO">
+              <span class="velo-part velo-part-left">
+                <span class="velo-letter velo-letter-v">V</span><span class="velo-letter velo-letter-e">E</span>
+              </span>
+              <span class="velo-part velo-part-right">
+                <span class="velo-letter velo-letter-l">L</span><span class="velo-letter velo-letter-o">O</span>
+              </span>
+            </h1>
+          </div>
+        </section>
       </div>
-    </section>
 
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#events">
@@ -96,6 +99,7 @@
         </div>
       </div>
     </section>
+    </div><!-- /home-intro-transition -->
 
     <div class="hub-grid home-hub" aria-label="VELO sections">
         <a class="image-card hub-card teams-card" href="/teams.html">
@@ -195,7 +199,7 @@
     </div>
   </div>
 
-  <script src="/visual/scripts/home-about-scroll.js?v=home-about-scroll-1"></script>
+  <script src="/visual/scripts/home-about-scroll.js?v=home-hero-about-transition-1"></script>
   <script>
     const exploreMenu = document.querySelector(".nav-dropdown");
     const exploreToggle = document.querySelector(".nav-dropdown-toggle");

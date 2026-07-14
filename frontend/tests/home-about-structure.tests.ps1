@@ -4,6 +4,9 @@ $styles = Get-Content -Raw (Join-Path $root "frontend\visual\styles\velotv-event
 
 $requiredHtml = @(
   'id="about"',
+  'class="home-intro-transition"',
+  'class="home-intro-stage"',
+  'class="hero home-intro-hero"',
   'class="home-about-scroll"',
   'Founded by Gabriel Carvalho',
   'Established in 2022',
@@ -14,8 +17,8 @@ $requiredHtml = @(
   'ESL',
   'BLAST',
   'HLTV',
-  '/visual/styles/velotv-events.css?v=home-about-scroll-1',
-  '/visual/scripts/home-about-scroll.js?v=home-about-scroll-1'
+  '/visual/styles/velotv-events.css?v=home-hero-about-transition-1',
+  '/visual/scripts/home-about-scroll.js?v=home-hero-about-transition-1'
 )
 
 foreach ($pattern in $requiredHtml) {
@@ -24,12 +27,18 @@ foreach ($pattern in $requiredHtml) {
   }
 }
 
-$heroIndex = $index.IndexOf('class="hero"')
+$introIndex = $index.IndexOf('class="home-intro-transition"')
+$heroIndex = $index.IndexOf('class="hero home-intro-hero"')
 $aboutIndex = $index.IndexOf('class="home-about-scroll"')
+$introEndIndex = $index.IndexOf('<!-- /home-intro-transition -->')
 $hubIndex = $index.IndexOf('class="hub-grid home-hub"')
 
-if (-not ($heroIndex -lt $aboutIndex -and $aboutIndex -lt $hubIndex)) {
-  throw "ABOUT must be placed between the hero and the three-card hub."
+if (-not ($introIndex -lt $heroIndex -and $heroIndex -lt $aboutIndex -and $aboutIndex -lt $introEndIndex -and $introEndIndex -lt $hubIndex)) {
+  throw "The intro wrapper must contain hero and ABOUT, then release into the three-card hub."
+}
+
+if ($index.Contains('teams-intro-transition') -or $index.Contains('teams-intro-stage') -or $index.Contains('teams-hero')) {
+  throw "The home transition must not reuse Teams-specific classes."
 }
 
 $requiredCss = @(
@@ -37,6 +46,10 @@ $requiredCss = @(
   '.home-about-stage',
   '.home-about-panel',
   '.home-about-scroll.is-scroll-enhanced .home-about-reveal',
+  '.home-intro-transition',
+  '.home-intro-transition.is-intro-enhanced .home-intro-stage',
+  '.home-intro-transition.is-intro-enhanced .home-intro-hero',
+  '.home-intro-transition.is-intro-enhanced .home-about-scroll',
   '@media (prefers-reduced-motion: reduce)'
 )
 
@@ -56,6 +69,14 @@ if ($styles -notmatch '(?s)\.home-about-scroll\.is-scroll-enhanced\s*\{[^}]*heig
 
 if ($styles -notmatch '(?s)\.home-about-scroll\.is-scroll-enhanced\s+\.home-about-stage\s*\{[^}]*position:\s*sticky;') {
   throw "ABOUT sticky positioning must be limited to enhanced mode."
+}
+
+if ($styles -notmatch '(?s)\.home-intro-stage\s*\{[^}]*position:\s*relative;') {
+  throw "The intro stage must remain in normal flow before JavaScript enhancement."
+}
+
+if ($styles -notmatch '(?s)\.home-intro-transition\.is-intro-enhanced\s+\.home-intro-stage\s*\{[^}]*position:\s*sticky;') {
+  throw "Sticky hero behavior must be limited to enhanced mode."
 }
 
 Write-Host "Home ABOUT structure and styling are present."
