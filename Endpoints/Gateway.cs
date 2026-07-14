@@ -13,10 +13,10 @@ public static class Gateway
             .MapGroup("/presentation")
             .WithTags("Presentation");
 
-        group.MapGet("/", static (Services.ILoudPresentationService service) =>
+        group.MapGet("/", static (AuthService.ILoudPresentationService service) =>
             Results.Ok(service.GetPresentation()));
 
-        group.MapGet("/{section}", static (string section, Services.ILoudPresentationService service) =>
+        group.MapGet("/{section}", static (string section, AuthService.ILoudPresentationService service) =>
         {
             var presentation = service.GetSection(new PresentationQuery(section));
             return presentation is null ? Results.NotFound() : Results.Ok(presentation);
