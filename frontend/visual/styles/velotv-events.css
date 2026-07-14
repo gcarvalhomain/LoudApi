@@ -3216,6 +3216,44 @@ footer {
 
 }
 
+/* Shared VELO identity shell for major content areas. */
+.brand-content-block {
+  position: relative;
+  color: var(--white);
+  border: 1px solid rgba(198, 150, 98, 0.42);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(211, 168, 95, 0.18), transparent 34%),
+    linear-gradient(145deg, rgba(63, 45, 32, 0.98), rgba(16, 14, 12, 0.98));
+  box-shadow: 0 24px 64px rgba(47, 35, 25, 0.24);
+}
+
+.home-hub-shell {
+  width: 100vw;
+  margin: clamp(24px, 5vw, 64px) calc(50% - 50vw) 0;
+  padding: clamp(26px, 5vw, 64px) max(16px, calc((100vw - 1180px) / 2));
+  border-inline: 0;
+}
+
+.home-hub-shell .home-hub {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.inner-page .brand-content-block {
+  border-radius: 8px;
+}
+
+.brand-content-block .section-header h2,
+.brand-content-block .section-header p {
+  color: var(--white);
+}
+
+@media (max-width: 640px) {
+  .home-hub-shell {
+    padding: 20px 10px;
+  }
+}
+
 @media (max-width: 640px) {
   .page {
     width: min(100% - 20px, 520px);
