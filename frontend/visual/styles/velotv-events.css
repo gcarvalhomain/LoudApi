@@ -698,14 +698,86 @@ p {
     var(--black);
 }
 
+.teams-intro-transition {
+  --hero-transition-progress: 1;
+  --hero-transition-opacity: 1;
+  --hero-transition-scale: 1;
+  --hero-transition-blur: 0px;
+  --hero-transition-brightness: 1;
+  --teams-overview-shift: 0;
+  --teams-overview-feather: 0;
+  position: relative;
+  width: 100vw;
+  isolation: isolate;
+  background: var(--black);
+}
+
+.teams-intro-transition.is-scroll-enhanced {
+  --hero-transition-progress: 0;
+  --hero-transition-opacity: 1;
+  --hero-transition-scale: 1;
+  --hero-transition-blur: 0px;
+  --hero-transition-brightness: 1;
+  --teams-overview-shift: 10vh;
+  --teams-overview-feather: 30vh;
+}
+
+.teams-intro-stage {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.teams-intro-stage .teams-hero {
+  height: 100%;
+  min-height: 100%;
+  opacity: calc(var(--hero-transition-opacity));
+  transform: scale(var(--hero-transition-scale));
+  filter: blur(var(--hero-transition-blur)) brightness(var(--hero-transition-brightness));
+  transform-origin: center;
+  will-change: opacity, transform, filter;
+}
+
+.teams-overview {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  transform: translateY(var(--teams-overview-shift));
+  opacity: calc(0.35 + var(--hero-transition-progress));
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--teams-overview-feather),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--teams-overview-feather),
+    #000 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  box-shadow: 0 -36px 80px rgba(0, 0, 0, 0.34);
+  will-change: opacity, transform;
+}
+
 .teams-page > .surface,
+.teams-page > .teams-intro-transition .teams-overview,
 .teams-page > footer {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 
-.teams-page > .surface {
+.teams-page > .surface,
+.teams-page > .teams-intro-transition .teams-overview {
   display: grid;
   gap: clamp(18px, 3vw, 28px);
   margin-top: 0;
@@ -715,24 +787,58 @@ p {
   box-shadow: none;
 }
 
-.teams-page > .surface:first-of-type {
+.teams-page .teams-overview {
   color: var(--white);
   background:
     linear-gradient(145deg, #241b16 0%, #171310 52%, #100e0c 100%),
     var(--black);
 }
 
-.teams-page > .surface:first-of-type .section-header h1,
-.teams-page > .surface:first-of-type .section-header h2 {
+.teams-page .teams-overview .section-header h1,
+.teams-page .teams-overview .section-header h2 {
   color: var(--white);
 }
 
-.teams-page > .surface:nth-of-type(2) {
+.teams-page > .player-ranking-section {
   color: var(--white);
   background:
     linear-gradient(145deg, #181310 0%, #100e0c 58%, #0b0908 100%),
     var(--black);
   box-shadow: inset 0 18px 42px rgba(0, 0, 0, 0.24), inset 0 -22px 54px rgba(0, 0, 0, 0.30);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .teams-intro-transition,
+  .teams-intro-transition.is-scroll-enhanced {
+    --hero-transition-progress: 1;
+    --hero-transition-opacity: 1;
+    --hero-transition-scale: 1;
+    --hero-transition-blur: 0px;
+    --hero-transition-brightness: 1;
+    --teams-overview-shift: 0;
+    --teams-overview-feather: 0;
+  }
+
+  .teams-intro-stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .teams-intro-stage .teams-hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .teams-overview {
+    opacity: 1;
+    transform: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
 .teams-page .section-header,

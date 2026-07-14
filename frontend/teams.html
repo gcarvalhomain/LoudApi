@@ -4,7 +4,140 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO Favorite Teams</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=teams-full-bleed-1">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=teams-scroll-transition-2">
+  <style>
+    .teams-page {
+      --teams-base: #120f0c;
+      --teams-deep: #1a130e;
+      --teams-panel: #24180f;
+      --teams-panel-soft: #2c1e14;
+      --teams-bronze: #9f6a32;
+      --teams-gold: #d3a85f;
+      --teams-cream: #f5ead6;
+      --teams-muted: #b9a88f;
+      background: var(--teams-base);
+    }
+
+    .teams-page .teams-overview,
+    .teams-page > .surface.player-ranking-section {
+      color: var(--teams-cream);
+      background:
+        linear-gradient(145deg, var(--teams-deep) 0%, var(--teams-base) 62%, #0d0b09 100%) !important;
+    }
+
+    .teams-page .section-header h1,
+    .teams-page .section-header h2 {
+      color: var(--teams-gold) !important;
+    }
+
+    .teams-page .team-card {
+      border: 1px solid rgba(211, 168, 95, 0.24) !important;
+      color: var(--teams-cream) !important;
+      background:
+        linear-gradient(145deg, rgba(52, 36, 24, 0.96), rgba(25, 18, 13, 0.98)) !important;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18) !important;
+    }
+
+    .teams-page .team-card:hover,
+    .teams-page .team-card:focus-visible {
+      border-color: rgba(211, 168, 95, 0.58) !important;
+      background:
+        linear-gradient(145deg, rgba(62, 42, 27, 0.98), rgba(29, 20, 14, 0.98)) !important;
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.26) !important;
+    }
+
+    .teams-page .team-card h2 {
+      color: var(--teams-muted) !important;
+    }
+
+    .teams-page .team-card h3 {
+      color: var(--teams-cream) !important;
+    }
+
+    .teams-page .player-ranking-header {
+      padding-bottom: clamp(16px, 2vw, 24px);
+      border-bottom: 1px solid rgba(211, 168, 95, 0.20);
+    }
+
+    .teams-page .player-ranking-header h1 {
+      font-size: clamp(32px, 4.4vw, 56px) !important;
+      letter-spacing: -0.035em;
+    }
+
+    .teams-page .player-ranking-table-wrap {
+      border: 1px solid rgba(211, 168, 95, 0.22) !important;
+      border-radius: 6px !important;
+      background: var(--teams-panel) !important;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22) !important;
+    }
+
+    .teams-page .player-ranking-table,
+    .teams-page .player-ranking-table tbody,
+    .teams-page .player-ranking-table tr,
+    .teams-page .player-ranking-table td {
+      background: transparent !important;
+    }
+
+    .teams-page .player-ranking-table tbody tr:nth-child(even) {
+      background: rgba(255, 236, 198, 0.035) !important;
+    }
+
+    .teams-page .player-ranking-table tbody tr:hover {
+      background: rgba(211, 168, 95, 0.11) !important;
+    }
+
+    .teams-page .player-ranking-table th {
+      color: var(--teams-gold) !important;
+      background: #2b1d13 !important;
+    }
+
+    .teams-page .player-ranking-table td,
+    .teams-page .player-cell strong {
+      color: var(--teams-cream) !important;
+    }
+
+    .teams-page .player-cell small {
+      color: var(--teams-muted) !important;
+    }
+
+    .teams-page .player-avatar {
+      border-color: rgba(211, 168, 95, 0.28) !important;
+      color: var(--teams-cream) !important;
+      background: linear-gradient(145deg, #49301e, #20160f) !important;
+      box-shadow: none !important;
+    }
+
+    .teams-page .ranking-notes {
+      border-top: 1px solid rgba(211, 168, 95, 0.18) !important;
+      background: transparent !important;
+    }
+
+    .teams-page .ranking-notes-header h2 {
+      color: var(--teams-cream) !important;
+    }
+
+    .teams-page .ranking-notes-header p,
+    .teams-page .ranking-note-grid p {
+      color: var(--teams-muted) !important;
+    }
+
+    .teams-page .ranking-note-grid article {
+      border: 1px solid rgba(211, 168, 95, 0.18) !important;
+      color: var(--teams-cream) !important;
+      background: linear-gradient(145deg, var(--teams-panel-soft), var(--teams-deep)) !important;
+      box-shadow: none !important;
+    }
+
+    .teams-page .ranking-note-grid span {
+      color: var(--teams-gold) !important;
+    }
+
+    @media (max-width: 720px) {
+      .teams-page .player-ranking-header h1 {
+        font-size: clamp(30px, 11vw, 44px) !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="page inner-page teams-page">
@@ -32,14 +165,17 @@
       </details>
     </nav>
 
-    <section class="page-hero teams-hero">
-      <h1 class="split-hero-title" aria-label="BEST TEAMS AND PLAYERS OF CS2">
-        <span class="split-title-part split-title-left">BEST TEAMS AND</span>
-        <span class="split-title-part split-title-right">PLAYERS OF CS2</span>
-      </h1>
-    </section>
+    <div class="teams-intro-transition">
+      <div class="teams-intro-stage">
+        <section class="page-hero teams-hero">
+          <h1 class="split-hero-title" aria-label="BEST TEAMS AND PLAYERS OF CS2">
+            <span class="split-title-part split-title-left">BEST TEAMS AND</span>
+            <span class="split-title-part split-title-right">PLAYERS OF CS2</span>
+          </h1>
+        </section>
+      </div>
 
-    <section class="surface">
+    <section class="surface teams-overview">
       <div class="section-header">
           <h1>TOP TIER S TEAMS</h1>
       </div>
@@ -117,6 +253,7 @@
         </article>
       </div>
     </section>
+    </div><!-- /teams-intro-transition -->
 
     <section class="surface player-ranking-section" aria-labelledby="player-ranking-title">
       <div class="section-header player-ranking-header">
@@ -316,12 +453,43 @@
   </div>
 
   <script>
+    const introTransition = document.querySelector(".teams-intro-transition");
     const teamCards = document.querySelectorAll(".team-card[data-team-photo]");
     const modal = document.querySelector(".team-photo-modal");
     const modalTitle = document.querySelector("#team-photo-title");
     const modalCaption = document.querySelector(".team-photo-caption");
     const modalImage = document.querySelector(".team-photo");
     const closeButton = document.querySelector(".modal-close");
+
+    if (introTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      let introTransitionFrame = 0;
+
+      function updateIntroTransition() {
+        introTransitionFrame = 0;
+        const transitionBounds = introTransition.getBoundingClientRect();
+        const transitionDistance = Math.max(window.innerHeight, 1);
+        const progress = Math.min(Math.max(-transitionBounds.top / transitionDistance, 0), 1);
+
+        introTransition.style.setProperty("--hero-transition-progress", progress.toFixed(4));
+        introTransition.style.setProperty("--hero-transition-opacity", (1 - progress).toFixed(4));
+        introTransition.style.setProperty("--hero-transition-scale", (1 + progress * 0.025).toFixed(4));
+        introTransition.style.setProperty("--hero-transition-blur", `${(progress * 16).toFixed(2)}px`);
+        introTransition.style.setProperty("--hero-transition-brightness", (1 - progress * 0.42).toFixed(4));
+        introTransition.style.setProperty("--teams-overview-shift", `${((1 - progress) * 10).toFixed(3)}vh`);
+        introTransition.style.setProperty("--teams-overview-feather", `${((1 - progress) * 30).toFixed(3)}vh`);
+      }
+
+      function scheduleIntroTransitionUpdate() {
+        if (introTransitionFrame === 0) {
+          introTransitionFrame = requestAnimationFrame(updateIntroTransition);
+        }
+      }
+
+      introTransition.classList.add("is-scroll-enhanced");
+      updateIntroTransition();
+      window.addEventListener("scroll", scheduleIntroTransitionUpdate, { passive: true });
+      window.addEventListener("resize", scheduleIntroTransitionUpdate);
+    }
 
     function openTeamPhoto(card) {
       const teamName = card.dataset.teamName;
