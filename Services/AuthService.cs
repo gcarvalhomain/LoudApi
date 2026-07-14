@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LoudApi.Workers;
 
-public static class Services
+public static class AuthService
 {
     public static IServiceCollection AddLoudPresentationServices(this IServiceCollection services)
     {

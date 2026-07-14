@@ -4,23 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VELO CS2 Arena</title>
-  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=index-market-hero-1">
+  <link rel="stylesheet" href="/visual/styles/velotv-events.css?v=home-hero-about-transition-1">
 </head>
 <body>
   <main class="page home-page">
-    <section class="hero" id="events" aria-labelledby="heroTitle">
-      <div class="hero-copy">
-        <p class="scroll-prompt">SHOW MORE</p>
-        <h1 id="heroTitle" class="hero-title velo-assembly" aria-label="VELO">
-          <span class="velo-part velo-part-left">
-            <span class="velo-letter velo-letter-v">V</span><span class="velo-letter velo-letter-e">E</span>
-          </span>
-          <span class="velo-part velo-part-right">
-            <span class="velo-letter velo-letter-l">L</span><span class="velo-letter velo-letter-o">O</span>
-          </span>
-        </h1>
+    <div class="home-intro-transition">
+      <div class="home-intro-stage">
+        <section class="hero home-intro-hero" id="events" aria-labelledby="heroTitle">
+          <div class="hero-copy">
+            <p class="scroll-prompt">SHOW MORE</p>
+            <h1 id="heroTitle" class="hero-title velo-assembly" aria-label="VELO">
+              <span class="velo-part velo-part-left">
+                <span class="velo-letter velo-letter-v">V</span><span class="velo-letter velo-letter-e">E</span>
+              </span>
+              <span class="velo-part velo-part-right">
+                <span class="velo-letter velo-letter-l">L</span><span class="velo-letter velo-letter-o">O</span>
+              </span>
+            </h1>
+          </div>
+        </section>
       </div>
-    </section>
 
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#events">
@@ -52,6 +55,50 @@
         </div>
       </details>
     </nav>
+
+    <section class="home-about-scroll" id="about" aria-labelledby="aboutTitle">
+      <div class="home-about-stage">
+        <div class="home-about-panel">
+          <header class="home-about-heading home-about-reveal" data-reveal-start="0.02" data-reveal-end="0.18">
+            <h2 id="aboutTitle">Built to keep Counter-Strike 2 in focus.</h2>
+            <p>VELO is an independent editorial arena shaped around the teams, tournaments, players and movement that define competitive CS2.</p>
+          </header>
+
+          <div class="home-about-story">
+            <article class="home-about-card home-about-reveal" data-reveal-start="0.16" data-reveal-end="0.36">
+              <span>Origin</span>
+              <h3>Founded by Gabriel Carvalho</h3>
+              <p>Established in 2022 as a focused space for following the modern Counter-Strike scene.</p>
+            </article>
+
+            <article class="home-about-card home-about-reveal" data-reveal-start="0.34" data-reveal-end="0.56">
+              <span>Purpose</span>
+              <h3>One arena for the competitive story</h3>
+              <p>VELO brings teams, tournaments, players, roster movement and market context into one clear destination.</p>
+            </article>
+
+            <article class="home-about-card home-about-reveal" data-reveal-start="0.54" data-reveal-end="0.76">
+              <span>Project context</span>
+              <h3>From scattered updates to useful perspective</h3>
+              <p>The project turns fast-moving CS2 information into a visual, accessible and editorial experience built for quick understanding.</p>
+            </article>
+
+            <article class="home-about-card home-about-reveal" data-reveal-start="0.72" data-reveal-end="0.94">
+              <span>CS2 ecosystem</span>
+              <h3>Connected to the scene</h3>
+              <p>VELO follows the wider competitive ecosystem shaped by its leading platforms, organizers and information sources.</p>
+              <ul class="home-about-ecosystem" aria-label="CS2 ecosystem references">
+                <li>Valve</li>
+                <li>ESL</li>
+                <li>BLAST</li>
+                <li>HLTV</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div><!-- /home-intro-transition -->
 
     <div class="hub-grid home-hub" aria-label="VELO sections">
         <a class="image-card hub-card teams-card" href="/teams.html">
@@ -151,6 +198,7 @@
     </div>
   </div>
 
+  <script src="/visual/scripts/home-about-scroll.js?v=home-hero-about-transition-1"></script>
   <script>
     const exploreMenu = document.querySelector(".nav-dropdown");
     const exploreToggle = document.querySelector(".nav-dropdown-toggle");
