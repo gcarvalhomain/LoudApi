@@ -14,8 +14,8 @@ function Get-CssBlock([string]$SelectorPattern) {
 
 $pageBlock = Get-CssBlock '\.teams-page'
 $heroBlock = Get-CssBlock '\.teams-hero'
-$teamsBlock = Get-CssBlock '\.teams-page\s*>\s*\.surface:first-of-type'
-$rankingBlock = Get-CssBlock '\.teams-page\s*>\s*\.surface:nth-of-type\(2\)'
+$teamsBlock = Get-CssBlock '\.teams-page\s+\.teams-overview'
+$rankingBlock = Get-CssBlock '\.teams-page\s*>\s*\.player-ranking-section'
 
 foreach ($entry in @{
   'teams page' = $pageBlock

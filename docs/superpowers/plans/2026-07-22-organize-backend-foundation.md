@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Do not modify any file under `frontend/`.
+- Do not modify production files under `frontend/`; the only allowed frontend change is the approved stale-selector correction in `frontend/visual/tests/teams-lightweight-background.test.ps1`.
 - Do not add registration, login, users, passwords, JWTs, refresh tokens, authorization, logout, a database, or migrations.
 - Do not create empty feature folders, placeholder authentication classes, or speculative abstractions.
 - Keep the frontend's current public URLs and visual behavior unchanged.
@@ -34,6 +34,43 @@
 - `PROJECT_STRUCTURE.md`: feature-first structure and boundaries.
 
 The root `Program.cs`, `LoudApi.csproj`, `LoudApi.http`, `Properties/`, `appsettings*.json`, `Endpoints/`, `Services/`, `Models/`, `Dtos/`, and `Responses/` are removed after their required host/configuration files are relocated.
+
+### Task 0: Repair the stale Teams regression assertion
+
+**Files:**
+- Modify: `frontend/visual/tests/teams-lightweight-background.test.ps1`
+
+**Interfaces:**
+- Consumes: current `.teams-overview` and `.player-ranking-section` CSS selectors.
+- Produces: a regression test aligned with the already-approved Teams markup, without production frontend changes.
+
+- [x] **Step 1: Reproduce the stale selector failure**
+
+Run: `powershell -ExecutionPolicy Bypass -File frontend/visual/tests/teams-lightweight-background.test.ps1`
+
+Observed: FAIL because the test expected `.teams-page > .surface:first-of-type`, which stopped matching after the existing intro-transition wrapper was introduced.
+
+- [x] **Step 2: Target stable semantic selectors**
+
+Replace the two positional selectors with:
+
+```powershell
+$teamsBlock = Get-CssBlock '\.teams-page\s+\.teams-overview'
+$rankingBlock = Get-CssBlock '\.teams-page\s*>\s*\.player-ranking-section'
+```
+
+- [ ] **Step 3: Verify the repaired regression test**
+
+Run: `powershell -ExecutionPolicy Bypass -File frontend/visual/tests/teams-lightweight-background.test.ps1`
+
+Expected: PASS with `Teams lightweight background checks passed.`
+
+- [ ] **Step 4: Commit the isolated test correction**
+
+```powershell
+git add frontend/visual/tests/teams-lightweight-background.test.ps1 docs/superpowers/specs/2026-07-22-backend-foundation-cleanup-design.md docs/superpowers/plans/2026-07-22-organize-backend-foundation.md
+git commit -m "test: align teams background regression"
+```
 
 ### Task 1: Lock the required runtime behavior with integration tests
 
@@ -509,13 +546,13 @@ Expected: NuGet reports no vulnerable packages for either project.
 Run:
 
 ```powershell
-git diff --exit-code main -- frontend
+git diff --exit-code main -- frontend ':!frontend/visual/tests/teams-lightweight-background.test.ps1'
 git diff --check main
 git status --short
 git log --oneline main..HEAD
 ```
 
-Expected: the frontend diff is empty; `git diff --check` reports no whitespace errors; the worktree is clean; branch history contains the design, tests, refactor, and documentation commits only.
+Expected: no production frontend diff exists; the only allowed frontend diff is the approved Teams regression-test correction; `git diff --check` reports no whitespace errors; the worktree is clean; branch history contains the design, tests, refactor, and documentation commits only.
 
 - [ ] **Step 6: Perform the final build-and-test gate**
 

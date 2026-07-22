@@ -9,6 +9,7 @@ Remove the placeholder backend and reorganize the ASP.NET application into a sma
 This change will:
 
 - keep `frontend/` isolated at the repository root and leave its HTML, CSS, JavaScript, content, and appearance unchanged;
+- align one pre-existing visual regression test with the current Teams markup, without changing production frontend files;
 - move the ASP.NET application into `src/LoudApi.Api/`;
 - add a solution file at the repository root;
 - remove the placeholder `/presentation` and `/priorities` APIs and every model, DTO, response, and service used only by them;
@@ -70,10 +71,10 @@ Verification will include:
 3. prove the application host starts in a test environment;
 4. verify the homepage remains available through the ASP.NET host;
 5. verify `/presentation` and `/priorities` return `404`;
-6. run all existing frontend regression tests without modifying their fixtures;
+6. run all existing frontend regression tests after aligning the stale Teams selector assertions with the current markup;
 7. start the application normally and verify representative frontend pages and assets return HTTP `200`;
 8. scan direct and transitive NuGet dependencies for known vulnerabilities;
-9. inspect the final diff to confirm no file under `frontend/` changed.
+9. inspect the final diff to confirm no production file under `frontend/` changed and the only frontend diff is the approved regression-test correction.
 
 ## Git Scope
 
