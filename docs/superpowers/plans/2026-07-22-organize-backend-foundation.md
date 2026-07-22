@@ -78,6 +78,7 @@ git commit -m "test: align teams background regression"
 - Create: `tests/LoudApi.Api.Tests/LoudApi.Api.Tests.csproj`
 - Create: `tests/LoudApi.Api.Tests/ApplicationSmokeTests.cs`
 - Delete generated file: `tests/LoudApi.Api.Tests/UnitTest1.cs`
+- Modify temporarily: `LoudApi.csproj` (exclude nested test sources until the root project is removed)
 
 **Interfaces:**
 - Consumes: current ASP.NET entry point `Program` and current static frontend route `/`.
@@ -143,18 +144,26 @@ public sealed class ApplicationSmokeTests : IClassFixture<WebApplicationFactory<
 
 - [ ] **Step 3: Run the tests and confirm the pre-cleanup state fails**
 
+Because the current SDK project is at the repository root, first exclude the nested test sources from its default compile glob:
+
+```xml
+<ItemGroup>
+  <Compile Remove="tests\**\*.cs" />
+</ItemGroup>
+```
+
 Run:
 
 ```powershell
 dotnet test tests/LoudApi.Api.Tests/LoudApi.Api.Tests.csproj
 ```
 
-Expected: FAIL because top-level `Program` is not public to the test host; after exposing it temporarily, the obsolete route assertions would also fail because those routes still exist.
+Expected: FAIL with `Expected: NotFound` and `Actual: OK` for the obsolete routes because the placeholder backend is still exposed.
 
 - [ ] **Step 4: Commit the contract tests**
 
 ```powershell
-git add tests/LoudApi.Api.Tests
+git add tests/LoudApi.Api.Tests LoudApi.csproj docs/superpowers/plans/2026-07-22-organize-backend-foundation.md
 git commit -m "test: define backend foundation behavior"
 ```
 
