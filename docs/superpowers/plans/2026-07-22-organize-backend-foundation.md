@@ -207,13 +207,15 @@ Create `src/LoudApi.Api/LoudApi.Api.csproj`:
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+    <!-- Overrides the vulnerable Microsoft.OpenApi version resolved transitively by Swagger. -->
+    <PackageReference Include="Microsoft.OpenApi" Version="2.7.5" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.0.0" />
   </ItemGroup>
 </Project>
 ```
 
-This deliberately removes `Microsoft.EntityFrameworkCore`, `Microsoft.EntityFrameworkCore.Design`, and the unused direct `Microsoft.OpenApi` reference.
+This removes `Microsoft.EntityFrameworkCore` and `Microsoft.EntityFrameworkCore.Design`. The direct `Microsoft.OpenApi` reference remains as an explicit security pin because Swagger otherwise resolves the vulnerable transitive version `2.3.0`.
 
 - [ ] **Step 2: Create the minimal composition root**
 

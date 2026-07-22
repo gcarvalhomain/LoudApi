@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LoudApi.csproj" />
+    <ProjectReference Include="..\..\src\LoudApi.Api\LoudApi.Api.csproj" />
   </ItemGroup>
 
 </Project>
