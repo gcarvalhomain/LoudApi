@@ -1,62 +1,32 @@
 # Project Structure
 
-This project is separated by responsibility so each area is easy to find.
+VELO uses a small feature-first ASP.NET structure. Directories are created when real code needs them; empty architecture layers and placeholder features are avoided.
 
-## Visual
+```text
+LoudApi/
+|-- frontend/
+|-- src/
+|   `-- LoudApi.Api/
+|-- tests/
+|   `-- LoudApi.Api.Tests/
+|-- docs/
+`-- LoudApi.slnx
+```
 
-Path: `frontend/visual/`
+## Frontend
 
-Purpose: visual system, CSS and future frontend assets.
+`frontend/` is the isolated static web application. The ASP.NET host serves this directory without requiring frontend files to live inside the backend project.
 
-- `frontend/visual/styles/velotv-events.css`: VELO page styling, colors, layout, cards, responsive rules and image treatment.
+## Backend
 
-## HTML
+`src/LoudApi.Api/` contains the application host. `Program.cs` is the composition root for middleware, services, and endpoint registration.
 
-Path: `frontend/`
+Backend functionality follows feature-first organization. For example, authentication will eventually live in `Features/Authentication/`, with files grouped by that feature rather than by generic technical layers. The folder will be introduced only when authentication implementation begins.
 
-Purpose: frontend static files for the VELO page.
+## Tests
 
-- `frontend/index.html`: the main VELO page markup.
+`tests/LoudApi.Api.Tests/` contains backend integration tests. Frontend regression tests remain beside the frontend under `frontend/tests/` and `frontend/visual/tests/`.
 
-## C# Backend
+## Documentation
 
-Path: `src/backend/`
-
-Purpose: application startup, API features and shared services.
-
-- `src/backend/Program.cs`: ASP.NET Core app setup, middleware and endpoint registration.
-- `src/backend/priorities/`: priorities feature with endpoint mapping, request contracts and model.
-- `src/backend/services/`: application service registration and presentation service.
-- `src/backend/information/`: presentation/information endpoint models and routes.
-
-## Priorities API
-
-Path: `src/backend/priorities/`
-
-Purpose: in-memory CRUD API returned by `/priorities`.
-
-- `Priority.cs`: priority model.
-- `PriorityRequests.cs`: create and update request contracts.
-- `PrioritiesGateway.cs`: `/priorities` endpoint mapping.
-
-## Information API
-
-Path: `src/backend/information/`
-
-Purpose: content returned by `/presentation`.
-
-- `Informations.cs`: VELO content, event cards, palette and actions.
-- `Gateway.cs`: `/presentation` endpoint mapping.
-- `Queries.cs`: query object for section lookup.
-- `Support.cs`: supporting records for visual sections, palette colors and actions.
-
-## Configuration
-
-Path: project root and `Properties/`
-
-Purpose: .NET runtime settings.
-
-- `LoudApi.csproj`: project/package configuration.
-- `appsettings.json`: production app settings.
-- `appsettings.Development.json`: development app settings.
-- `Properties/launchSettings.json`: local run profiles and ports.
+`docs/superpowers/specs/` records approved designs. `docs/superpowers/plans/` records implementation plans.

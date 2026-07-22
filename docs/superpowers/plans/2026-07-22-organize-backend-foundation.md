@@ -430,9 +430,9 @@ Backend functionality follows feature-first organization. For example, authentic
 Run:
 
 ```powershell
-dotnet restore LoudApi.slnx
-dotnet build LoudApi.slnx --no-restore --warnaserror
-dotnet test LoudApi.slnx --no-build
+dotnet restore LoudApi.slnx --disable-parallel -m:1
+dotnet build LoudApi.slnx --no-restore --warnaserror -m:1
+dotnet test LoudApi.slnx --no-build --no-restore -m:1
 ```
 
 Expected: restore succeeds; build has zero warnings and errors; all backend tests pass.
@@ -570,8 +570,8 @@ Expected: no production frontend diff exists; the only allowed frontend diff is 
 Run:
 
 ```powershell
-dotnet build LoudApi.slnx --no-restore --warnaserror
-dotnet test LoudApi.slnx --no-build
+dotnet build LoudApi.slnx --no-restore --warnaserror -m:1
+dotnet test LoudApi.slnx --no-build --no-restore -m:1
 ```
 
 Expected: zero warnings and errors, with all backend tests passing.
