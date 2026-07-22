@@ -33,6 +33,5 @@ Frontend regression tests live under `frontend/tests/` and `frontend/visual/test
 - `frontend/`: static HTML, CSS, JavaScript, and visual assets.
 - `src/LoudApi.Api/`: ASP.NET Core host and future feature-first backend.
 - `tests/LoudApi.Api.Tests/`: backend integration tests.
-- `docs/`: design specifications and implementation plans.
 
 Future authentication will be designed separately and added as a real feature under `src/LoudApi.Api/Features/Authentication/`. No placeholder authentication code is kept in the repository.
