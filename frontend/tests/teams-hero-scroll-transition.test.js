@@ -2,6 +2,10 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
+const {
+  getTeamsIntroVisualState,
+  initTeamsIntroTransition
+} = require("../visual/scripts/teams-intro-transition.js");
 
 const frontendRoot = path.resolve(__dirname, "..");
 const html = fs.readFileSync(path.join(frontendRoot, "teams.html"), "utf8");
@@ -32,12 +36,64 @@ test("defines sticky crossfade styles and a reduced-motion fallback", () => {
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.teams-intro-transition/s);
 });
 
-test("updates scroll progress through requestAnimationFrame", () => {
-  assert.match(html, /const introTransition = document\.querySelector\("\.teams-intro-transition"\)/);
-  assert.match(html, /getBoundingClientRect\(\)/);
-  assert.match(html, /style\.setProperty\("--hero-transition-progress"/);
-  assert.match(html, /requestAnimationFrame\(/);
-  assert.match(html, /addEventListener\("scroll", scheduleIntroTransitionUpdate, \{ passive: true \}\)/);
+test("loads the shared smoother before the Teams transition module", () => {
+  const smootherScript = html.indexOf("/visual/scripts/scroll-progress-smoothing.js");
+  const teamsScript = html.indexOf("/visual/scripts/teams-intro-transition.js");
+
+  assert.ok(smootherScript >= 0);
+  assert.ok(smootherScript < teamsScript);
+});
+
+test("maps the existing Teams visual states without changing endpoints", () => {
+  assert.deepEqual(getTeamsIntroVisualState(0), {
+    progress: 0,
+    opacity: 1,
+    scale: 1,
+    blur: 0,
+    brightness: 1,
+    overviewShift: 10,
+    overviewFeather: 30
+  });
+  assert.deepEqual(getTeamsIntroVisualState(1), {
+    progress: 1,
+    opacity: 0,
+    scale: 1.025,
+    blur: 16,
+    brightness: 0.58,
+    overviewShift: 0,
+    overviewFeather: 0
+  });
+});
+
+test("initializes Teams immediately and smooths later scroll targets", () => {
+  const values = new Map();
+  const listeners = new Map();
+  const frames = [];
+  const transition = {
+    classList: { add: (name) => values.set("class", name) },
+    getBoundingClientRect: () => ({ top: -500 }),
+    style: { setProperty: (name, value) => values.set(name, value) }
+  };
+  const documentRef = { querySelector: () => transition };
+  const windowRef = {
+    innerHeight: 1000,
+    scrollY: 0,
+    matchMedia: () => ({ matches: false }),
+    requestAnimationFrame(callback) {
+      frames.push(callback);
+      return frames.length;
+    },
+    cancelAnimationFrame: () => {},
+    addEventListener: (name, callback) => listeners.set(name, callback)
+  };
+
+  assert.equal(initTeamsIntroTransition(documentRef, windowRef), true);
+  assert.equal(values.get("--hero-transition-progress"), "0.5000");
+
+  windowRef.scrollY = 1000;
+  listeners.get("scroll")();
+  frames.shift()(16);
+  assert.ok(Number(values.get("--hero-transition-progress")) > 0.5);
 });
 
 test("dissolves the incoming edge while the hero blurs and darkens", () => {
@@ -49,7 +105,4 @@ test("dissolves the incoming edge while the hero blurs and darkens", () => {
   assert.match(css, /mask-image:\s*linear-gradient\([\s\S]*var\(--teams-overview-feather\)/);
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*filter:\s*none[\s\S]*mask-image:\s*none/);
 
-  assert.match(html, /style\.setProperty\("--hero-transition-blur"/);
-  assert.match(html, /style\.setProperty\("--hero-transition-brightness"/);
-  assert.match(html, /style\.setProperty\("--teams-overview-feather"/);
 });
