@@ -18,6 +18,10 @@ test('getInnerIntroVisualState clamps and maps the transition', () => {
 });
 
 test('initInnerPageIntroTransitions updates every wrapper independently', () => {
+  const frames = [];
+  const listeners = new Map();
+  const listenerCounts = new Map();
+
   function wrapper(top) {
     const values = {};
     return {
@@ -33,15 +37,31 @@ test('initInnerPageIntroTransitions updates every wrapper independently', () => 
   const documentRef = { querySelectorAll: () => [market, tournament] };
   const windowRef = {
     innerHeight: 1000,
+    scrollY: 0,
     matchMedia: () => ({ matches: false }),
-    requestAnimationFrame: (callback) => { callback(); return 1; },
-    addEventListener: () => {}
+    requestAnimationFrame: (callback) => {
+      frames.push(callback);
+      return frames.length;
+    },
+    cancelAnimationFrame: () => {},
+    addEventListener: (name, callback) => {
+      listeners.set(name, callback);
+      listenerCounts.set(name, (listenerCounts.get(name) || 0) + 1);
+    }
   };
 
   assert.equal(initInnerPageIntroTransitions(documentRef, windowRef), 2);
   assert.equal(market.values['--inner-intro-progress'], '0.5000');
   assert.equal(tournament.values['--inner-intro-progress'], '1.0000');
   assert.equal(market.values.className, 'is-scroll-enhanced');
+
+  windowRef.scrollY = 1000;
+  listeners.get('scroll')();
+  assert.equal(market.values['--inner-intro-progress'], '0.5000');
+  frames.shift()(16);
+  assert.ok(Number(market.values['--inner-intro-progress']) > 0.5);
+  assert.equal(listenerCounts.get('scroll'), 1);
+  assert.equal(listenerCounts.get('resize'), 1);
 });
 
 test('reduced motion keeps normal document flow', () => {

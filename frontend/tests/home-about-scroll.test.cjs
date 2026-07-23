@@ -89,6 +89,7 @@ test("getIntroVisualState maps the hero takeover from start to finish", () => {
 test("initHomeIntroTransition activates the wrapper without touching ABOUT variables", () => {
   const properties = new Map();
   const listeners = new Map();
+  const frames = [];
   const introTransition = {
     classList: { add: (name) => properties.set("class", name) },
     getBoundingClientRect: () => ({ top: -500 }),
@@ -97,8 +98,13 @@ test("initHomeIntroTransition activates the wrapper without touching ABOUT varia
   const documentRef = { querySelector: () => introTransition };
   const windowRef = {
     innerHeight: 1000,
+    scrollY: 0,
     matchMedia: () => ({ matches: false }),
-    requestAnimationFrame: (callback) => callback(),
+    requestAnimationFrame: (callback) => {
+      frames.push(callback);
+      return frames.length;
+    },
+    cancelAnimationFrame: () => {},
     addEventListener: (name, callback) => listeners.set(name, callback)
   };
 
@@ -112,4 +118,10 @@ test("initHomeIntroTransition activates the wrapper without touching ABOUT varia
   assert.equal(properties.has("--about-progress"), false);
   assert.equal(typeof listeners.get("scroll"), "function");
   assert.equal(typeof listeners.get("resize"), "function");
+
+  windowRef.scrollY = 1000;
+  listeners.get("scroll")();
+  assert.equal(properties.get("--home-intro-progress"), "0.5000");
+  frames.shift()(16);
+  assert.ok(Number(properties.get("--home-intro-progress")) > 0.5);
 });

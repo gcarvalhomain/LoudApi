@@ -1,4 +1,10 @@
 (function initializeAboutModule() {
+  const smoothingApi =
+    typeof module !== "undefined" && module.exports
+      ? require("./scroll-progress-smoothing.js")
+      : globalThis.ScrollProgressSmoothing;
+  const { createProgressSmoother } = smoothingApi;
+
   function clampProgress(value) {
     return Math.min(Math.max(value, 0), 1);
   }
@@ -30,14 +36,11 @@
       return;
     }
 
-    let animationFrame = 0;
+    let transitionStart = 0;
+    let transitionDistance = 1;
 
-    function updateIntroTransition() {
-      animationFrame = 0;
-      const bounds = introTransition.getBoundingClientRect();
-      const distance = Math.max(windowRef.innerHeight, 1);
-      const state = getIntroVisualState(-bounds.top / distance);
-
+    function renderIntroProgress(progress) {
+      const state = getIntroVisualState(progress);
       introTransition.style.setProperty("--home-intro-progress", state.progress.toFixed(4));
       introTransition.style.setProperty("--home-intro-hero-opacity", state.heroOpacity.toFixed(4));
       introTransition.style.setProperty("--home-intro-hero-scale", state.heroScale.toFixed(4));
@@ -47,16 +50,34 @@
       introTransition.style.setProperty("--home-intro-about-feather", `${state.aboutFeather.toFixed(3)}vh`);
     }
 
-    function scheduleIntroTransitionUpdate() {
-      if (animationFrame === 0) {
-        animationFrame = windowRef.requestAnimationFrame(updateIntroTransition);
-      }
+    const smoother = createProgressSmoother(windowRef, renderIntroProgress);
+
+    function measureIntroTransition() {
+      transitionStart =
+        (windowRef.scrollY || 0) + introTransition.getBoundingClientRect().top;
+      transitionDistance = Math.max(windowRef.innerHeight, 1);
+    }
+
+    function getTargetProgress() {
+      return clampProgress(
+        ((windowRef.scrollY || 0) - transitionStart) / transitionDistance
+      );
+    }
+
+    function retargetIntroTransition() {
+      smoother.setTarget(getTargetProgress());
+    }
+
+    function resizeIntroTransition() {
+      measureIntroTransition();
+      smoother.setTarget(getTargetProgress(), { immediate: true });
     }
 
     introTransition.classList.add("is-intro-enhanced");
-    updateIntroTransition();
-    windowRef.addEventListener("scroll", scheduleIntroTransitionUpdate, { passive: true });
-    windowRef.addEventListener("resize", scheduleIntroTransitionUpdate);
+    measureIntroTransition();
+    smoother.setTarget(getTargetProgress(), { immediate: true });
+    windowRef.addEventListener("scroll", retargetIntroTransition, { passive: true });
+    windowRef.addEventListener("resize", resizeIntroTransition);
   }
 
   function initAboutScroll(documentRef, windowRef) {
