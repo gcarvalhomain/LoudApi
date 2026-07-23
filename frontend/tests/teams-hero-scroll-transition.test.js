@@ -36,8 +36,10 @@ test("defines sticky crossfade styles and a reduced-motion fallback", () => {
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)[\s\S]*\.teams-intro-transition/s);
 });
 
-test("loads the shared smoother before the Teams transition module", () => {
-  const smootherScript = html.indexOf("/visual/scripts/scroll-progress-smoothing.js");
+test("loads the current shared smoother before the Teams transition module", () => {
+  const smootherScript = html.indexOf(
+    "/visual/scripts/scroll-progress-smoothing.js?v=smooth-scroll-2"
+  );
   const teamsScript = html.indexOf("/visual/scripts/teams-intro-transition.js");
 
   assert.ok(smootherScript >= 0);

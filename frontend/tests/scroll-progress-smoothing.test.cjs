@@ -58,6 +58,22 @@ test("elapsed-time interpolation is comparable across refresh rates", () => {
   assert.ok(Math.abs(at60Hz - at120Hz) < 0.002);
 });
 
+test("default smoothing softens a wheel step without leaving a visible delay", () => {
+  let progress = 0;
+
+  for (let frame = 0; frame < 4; frame += 1) {
+    progress = interpolateProgress(progress, 1, 16);
+  }
+
+  assert.ok(progress > 0.97, `expected a fast response, received ${progress}`);
+
+  for (let frame = 4; frame < 8; frame += 1) {
+    progress = interpolateProgress(progress, 1, 16);
+  }
+
+  assert.equal(progress, 1);
+});
+
 test("createProgressSmoother renders immediately when requested and then settles", () => {
   const windowRef = createFrameWindow();
   const rendered = [];

@@ -27,5 +27,7 @@ Assert-Contains $tournament 'surface brand-content-block' "Tournament facts are 
 Assert-Contains $tournament 'tournament-intro-transition" data-inner-intro-transition' "Tournament intro transition is missing."
 Assert-Contains $market '/visual/scripts/inner-page-intro-transition.js?v=inner-page-intro-2' "Market transition script is missing."
 Assert-Contains $tournament '/visual/scripts/inner-page-intro-transition.js?v=inner-page-intro-2' "Tournament transition script is missing."
+Assert-Contains $market '/visual/scripts/scroll-progress-smoothing.js?v=smooth-scroll-2' "Market smoother script is missing."
+Assert-Contains $tournament '/visual/scripts/scroll-progress-smoothing.js?v=smooth-scroll-2' "Tournament smoother script is missing."
 
 Write-Output "Branded content blocks are present on all frontend pages."

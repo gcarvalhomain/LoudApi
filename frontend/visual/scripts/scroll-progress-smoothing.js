@@ -1,5 +1,5 @@
 (function initializeScrollProgressSmoothing(globalRef) {
-  const DEFAULT_RESPONSE = 18;
+  const DEFAULT_RESPONSE = 60;
   const DEFAULT_EPSILON = 0.0005;
   const MAX_FRAME_TIME_MS = 64;
 

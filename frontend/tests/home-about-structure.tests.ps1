@@ -18,6 +18,7 @@ $requiredHtml = @(
   'BLAST',
   'HLTV',
   '/visual/styles/velotv-events.css?v=branded-content-blocks-1',
+  '/visual/scripts/scroll-progress-smoothing.js?v=smooth-scroll-2',
   '/visual/scripts/home-about-scroll.js?v=home-hero-about-transition-2'
 )
 
