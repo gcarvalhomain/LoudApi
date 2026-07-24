@@ -483,3 +483,8 @@ $RECYCLE.BIN/
 
 # Local Git worktrees used for isolated feature development
 .worktrees/
+
+# Local AI tooling and internal planning files
+.agents/
+skills-lock.json
+docs/superpowers/

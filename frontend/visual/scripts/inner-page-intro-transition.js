@@ -1,7 +1,9 @@
 (function initializeInnerPageIntroModule() {
-  function clampProgress(value) {
-    return Math.min(Math.max(value, 0), 1);
-  }
+  const smoothingApi =
+    typeof module !== "undefined" && module.exports
+      ? require("./scroll-progress-smoothing.js")
+      : globalThis.ScrollProgressSmoothing;
+  const { clampProgress, createProgressSmoother } = smoothingApi;
 
   function getInnerIntroVisualState(value) {
     const progress = clampProgress(value);
@@ -20,13 +22,11 @@
     const wrappers = Array.from(documentRef.querySelectorAll("[data-inner-intro-transition]"));
     if (windowRef.matchMedia("(prefers-reduced-motion: reduce)").matches) return 0;
 
-    wrappers.forEach((wrapper) => {
-      let animationFrame = 0;
+    const entries = wrappers.map((wrapper) => {
+      const entry = { wrapper, start: 0, distance: 1, smoother: null };
 
-      function update() {
-        animationFrame = 0;
-        const distance = Math.max(windowRef.innerHeight, 1);
-        const state = getInnerIntroVisualState(-wrapper.getBoundingClientRect().top / distance);
+      function render(progress) {
+        const state = getInnerIntroVisualState(progress);
         wrapper.style.setProperty("--inner-intro-progress", state.progress.toFixed(4));
         wrapper.style.setProperty("--inner-intro-opacity", state.opacity.toFixed(4));
         wrapper.style.setProperty("--inner-intro-scale", state.scale.toFixed(4));
@@ -36,15 +36,40 @@
         wrapper.style.setProperty("--inner-intro-feather", `${state.feather.toFixed(3)}vh`);
       }
 
-      function scheduleUpdate() {
-        if (animationFrame === 0) animationFrame = windowRef.requestAnimationFrame(update);
-      }
-
+      entry.smoother = createProgressSmoother(windowRef, render);
       wrapper.classList.add("is-scroll-enhanced");
-      update();
-      windowRef.addEventListener("scroll", scheduleUpdate, { passive: true });
-      windowRef.addEventListener("resize", scheduleUpdate);
+      return entry;
     });
+
+    function measure(entry) {
+      entry.start =
+        (windowRef.scrollY || 0) + entry.wrapper.getBoundingClientRect().top;
+      entry.distance = Math.max(windowRef.innerHeight, 1);
+    }
+
+    function targetFor(entry) {
+      return clampProgress(
+        ((windowRef.scrollY || 0) - entry.start) / entry.distance
+      );
+    }
+
+    function retargetAll() {
+      entries.forEach((entry) => entry.smoother.setTarget(targetFor(entry)));
+    }
+
+    function resizeAll() {
+      entries.forEach((entry) => {
+        measure(entry);
+        entry.smoother.setTarget(targetFor(entry), { immediate: true });
+      });
+    }
+
+    entries.forEach((entry) => {
+      measure(entry);
+      entry.smoother.setTarget(targetFor(entry), { immediate: true });
+    });
+    windowRef.addEventListener("scroll", retargetAll, { passive: true });
+    windowRef.addEventListener("resize", resizeAll);
 
     return wrappers.length;
   }

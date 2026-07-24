@@ -452,44 +452,15 @@
     </div>
   </div>
 
+  <script src="/visual/scripts/scroll-progress-smoothing.js?v=smooth-scroll-2"></script>
+  <script src="/visual/scripts/teams-intro-transition.js?v=teams-intro-smooth-1"></script>
   <script>
-    const introTransition = document.querySelector(".teams-intro-transition");
     const teamCards = document.querySelectorAll(".team-card[data-team-photo]");
     const modal = document.querySelector(".team-photo-modal");
     const modalTitle = document.querySelector("#team-photo-title");
     const modalCaption = document.querySelector(".team-photo-caption");
     const modalImage = document.querySelector(".team-photo");
     const closeButton = document.querySelector(".modal-close");
-
-    if (introTransition && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      let introTransitionFrame = 0;
-
-      function updateIntroTransition() {
-        introTransitionFrame = 0;
-        const transitionBounds = introTransition.getBoundingClientRect();
-        const transitionDistance = Math.max(window.innerHeight, 1);
-        const progress = Math.min(Math.max(-transitionBounds.top / transitionDistance, 0), 1);
-
-        introTransition.style.setProperty("--hero-transition-progress", progress.toFixed(4));
-        introTransition.style.setProperty("--hero-transition-opacity", (1 - progress).toFixed(4));
-        introTransition.style.setProperty("--hero-transition-scale", (1 + progress * 0.025).toFixed(4));
-        introTransition.style.setProperty("--hero-transition-blur", `${(progress * 16).toFixed(2)}px`);
-        introTransition.style.setProperty("--hero-transition-brightness", (1 - progress * 0.42).toFixed(4));
-        introTransition.style.setProperty("--teams-overview-shift", `${((1 - progress) * 10).toFixed(3)}vh`);
-        introTransition.style.setProperty("--teams-overview-feather", `${((1 - progress) * 30).toFixed(3)}vh`);
-      }
-
-      function scheduleIntroTransitionUpdate() {
-        if (introTransitionFrame === 0) {
-          introTransitionFrame = requestAnimationFrame(updateIntroTransition);
-        }
-      }
-
-      introTransition.classList.add("is-scroll-enhanced");
-      updateIntroTransition();
-      window.addEventListener("scroll", scheduleIntroTransitionUpdate, { passive: true });
-      window.addEventListener("resize", scheduleIntroTransitionUpdate);
-    }
 
     function openTeamPhoto(card) {
       const teamName = card.dataset.teamName;
